@@ -1,0 +1,29 @@
+{
+  "name": "@app/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate",
+    "redlist:enrich": "bun src/ingestion/enrich-red-list.ts"
+  },
+  "dependencies": {
+    "@app/contracts": "workspace:*",
+    "@hono/zod-validator": "^0.9.0",
+    "@prisma/adapter-pg": "^7.0.0",
+    "@prisma/client": "^7.0.0",
+    "hono": "^4.0.0",
+    "pg": "^8.13.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.0",
+    "dotenv": "^17.0.0",
+    "prisma": "^7.0.0"
+  }
+}
