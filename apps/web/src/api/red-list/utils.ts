@@ -6,6 +6,8 @@ function buildQueryString(filters: RedListFilters): string {
   if (filters.category !== null) params.set("category", filters.category);
   if (filters.search !== null) params.set("search", filters.search);
   if (filters.withPhoto) params.set("withPhoto", "true");
+  if (filters.possiblyExtinct) params.set("possiblyExtinct", "true");
+  if (filters.letter !== null) params.set("letter", filters.letter);
   params.set("page", String(filters.page));
 
   return params.toString();

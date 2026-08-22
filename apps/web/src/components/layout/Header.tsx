@@ -21,6 +21,9 @@ const Header = () => {
           <NavLink to="/" end className={navLinkClass}>
             Espèces menacées
           </NavLink>
+          <NavLink to="/presumed-extinct" className={navLinkClass}>
+            Présumées éteintes
+          </NavLink>
           <NavLink to="/account" className={navLinkClass}>
             Compte
           </NavLink>

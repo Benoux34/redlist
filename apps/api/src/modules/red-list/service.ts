@@ -37,6 +37,10 @@ function buildWhere(query: RedListQuery): Prisma.RedListAssessmentWhereInput {
   return {
     ...(query.category ? { categoryCode: query.category } : {}),
     ...(query.withPhoto === true ? { photoUrl: { not: null } } : {}),
+    ...(query.possiblyExtinct === true ? { possiblyExtinct: true } : {}),
+    ...(query.letter
+      ? { scientificName: { startsWith: query.letter, mode: "insensitive" } }
+      : {}),
     ...(query.search
       ? {
           OR: [

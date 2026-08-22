@@ -2,4 +2,4 @@ const Account = () => {
   return <div>account</div>;
 };
 
-export { Account };
+export default Account;

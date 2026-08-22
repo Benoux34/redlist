@@ -2,4 +2,4 @@ const Register = () => {
   return <div>register</div>;
 };
 
-export { Register };
+export default Register;

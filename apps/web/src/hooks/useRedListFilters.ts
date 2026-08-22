@@ -11,6 +11,8 @@ function useRedListFilters() {
     const rawCategory = searchParams.get("category");
     const rawPage = Number(searchParams.get("page"));
     const rawSearch = searchParams.get("search");
+    const rawLetter = searchParams.get("letter");
+    const rawPossiblyExtinct = searchParams.get("possiblyExtinct") === "true";
 
     return {
       category:
@@ -19,6 +21,8 @@ function useRedListFilters() {
           : null,
       search: rawSearch !== null && rawSearch.length >= 2 ? rawSearch : null,
       withPhoto: searchParams.get("withPhoto") === "true",
+      possiblyExtinct: rawPossiblyExtinct,
+      letter: rawLetter !== null && rawLetter.length === 1 ? rawLetter : null,
       page: Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1,
     };
   }, [searchParams]);

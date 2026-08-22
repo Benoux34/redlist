@@ -43,7 +43,7 @@ const SeverityScale = ({ selectedCategory, onSelectCategory }: Props) => {
             return (
               <CarouselItem
                 key={cat.code ?? "all"}
-                className="pl-0 basis-full sm:basis-1/2 md:basis-1/3 border-y border-r border-[var(--color-paper-border)]"
+                className="pl-0 basis-full sm:basis-1/2 md:basis-1/3 border-t border-b-2 border-r border-[var(--color-paper-border)]"
               >
                 <button
                   type="button"

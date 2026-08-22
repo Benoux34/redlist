@@ -48,4 +48,4 @@ const Species = () => {
   );
 };
 
-export { Species };
+export default Species;

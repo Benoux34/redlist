@@ -8,7 +8,7 @@ type Props = Readonly<{
   isLoading?: boolean;
 }>;
 
-const RedListPagination = ({
+const Pagination = ({
   currentPage,
   pageSize,
   totalItems,
@@ -80,4 +80,4 @@ const RedListPagination = ({
   );
 };
 
-export { RedListPagination };
+export { Pagination };

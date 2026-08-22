@@ -83,9 +83,13 @@ const SpeciesHero = ({ species }: Props) => {
                 </div>
 
                 {species.possiblyExtinct && (
-                  <span className="border border-[var(--color-status-cr)]/40 bg-[var(--color-status-cr-bg)] px-2.5 py-0.5 font-medium text-[var(--color-status-cr)]">
-                    Peut-être éteint
-                  </span>
+                  <Link
+                    to="/presumed-extinct"
+                    className="border border-[var(--color-status-cr)]/40 bg-[var(--color-status-cr-bg)] px-2.5 py-0.5 font-medium text-[var(--color-status-cr)] hover:border-[var(--color-status-cr)] hover:underline transition-colors"
+                    title="Découvrir les espèces présumées éteintes"
+                  >
+                    Peut-être éteint ↗
+                  </Link>
                 )}
 
                 {species.yearPublished && (

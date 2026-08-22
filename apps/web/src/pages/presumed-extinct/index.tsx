@@ -1,29 +1,18 @@
 import { useRedList } from "@/hooks/useRedList";
-import { RedListHero } from "./red-list-hero/RedListHero";
-import { SeverityScale } from "./red-list-scale/SeverityScale";
-import { RedListControls } from "./red-list-controls/RedListControls";
-import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
+import { RedListControls } from "../home/red-list-controls/RedListControls";
 import { Pagination } from "@/components/pagination/Pagination";
+import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
+import { PresumedExtinctHero } from "./presumed-extinct-hero/PresumedExtinctHero";
 
-const RedList = () => {
-  const {
-    filters,
-    setCategory,
-    setSearch,
-    setPage,
-    setWithPhoto,
-    assessments,
-    counts,
-  } = useRedList();
+const LOCKED = { possiblyExtinct: true } as const;
+
+const PresumedExtinct = () => {
+  const { filters, setSearch, setWithPhoto, setPage, assessments } =
+    useRedList(LOCKED);
 
   return (
     <div className="py-8 md:py-12">
-      <RedListHero />
-      <SeverityScale
-        selectedCategory={filters.category}
-        onSelectCategory={setCategory}
-        counts={counts}
-      />
+      <PresumedExtinctHero />
       <RedListControls
         filters={filters}
         onSearchChange={setSearch}
@@ -43,4 +32,4 @@ const RedList = () => {
   );
 };
 
-export default RedList;
+export default PresumedExtinct;

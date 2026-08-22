@@ -6,6 +6,12 @@ const redListQuery = z.strictObject({
   search: z.string().trim().min(2).max(80).optional(),
   withPhoto: z.stringbool().optional(),
   page: z.coerce.number().int().min(1).max(2000).default(1),
+  possiblyExtinct: z.stringbool().optional(),
+  letter: z
+    .string()
+    .length(1)
+    .regex(/^[A-Z]$/)
+    .optional(),
 });
 
 const redListDetailParams = z.object({
