@@ -11,5 +11,6 @@
 export type * from './models/User.ts'
 export type * from './models/Session.ts'
 export type * from './models/RedListSync.ts'
+export type * from './models/RedListLocation.ts'
 export type * from './models/RedListAssessment.ts'
 export type * from './commonInputTypes.ts'

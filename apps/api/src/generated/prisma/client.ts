@@ -57,6 +57,11 @@ export type Session = Prisma.SessionModel
  */
 export type RedListSync = Prisma.RedListSyncModel
 /**
+ * Model RedListLocation
+ * 
+ */
+export type RedListLocation = Prisma.RedListLocationModel
+/**
  * Model RedListAssessment
  * 
  */

@@ -6,7 +6,7 @@ import {
 import type { IucnAssessment } from "../lib/iucn/iucn-schemas";
 import { iucnRequest } from "./iucn";
 
-const CATEGORIES = ["EX", "EW", "CR", "EN"] as const;
+const CATEGORIES = ["EX", "EW", "CR", "EN", "VU"] as const;
 const GLOBAL_SCOPE_CODE = 1;
 const MAX_PAGES_PER_CATEGORY = 200;
 const DB_BATCH_SIZE = 25;

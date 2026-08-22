@@ -400,6 +400,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   RedListSync: 'RedListSync',
+  RedListLocation: 'RedListLocation',
   RedListAssessment: 'RedListAssessment'
 } as const
 
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "redListSync" | "redListAssessment"
+    modelProps: "user" | "session" | "redListSync" | "redListLocation" | "redListAssessment"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -642,6 +643,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    RedListLocation: {
+      payload: Prisma.$RedListLocationPayload<ExtArgs>
+      fields: Prisma.RedListLocationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RedListLocationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RedListLocationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
+        }
+        findFirst: {
+          args: Prisma.RedListLocationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RedListLocationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
+        }
+        findMany: {
+          args: Prisma.RedListLocationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
+        }
+        create: {
+          args: Prisma.RedListLocationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
+        }
+        createMany: {
+          args: Prisma.RedListLocationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RedListLocationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
+        }
+        delete: {
+          args: Prisma.RedListLocationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
+        }
+        update: {
+          args: Prisma.RedListLocationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
+        }
+        deleteMany: {
+          args: Prisma.RedListLocationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RedListLocationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RedListLocationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
+        }
+        upsert: {
+          args: Prisma.RedListLocationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
+        }
+        aggregate: {
+          args: Prisma.RedListLocationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRedListLocation>
+        }
+        groupBy: {
+          args: Prisma.RedListLocationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RedListLocationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RedListLocationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RedListLocationCountAggregateOutputType> | number
+        }
+      }
+    }
     RedListAssessment: {
       payload: Prisma.$RedListAssessmentPayload<ExtArgs>
       fields: Prisma.RedListAssessmentFieldRefs
@@ -787,6 +862,14 @@ export const RedListSyncScalarFieldEnum = {
 } as const
 
 export type RedListSyncScalarFieldEnum = (typeof RedListSyncScalarFieldEnum)[keyof typeof RedListSyncScalarFieldEnum]
+
+
+export const RedListLocationScalarFieldEnum = {
+  assessmentId: 'assessmentId',
+  countryCode: 'countryCode'
+} as const
+
+export type RedListLocationScalarFieldEnum = (typeof RedListLocationScalarFieldEnum)[keyof typeof RedListLocationScalarFieldEnum]
 
 
 export const RedListAssessmentScalarFieldEnum = {
@@ -1095,6 +1178,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
   redListSync?: Prisma.RedListSyncOmit
+  redListLocation?: Prisma.RedListLocationOmit
   redListAssessment?: Prisma.RedListAssessmentOmit
 }
 

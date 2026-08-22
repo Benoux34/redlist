@@ -89,6 +89,23 @@ const conservationActionGroup = z.object({
     .default([]),
 });
 
+const countryAssessmentsResponse = z.object({
+  country: z
+    .object({
+      code: z.string().nullish(),
+      description: enDescription,
+    })
+    .nullish(),
+  assessments: z
+    .array(
+      z.object({
+        assessment_id: z.number().int(),
+        red_list_category_code: z.string(),
+      }),
+    )
+    .default([]),
+});
+
 const assessmentDetailResponse = z.object({
   citation: z.string().nullish(),
   population_trend: z.object({ description: enDescription }).nullish(),
@@ -127,5 +144,6 @@ export type IucnAssessment = z.infer<typeof iucnAssessment>;
 export {
   assessmentListResponse,
   redListVersionResponse,
+  countryAssessmentsResponse,
   assessmentDetailResponse,
 };

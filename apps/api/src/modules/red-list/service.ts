@@ -41,6 +41,9 @@ function buildWhere(query: RedListQuery): Prisma.RedListAssessmentWhereInput {
     ...(query.letter
       ? { scientificName: { startsWith: query.letter, mode: "insensitive" } }
       : {}),
+    ...(query.countryCode
+      ? { locations: { some: { countryCode: query.countryCode } } }
+      : {}),
     ...(query.search
       ? {
           OR: [

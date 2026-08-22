@@ -4,7 +4,7 @@ import { fetchSummary } from "../lib/iucn/wikipedia";
 
 /* ---------- Configuration ---------- */
 
-const DEFAULT_CATEGORIES = ["EX", "CR", "EN"];
+const DEFAULT_CATEGORIES = ["EX", "EW", "CR", "EN", "VU"] as const;
 const BATCH_SIZE = 100;
 const DESCRIPTION_SOURCE_FR = "wikipedia-fr";
 

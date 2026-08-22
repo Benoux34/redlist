@@ -54,6 +54,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   RedListSync: 'RedListSync',
+  RedListLocation: 'RedListLocation',
   RedListAssessment: 'RedListAssessment'
 } as const
 
@@ -105,6 +106,14 @@ export const RedListSyncScalarFieldEnum = {
 } as const
 
 export type RedListSyncScalarFieldEnum = (typeof RedListSyncScalarFieldEnum)[keyof typeof RedListSyncScalarFieldEnum]
+
+
+export const RedListLocationScalarFieldEnum = {
+  assessmentId: 'assessmentId',
+  countryCode: 'countryCode'
+} as const
+
+export type RedListLocationScalarFieldEnum = (typeof RedListLocationScalarFieldEnum)[keyof typeof RedListLocationScalarFieldEnum]
 
 
 export const RedListAssessmentScalarFieldEnum = {

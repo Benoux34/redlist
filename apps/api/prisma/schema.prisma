@@ -44,6 +44,17 @@ model RedListSync {
   @@map("red_list_sync")
 }
 
+model RedListLocation {
+  assessmentId Int
+  countryCode  String @db.Char(2)
+
+  assessment RedListAssessment @relation(fields: [assessmentId], references: [assessmentId], onDelete: Cascade)
+
+  @@id([assessmentId, countryCode])
+  @@index([countryCode])
+  @@map("red_list_locations")
+}
+
 model RedListAssessment {
   assessmentId    Int       @id
   sisTaxonId      Int?
@@ -56,6 +67,8 @@ model RedListAssessment {
   possiblyExtinct Boolean   @default(false)
   officialUrl     String?
   redListVersion  String
+
+  locations        RedListLocation[]
 
   vernacularNameFr String?
   photoUrl         String?
