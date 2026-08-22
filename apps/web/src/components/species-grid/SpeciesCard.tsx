@@ -22,14 +22,22 @@ const SpeciesCard = ({ species }: Props) => {
       className="group flex flex-col justify-between border border-[var(--color-paper-border)] bg-transparent transition-colors hover:border-[var(--color-paper-border-strong)] cursor-pointer"
     >
       <div>
-        <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-[var(--color-paper-border)] bg-[var(--color-paper-muted)]/40">
+        <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-[var(--color-paper-border)]">
           {species.photoUrl ? (
-            <img
-              src={species.photoUrl}
-              alt={species.vernacularNameFr ?? species.scientificName}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            <>
+              <img
+                src={species.photoUrl}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 h-full w-full object-cover blur-md opacity-100 scale-110"
+              />
+              <img
+                src={species.photoUrl}
+                alt={species.vernacularNameFr ?? species.scientificName}
+                loading="lazy"
+                className="relative h-full w-full object-contain p-1 transition-transform duration-500 group-hover:scale-105"
+              />
+            </>
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center p-4 text-center">
               <span className="font-serif text-3xl font-light italic tracking-widest text-[var(--color-ink-faint)]">

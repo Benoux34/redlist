@@ -46,6 +46,14 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  to="/especes/a"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Index alphabétique A–Z
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/account"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >

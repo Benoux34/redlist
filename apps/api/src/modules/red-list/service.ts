@@ -64,10 +64,7 @@ async function listAssessments(query: RedListQuery): Promise<RedListPage> {
     db.redListAssessment.findMany({
       where,
       select: SELECT,
-      orderBy: [
-        { photoUrl: { sort: "asc", nulls: "last" } },
-        { scientificName: "asc" },
-      ],
+      orderBy: buildOrderBy(query),
       skip: (query.page - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
     }),
@@ -149,9 +146,21 @@ async function getSpeciesOfTheDay(): Promise<RedListItem | null> {
   return row === undefined ? null : redListItem.parse(row);
 }
 
+function buildOrderBy(
+  query: RedListQuery,
+): Prisma.RedListAssessmentOrderByWithRelationInput[] {
+  if (query.letter !== undefined) return [{ scientificName: "asc" }];
+
+  return [
+    { photoUrl: { sort: "asc", nulls: "last" } },
+    { scientificName: "asc" },
+  ];
+}
+
 export {
   getCategoryCounts,
   listAssessments,
   getAssessmentDetail,
   getSpeciesOfTheDay,
+  buildOrderBy,
 };

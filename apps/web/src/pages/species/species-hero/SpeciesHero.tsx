@@ -40,11 +40,19 @@ const SpeciesHero = ({ species }: Props) => {
           <div className="flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[var(--color-paper-border)] bg-[var(--color-paper-muted)]/30 lg:col-span-5">
             <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--color-paper-muted)]/40">
               {species.photoUrl ? (
-                <img
-                  src={species.photoUrl}
-                  alt={species.vernacularNameFr ?? species.scientificName}
-                  className="h-full w-full object-cover"
-                />
+                <>
+                  <img
+                    src={species.photoUrl}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover blur-md opacity-30 scale-110"
+                  />
+                  <img
+                    src={species.photoUrl}
+                    alt={species.vernacularNameFr ?? species.scientificName}
+                    className="relative h-full w-full object-contain p-2"
+                  />
+                </>
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
                   <span className="font-serif text-4xl font-light italic tracking-widest text-[var(--color-ink-faint)]">
@@ -106,7 +114,13 @@ const SpeciesHero = ({ species }: Props) => {
                       {species.vernacularNameFr}
                     </h1>
                     <p className="font-serif text-lg sm:text-xl italic text-[var(--color-ink-muted)]">
-                      {species.scientificName}
+                      <Link
+                        to={`/especes/${(species.scientificName.trim()[0] ?? "a").toLowerCase()}`}
+                        className="hover:text-[var(--color-ink)] hover:underline transition-colors"
+                        title={`Voir l'index alphabétique des espèces en ${(species.scientificName.trim()[0] ?? "A").toUpperCase()}`}
+                      >
+                        {species.scientificName}
+                      </Link>
                       {species.taxonomy.authority && (
                         <span className="ml-2 font-sans not-italic text-xs text-[var(--color-ink-faint)]">
                           {species.taxonomy.authority}
@@ -117,7 +131,13 @@ const SpeciesHero = ({ species }: Props) => {
                 ) : (
                   <>
                     <h1 className="font-serif text-3xl sm:text-4xl font-medium italic tracking-tight text-[var(--color-ink)] mb-1">
-                      {species.scientificName}
+                      <Link
+                        to={`/especes/${(species.scientificName.trim()[0] ?? "a").toLowerCase()}`}
+                        className="hover:underline transition-colors"
+                        title={`Voir l'index alphabétique des espèces en ${(species.scientificName.trim()[0] ?? "A").toUpperCase()}`}
+                      >
+                        {species.scientificName}
+                      </Link>
                     </h1>
                     {species.taxonomy.authority && (
                       <p className="text-xs text-[var(--color-ink-faint)]">

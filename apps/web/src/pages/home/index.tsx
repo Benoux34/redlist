@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { useRedList } from "@/hooks/useRedList";
 import { RedListHero } from "./red-list-hero/RedListHero";
 import { SeverityScale } from "./red-list-scale/SeverityScale";
@@ -39,6 +40,16 @@ const RedList = () => {
         onPageChange={setPage}
         isLoading={assessments.status === "loading"}
       />
+
+      <div className="mt-8 border-t border-[var(--color-paper-border)] pt-6 text-center text-xs text-[var(--color-ink-muted)]">
+        <span>Vous cherchez une espèce par son nom scientifique ? </span>
+        <Link
+          to="/especes/a"
+          className="font-medium text-[var(--color-ink)] underline underline-offset-4 hover:opacity-80 transition-opacity"
+        >
+          Consulter l&apos;index alphabétique A–Z →
+        </Link>
+      </div>
     </div>
   );
 };
