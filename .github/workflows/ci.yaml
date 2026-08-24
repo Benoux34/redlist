@@ -6,7 +6,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: oven-sh/setup-bun@v2
 
@@ -17,6 +17,8 @@ jobs:
         env:
           DATABASE_URL: postgresql://user:pass@localhost:5432/db
 
-      - run: bunx tsc --noEmit
+      - run: bunx tsc --noEmit -p packages/contracts/tsconfig.json
+      - run: bunx tsc --noEmit -p apps/api/tsconfig.json
+      - run: bunx tsc --noEmit -p apps/web/tsconfig.json
 
       - run: bunx oxlint --type-aware
