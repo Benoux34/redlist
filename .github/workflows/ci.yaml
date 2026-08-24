@@ -22,3 +22,8 @@ jobs:
       - run: bunx tsc --noEmit -p apps/web/tsconfig.json
 
       - run: bunx oxlint --type-aware
+
+      - run: bun run build
+        working-directory: apps/web
+        env:
+          VITE_API_URL: https://example.com
