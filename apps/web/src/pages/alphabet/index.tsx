@@ -11,11 +11,9 @@ const LETTER_PATTERN = /^[a-z]$/i;
 
 const Alphabet = () => {
   const { letter } = useParams();
+  const isValid = letter !== undefined && LETTER_PATTERN.test(letter);
+  const currentLetter = isValid ? letter.toUpperCase() : "A";
 
-  if (letter === undefined || !LETTER_PATTERN.test(letter))
-    return <Navigate to="/especes/a" replace />;
-
-  const currentLetter = letter.toUpperCase();
   const lockedFilters = useMemo(
     () => ({ letter: currentLetter }),
     [currentLetter],
@@ -24,12 +22,11 @@ const Alphabet = () => {
   const { filters, setSearch, setWithPhoto, setPage, assessments } =
     useRedList(lockedFilters);
 
+  if (!isValid) return <Navigate to="/especes/a" replace />;
+
   return (
     <div className="py-8 md:py-12">
-      <AlphabetHero
-        letter={currentLetter}
-        totalCount={assessments.data?.total}
-      />
+      <AlphabetHero letter={currentLetter} />
 
       <AlphabetNav activeLetter={currentLetter} />
 

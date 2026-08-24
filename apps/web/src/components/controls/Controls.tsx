@@ -3,6 +3,7 @@ import { Search, X } from "lucide-react";
 import type { RedListFilters } from "@/api/red-list/entities";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useDebounce } from "@/hooks/useDebounce";
 
 type Props = Readonly<{
   filters: RedListFilters;
@@ -20,20 +21,18 @@ const Controls = ({
   isLoading,
 }: Props) => {
   const [searchValue, setSearchValue] = useState<string>(filters.search ?? "");
+  const debouncedSearch = useDebounce(searchValue, 300);
 
   useEffect(() => {
-    setSearchValue(filters.search ?? "");
-  }, [filters.search]);
+    onSearchChange(debouncedSearch);
+  }, [debouncedSearch, onSearchChange]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setSearchValue(value);
-    onSearchChange(value);
+    setSearchValue(event.target.value);
   };
 
   const handleClearSearch = () => {
     setSearchValue("");
-    onSearchChange("");
   };
 
   return (

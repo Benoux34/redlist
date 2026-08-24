@@ -1,6 +1,10 @@
 import { errorResponse } from "@app/contracts";
 import type { ZodType } from "zod";
 
+type RequestOptions = Omit<RequestInit, "headers"> & {
+  headers?: Record<string, string>;
+};
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export class ApiError extends Error {
@@ -20,7 +24,7 @@ function jsonBody(body: unknown): Pick<RequestInit, "body"> {
   return body === undefined ? {} : { body: JSON.stringify(body) };
 }
 
-async function request(path: string, init?: RequestInit): Promise<Response> {
+async function request(path: string, init?: RequestOptions): Promise<Response> {
   const response = await fetch(`${API_URL}${path}`, {
     ...init,
     credentials: "include",

@@ -16,12 +16,18 @@ const SpeciesCitation = ({
 }: Props) => {
   const [copied, setCopied] = useState<boolean>(false);
 
-  const handleCopyCitation = () => {
+  const handleCopy = () => {
     if (!citation) return;
-    navigator.clipboard.writeText(citation).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+
+    navigator.clipboard
+      .writeText(citation)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {
+        setCopied(false);
+      });
   };
 
   if (!citation && !assessors && !officialUrl) return null;
@@ -59,7 +65,7 @@ const SpeciesCitation = ({
               </h3>
               <button
                 type="button"
-                onClick={handleCopyCitation}
+                onClick={handleCopy}
                 className="inline-flex items-center gap-1 text-xs text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
                 title="Copier la citation dans le presse-papier"
               >

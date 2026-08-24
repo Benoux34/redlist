@@ -12,7 +12,7 @@ const France = () => {
 
   return (
     <div className="py-8 md:py-12">
-      <FranceHero totalCount={assessments.data?.total} />
+      <FranceHero />
 
       <Controls
         filters={filters}

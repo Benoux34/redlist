@@ -1,8 +1,4 @@
-type Props = Readonly<{
-  totalCount: number | undefined;
-}>;
-
-const FranceHero = ({ totalCount }: Props) => {
+const FranceHero = () => {
   return (
     <section className="mb-12">
       <h1 className="font-serif text-4xl font-medium tracking-tight text-[var(--color-ink)] md:text-5xl mb-4">

@@ -1,9 +1,8 @@
 type Props = Readonly<{
   letter: string;
-  totalCount: number | undefined;
 }>;
 
-const AlphabetHero = ({ letter, totalCount }: Props) => {
+const AlphabetHero = ({ letter }: Props) => {
   return (
     <section className="mb-6">
       <h1 className="font-serif text-4xl font-medium tracking-tight text-[var(--color-ink)] md:text-5xl mb-3">
