@@ -369,6 +369,7 @@ export type RedListAssessmentWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"RedListAssessment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RedListAssessment"> | Date | string
   locations?: Prisma.RedListLocationListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
 }
 
 export type RedListAssessmentOrderByWithRelationInput = {
@@ -396,6 +397,7 @@ export type RedListAssessmentOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   locations?: Prisma.RedListLocationOrderByRelationAggregateInput
+  favorites?: Prisma.FavoriteOrderByRelationAggregateInput
 }
 
 export type RedListAssessmentWhereUniqueInput = Prisma.AtLeast<{
@@ -426,6 +428,7 @@ export type RedListAssessmentWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"RedListAssessment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RedListAssessment"> | Date | string
   locations?: Prisma.RedListLocationListRelationFilter
+  favorites?: Prisma.FavoriteListRelationFilter
 }, "assessmentId">
 
 export type RedListAssessmentOrderByWithAggregationInput = {
@@ -513,6 +516,7 @@ export type RedListAssessmentCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   locations?: Prisma.RedListLocationCreateNestedManyWithoutAssessmentInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssessmentInput
 }
 
 export type RedListAssessmentUncheckedCreateInput = {
@@ -540,6 +544,7 @@ export type RedListAssessmentUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   locations?: Prisma.RedListLocationUncheckedCreateNestedManyWithoutAssessmentInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssessmentInput
 }
 
 export type RedListAssessmentUpdateInput = {
@@ -567,6 +572,7 @@ export type RedListAssessmentUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   locations?: Prisma.RedListLocationUpdateManyWithoutAssessmentNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssessmentNestedInput
 }
 
 export type RedListAssessmentUncheckedUpdateInput = {
@@ -594,6 +600,7 @@ export type RedListAssessmentUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   locations?: Prisma.RedListLocationUncheckedUpdateManyWithoutAssessmentNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssessmentNestedInput
 }
 
 export type RedListAssessmentCreateManyInput = {
@@ -799,6 +806,20 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type RedListAssessmentCreateNestedOneWithoutFavoritesInput = {
+  create?: Prisma.XOR<Prisma.RedListAssessmentCreateWithoutFavoritesInput, Prisma.RedListAssessmentUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.RedListAssessmentCreateOrConnectWithoutFavoritesInput
+  connect?: Prisma.RedListAssessmentWhereUniqueInput
+}
+
+export type RedListAssessmentUpdateOneRequiredWithoutFavoritesNestedInput = {
+  create?: Prisma.XOR<Prisma.RedListAssessmentCreateWithoutFavoritesInput, Prisma.RedListAssessmentUncheckedCreateWithoutFavoritesInput>
+  connectOrCreate?: Prisma.RedListAssessmentCreateOrConnectWithoutFavoritesInput
+  upsert?: Prisma.RedListAssessmentUpsertWithoutFavoritesInput
+  connect?: Prisma.RedListAssessmentWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RedListAssessmentUpdateToOneWithWhereWithoutFavoritesInput, Prisma.RedListAssessmentUpdateWithoutFavoritesInput>, Prisma.RedListAssessmentUncheckedUpdateWithoutFavoritesInput>
+}
+
 export type RedListAssessmentCreateWithoutLocationsInput = {
   assessmentId: number
   sisTaxonId?: number | null
@@ -823,6 +844,7 @@ export type RedListAssessmentCreateWithoutLocationsInput = {
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAssessmentInput
 }
 
 export type RedListAssessmentUncheckedCreateWithoutLocationsInput = {
@@ -849,6 +871,7 @@ export type RedListAssessmentUncheckedCreateWithoutLocationsInput = {
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAssessmentInput
 }
 
 export type RedListAssessmentCreateOrConnectWithoutLocationsInput = {
@@ -891,6 +914,7 @@ export type RedListAssessmentUpdateWithoutLocationsInput = {
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  favorites?: Prisma.FavoriteUpdateManyWithoutAssessmentNestedInput
 }
 
 export type RedListAssessmentUncheckedUpdateWithoutLocationsInput = {
@@ -917,6 +941,131 @@ export type RedListAssessmentUncheckedUpdateWithoutLocationsInput = {
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAssessmentNestedInput
+}
+
+export type RedListAssessmentCreateWithoutFavoritesInput = {
+  assessmentId: number
+  sisTaxonId?: number | null
+  scientificName: string
+  categoryCode: string
+  scopeCode: number
+  criteria?: string | null
+  yearPublished?: number | null
+  assessmentDate?: Date | string | null
+  possiblyExtinct?: boolean
+  officialUrl?: string | null
+  redListVersion: string
+  vernacularNameFr?: string | null
+  photoUrl?: string | null
+  photoAttribution?: string | null
+  photoLicense?: string | null
+  mediaFetchedAt?: Date | string | null
+  description?: string | null
+  descriptionSource?: string | null
+  descriptionFetchedAt?: Date | string | null
+  detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  detailFetchedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  locations?: Prisma.RedListLocationCreateNestedManyWithoutAssessmentInput
+}
+
+export type RedListAssessmentUncheckedCreateWithoutFavoritesInput = {
+  assessmentId: number
+  sisTaxonId?: number | null
+  scientificName: string
+  categoryCode: string
+  scopeCode: number
+  criteria?: string | null
+  yearPublished?: number | null
+  assessmentDate?: Date | string | null
+  possiblyExtinct?: boolean
+  officialUrl?: string | null
+  redListVersion: string
+  vernacularNameFr?: string | null
+  photoUrl?: string | null
+  photoAttribution?: string | null
+  photoLicense?: string | null
+  mediaFetchedAt?: Date | string | null
+  description?: string | null
+  descriptionSource?: string | null
+  descriptionFetchedAt?: Date | string | null
+  detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  detailFetchedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  locations?: Prisma.RedListLocationUncheckedCreateNestedManyWithoutAssessmentInput
+}
+
+export type RedListAssessmentCreateOrConnectWithoutFavoritesInput = {
+  where: Prisma.RedListAssessmentWhereUniqueInput
+  create: Prisma.XOR<Prisma.RedListAssessmentCreateWithoutFavoritesInput, Prisma.RedListAssessmentUncheckedCreateWithoutFavoritesInput>
+}
+
+export type RedListAssessmentUpsertWithoutFavoritesInput = {
+  update: Prisma.XOR<Prisma.RedListAssessmentUpdateWithoutFavoritesInput, Prisma.RedListAssessmentUncheckedUpdateWithoutFavoritesInput>
+  create: Prisma.XOR<Prisma.RedListAssessmentCreateWithoutFavoritesInput, Prisma.RedListAssessmentUncheckedCreateWithoutFavoritesInput>
+  where?: Prisma.RedListAssessmentWhereInput
+}
+
+export type RedListAssessmentUpdateToOneWithWhereWithoutFavoritesInput = {
+  where?: Prisma.RedListAssessmentWhereInput
+  data: Prisma.XOR<Prisma.RedListAssessmentUpdateWithoutFavoritesInput, Prisma.RedListAssessmentUncheckedUpdateWithoutFavoritesInput>
+}
+
+export type RedListAssessmentUpdateWithoutFavoritesInput = {
+  assessmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  sisTaxonId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  scientificName?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeCode?: Prisma.IntFieldUpdateOperationsInput | number
+  criteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  assessmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  possiblyExtinct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  locations?: Prisma.RedListLocationUpdateManyWithoutAssessmentNestedInput
+}
+
+export type RedListAssessmentUncheckedUpdateWithoutFavoritesInput = {
+  assessmentId?: Prisma.IntFieldUpdateOperationsInput | number
+  sisTaxonId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  scientificName?: Prisma.StringFieldUpdateOperationsInput | string
+  categoryCode?: Prisma.StringFieldUpdateOperationsInput | string
+  scopeCode?: Prisma.IntFieldUpdateOperationsInput | number
+  criteria?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearPublished?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  assessmentDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  possiblyExtinct?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
+  vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  locations?: Prisma.RedListLocationUncheckedUpdateManyWithoutAssessmentNestedInput
 }
 
 
@@ -926,10 +1075,12 @@ export type RedListAssessmentUncheckedUpdateWithoutLocationsInput = {
 
 export type RedListAssessmentCountOutputType = {
   locations: number
+  favorites: number
 }
 
 export type RedListAssessmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   locations?: boolean | RedListAssessmentCountOutputTypeCountLocationsArgs
+  favorites?: boolean | RedListAssessmentCountOutputTypeCountFavoritesArgs
 }
 
 /**
@@ -947,6 +1098,13 @@ export type RedListAssessmentCountOutputTypeDefaultArgs<ExtArgs extends runtime.
  */
 export type RedListAssessmentCountOutputTypeCountLocationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RedListLocationWhereInput
+}
+
+/**
+ * RedListAssessmentCountOutputType without action
+ */
+export type RedListAssessmentCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FavoriteWhereInput
 }
 
 
@@ -975,6 +1133,7 @@ export type RedListAssessmentSelect<ExtArgs extends runtime.Types.Extensions.Int
   createdAt?: boolean
   updatedAt?: boolean
   locations?: boolean | Prisma.RedListAssessment$locationsArgs<ExtArgs>
+  favorites?: boolean | Prisma.RedListAssessment$favoritesArgs<ExtArgs>
   _count?: boolean | Prisma.RedListAssessmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["redListAssessment"]>
 
@@ -1059,6 +1218,7 @@ export type RedListAssessmentSelectScalar = {
 export type RedListAssessmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"assessmentId" | "sisTaxonId" | "scientificName" | "categoryCode" | "scopeCode" | "criteria" | "yearPublished" | "assessmentDate" | "possiblyExtinct" | "officialUrl" | "redListVersion" | "vernacularNameFr" | "photoUrl" | "photoAttribution" | "photoLicense" | "mediaFetchedAt" | "description" | "descriptionSource" | "descriptionFetchedAt" | "detail" | "detailFetchedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["redListAssessment"]>
 export type RedListAssessmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   locations?: boolean | Prisma.RedListAssessment$locationsArgs<ExtArgs>
+  favorites?: boolean | Prisma.RedListAssessment$favoritesArgs<ExtArgs>
   _count?: boolean | Prisma.RedListAssessmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RedListAssessmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1068,6 +1228,7 @@ export type $RedListAssessmentPayload<ExtArgs extends runtime.Types.Extensions.I
   name: "RedListAssessment"
   objects: {
     locations: Prisma.$RedListLocationPayload<ExtArgs>[]
+    favorites: Prisma.$FavoritePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     assessmentId: number
@@ -1488,6 +1649,7 @@ readonly fields: RedListAssessmentFieldRefs;
 export interface Prisma__RedListAssessmentClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   locations<T extends Prisma.RedListAssessment$locationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RedListAssessment$locationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RedListLocationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favorites<T extends Prisma.RedListAssessment$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RedListAssessment$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1954,6 +2116,30 @@ export type RedListAssessment$locationsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.RedListLocationScalarFieldEnum | Prisma.RedListLocationScalarFieldEnum[]
+}
+
+/**
+ * RedListAssessment.favorites
+ */
+export type RedListAssessment$favoritesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Favorite
+   */
+  select?: Prisma.FavoriteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Favorite
+   */
+  omit?: Prisma.FavoriteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FavoriteInclude<ExtArgs> | null
+  where?: Prisma.FavoriteWhereInput
+  orderBy?: Prisma.FavoriteOrderByWithRelationInput | Prisma.FavoriteOrderByWithRelationInput[]
+  cursor?: Prisma.FavoriteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
 }
 
 /**

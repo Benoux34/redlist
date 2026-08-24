@@ -1,6 +1,7 @@
 import type { RedListDetail } from "@app/contracts";
 import { Link } from "react-router";
 import { ChevronLeft, ExternalLink } from "lucide-react";
+import { FavoriteButton } from "@/components/favorite-button/FavoriteButton";
 import {
   category_colors,
   getInitials,
@@ -25,7 +26,7 @@ const SpeciesHero = ({ species }: Props) => {
 
   return (
     <section className="mb-10">
-      <div className="mb-6">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <Link
           to="/"
           className="inline-flex items-center gap-1.5 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink-muted)] hover:border-[var(--color-paper-border-strong)] hover:text-[var(--color-ink)] transition-colors"
@@ -33,6 +34,8 @@ const SpeciesHero = ({ species }: Props) => {
           <ChevronLeft className="size-3.5" />
           <span>Retour à la Liste Rouge</span>
         </Link>
+
+        <FavoriteButton assessmentId={species.assessmentId} />
       </div>
 
       <div className="border border-[var(--color-paper-border)] bg-transparent">

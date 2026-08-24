@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { useRedList } from "@/hooks/useRedList";
 import { RedListHero } from "./red-list-hero/RedListHero";
 import { SeverityScale } from "./red-list-scale/SeverityScale";
-import { RedListControls } from "./red-list-controls/RedListControls";
+import { Controls } from "@/components/controls/Controls";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 
@@ -25,7 +25,7 @@ const RedList = () => {
         onSelectCategory={setCategory}
         counts={counts}
       />
-      <RedListControls
+      <Controls
         filters={filters}
         onSearchChange={setSearch}
         onWithPhotoChange={setWithPhoto}

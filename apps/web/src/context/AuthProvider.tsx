@@ -9,6 +9,7 @@ import {
 import type { AuthStatus } from "@/context/entities";
 import { AuthContext } from "@/context/context";
 import {
+  deleteAccountRequest,
   loginRequest,
   logoutRequest,
   meRequest,
@@ -73,9 +74,16 @@ function AuthProvider({ children }: Props) {
     setStatus("anonymous");
   }, []);
 
+  const deleteAccount = useCallback(async () => {
+    await deleteAccountRequest();
+
+    setUser(null);
+    setStatus("anonymous");
+  }, []);
+
   const value = useMemo(
-    () => ({ user, status, login, register, logout }),
-    [user, status, login, register, logout],
+    () => ({ user, status, login, register, logout, deleteAccount }),
+    [user, status, login, register, logout, deleteAccount],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

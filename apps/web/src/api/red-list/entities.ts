@@ -4,6 +4,7 @@ type RedListFilters = Readonly<{
   withPhoto: boolean;
   possiblyExtinct: boolean;
   letter: string | null;
+  countryCode: string | null;
   page: number;
 }>;
 

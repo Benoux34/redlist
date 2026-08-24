@@ -12,7 +12,7 @@ type Props = Readonly<{
   isLoading: boolean;
 }>;
 
-const RedListControls = ({
+const Controls = ({
   filters,
   onSearchChange,
   onWithPhotoChange,
@@ -84,4 +84,4 @@ const RedListControls = ({
   );
 };
 
-export { RedListControls };
+export { Controls };

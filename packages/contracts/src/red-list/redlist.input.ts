@@ -12,6 +12,11 @@ const redListQuery = z.strictObject({
     .length(1)
     .regex(/^[A-Z]$/)
     .optional(),
+  countryCode: z
+    .string()
+    .length(2)
+    .regex(/^[A-Z]{2}$/)
+    .optional(),
 });
 
 const redListDetailParams = z.object({

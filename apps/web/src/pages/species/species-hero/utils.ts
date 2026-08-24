@@ -30,6 +30,13 @@ const category_colors: Record<
     bg: "bg-[var(--color-status-en-bg)]",
     border: "border-[var(--color-status-en-border)]",
   },
+  VU: {
+    label: "Vulnérable",
+    text: "text-[var(--color-status-vu)]",
+    dot: "bg-[var(--color-status-vu)]",
+    bg: "bg-[var(--color-status-vu-bg)]",
+    border: "border-[var(--color-status-vu-border)]",
+  },
 };
 
 const POPULATION_TREND_FR: Record<string, string> = {

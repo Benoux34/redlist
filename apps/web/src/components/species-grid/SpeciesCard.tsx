@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { RedListItem } from "@app/contracts";
 import { ExternalLink } from "lucide-react";
 import { Link } from "react-router";
@@ -5,9 +6,10 @@ import { category_colors, getInitials } from "./utils";
 
 type Props = Readonly<{
   species: RedListItem;
+  banner?: ReactNode;
 }>;
 
-const SpeciesCard = ({ species }: Props) => {
+const SpeciesCard = ({ species, banner }: Props) => {
   const category = category_colors[species.categoryCode] ?? {
     label: species.categoryCode,
     text: "text-[var(--color-ink-muted)]",
@@ -22,6 +24,7 @@ const SpeciesCard = ({ species }: Props) => {
       className="group flex flex-col justify-between border border-[var(--color-paper-border)] bg-transparent transition-colors hover:border-[var(--color-paper-border-strong)] cursor-pointer"
     >
       <div>
+        {banner}
         <div className="relative aspect-[4/3] w-full overflow-hidden border-b border-[var(--color-paper-border)]">
           {species.photoUrl ? (
             <>

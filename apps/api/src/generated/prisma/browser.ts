@@ -42,3 +42,8 @@ export type RedListLocation = Prisma.RedListLocationModel
  * 
  */
 export type RedListAssessment = Prisma.RedListAssessmentModel
+/**
+ * Model Favorite
+ * 
+ */
+export type Favorite = Prisma.FavoriteModel

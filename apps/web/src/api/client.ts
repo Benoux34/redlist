@@ -43,6 +43,20 @@ async function request(path: string, init?: RequestInit): Promise<Response> {
   return response;
 }
 
+async function apiRequest<T>(
+  path: string,
+  schema: ZodType<T>,
+  method: "PUT" | "DELETE" | "PATCH",
+  body?: unknown,
+): Promise<T> {
+  const response = await request(path, {
+    method,
+    ...jsonBody(body),
+  });
+
+  return schema.parse(await response.json());
+}
+
 async function apiGet<T>(path: string, schema: ZodType<T>): Promise<T> {
   const response = await request(path);
 
@@ -62,6 +76,17 @@ async function apiPost<T>(
   return schema.parse(await response.json());
 }
 
+async function apiRequestEmpty(
+  path: string,
+  method: "PUT" | "DELETE" | "PATCH",
+  body?: unknown,
+): Promise<void> {
+  await request(path, {
+    method,
+    ...jsonBody(body),
+  });
+}
+
 async function apiPostEmpty(path: string, body?: unknown): Promise<void> {
   await request(path, {
     method: "POST",
@@ -69,4 +94,4 @@ async function apiPostEmpty(path: string, body?: unknown): Promise<void> {
   });
 }
 
-export { apiGet, apiPost, apiPostEmpty };
+export { apiRequest, apiGet, apiPost, apiRequestEmpty, apiPostEmpty };

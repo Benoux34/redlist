@@ -2,7 +2,7 @@ import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import type { RedListFilters } from "@/api/red-list/entities";
 
-const VALID_CATEGORIES = new Set(["EX", "EW", "CR", "EN"]);
+const VALID_CATEGORIES = new Set(["EX", "EW", "CR", "EN", "VU"]);
 
 function useRedListFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,6 +13,7 @@ function useRedListFilters() {
     const rawSearch = searchParams.get("search");
     const rawLetter = searchParams.get("letter");
     const rawPossiblyExtinct = searchParams.get("possiblyExtinct") === "true";
+    const rawCountryCode = searchParams.get("countryCode");
 
     return {
       category:
@@ -23,6 +24,7 @@ function useRedListFilters() {
       withPhoto: searchParams.get("withPhoto") === "true",
       possiblyExtinct: rawPossiblyExtinct,
       letter: rawLetter !== null && rawLetter.length === 1 ? rawLetter : null,
+      countryCode: rawCountryCode !== null ? rawCountryCode : null,
       page: Number.isInteger(rawPage) && rawPage > 0 ? rawPage : 1,
     };
   }, [searchParams]);

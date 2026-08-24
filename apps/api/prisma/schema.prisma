@@ -16,6 +16,7 @@ model User {
   updatedAt    DateTime  @updatedAt @db.Timestamptz(3)
 
   sessions     Session[]
+  favorites    Favorite[]
 
   @@map("users")
 }
@@ -69,6 +70,7 @@ model RedListAssessment {
   redListVersion  String
 
   locations        RedListLocation[]
+  favorites        Favorite[]
 
   vernacularNameFr String?
   photoUrl         String?
@@ -88,4 +90,20 @@ model RedListAssessment {
 
   @@index([categoryCode, scientificName])
   @@map("red_list_assessments")
+}
+
+model Favorite {
+  userId       String   @db.Uuid
+  assessmentId Int
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  categoryAtAdd  String
+  versionAtAdd   String
+
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessment RedListAssessment @relation(fields: [assessmentId], references: [assessmentId], onDelete: Cascade)
+
+  @@id([userId, assessmentId])
+  @@index([userId, createdAt])
+  @@map("favorites")
 }

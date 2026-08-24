@@ -22,6 +22,11 @@ const category_colors: Record<
     text: "text-[var(--color-status-en)]",
     dot: "bg-[var(--color-status-en)]",
   },
+  VU: {
+    label: "Vulnérable",
+    text: "text-[var(--color-status-vu)]",
+    dot: "bg-[var(--color-status-vu)]",
+  },
 };
 
 const getInitials = (scientificName: string): string => {

@@ -4,7 +4,7 @@ import {
   type LoginInput,
   type RegisterInput,
 } from "@app/contracts";
-import { apiGet, apiPost, apiPostEmpty } from "@/api/client";
+import { apiGet, apiPost, apiPostEmpty, apiRequestEmpty } from "@/api/client";
 
 function registerRequest(input: RegisterInput): Promise<AuthResponse> {
   return apiPost("/api/auth/register", authResponse, input);
@@ -22,4 +22,14 @@ function meRequest(): Promise<AuthResponse> {
   return apiGet("/api/auth/me", authResponse);
 }
 
-export { registerRequest, loginRequest, logoutRequest, meRequest };
+function deleteAccountRequest(): Promise<void> {
+  return apiRequestEmpty("/api/auth/me", "DELETE");
+}
+
+export {
+  registerRequest,
+  loginRequest,
+  logoutRequest,
+  meRequest,
+  deleteAccountRequest,
+};

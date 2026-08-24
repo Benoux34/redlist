@@ -42,8 +42,18 @@ const redlist_categories: CategoryMeta[] = [
     dotColorClass: "bg-[var(--color-status-en)]",
   },
   {
-    code: null,
+    code: "VU",
     numeral: "V",
+    title: "Vulnérable",
+    shortDescription:
+      "Confronté à un risque élevé d'extinction dans son milieu naturel.",
+    accentClass: "text-[var(--color-status-vu)]",
+    selectedBgClass: "bg-[var(--color-status-vu-bg)]/70",
+    dotColorClass: "bg-[var(--color-status-vu)]",
+  },
+  {
+    code: null,
+    numeral: "VI",
     title: "Toutes les espèces",
     shortDescription:
       "Explorer l'ensemble des espèces recensées sans filtrer par niveau de menace.",

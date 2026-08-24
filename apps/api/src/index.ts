@@ -9,6 +9,7 @@ import { authRoutes } from "./modules/auth/routes";
 import { AppError } from "./lib/errors";
 import { HTTPException } from "hono/http-exception";
 import { redListRoutes } from "./modules/red-list/routes";
+import { favoriteRoutes } from "./modules/favorite/routes";
 
 const app = new Hono<AppEnv>();
 
@@ -18,7 +19,7 @@ app.use(
   cors({
     origin: env.WEB_ORIGIN,
     credentials: true,
-    allowMethods: ["GET", "POST", "PATCH", "DELETE"],
+    allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowHeaders: ["Content-Type"],
   }),
 );
@@ -27,6 +28,7 @@ app.use("*", sessionMiddleware);
 
 app.route("/api/auth", authRoutes);
 app.route("/api/red-list", redListRoutes);
+app.route("/api/favorites", favoriteRoutes);
 app.get("/health", (c) => c.json({ status: "ok" }));
 
 app.onError((error, c) => {

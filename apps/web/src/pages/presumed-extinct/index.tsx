@@ -1,5 +1,5 @@
 import { useRedList } from "@/hooks/useRedList";
-import { RedListControls } from "../home/red-list-controls/RedListControls";
+import { Controls } from "@/components/controls/Controls";
 import { Pagination } from "@/components/pagination/Pagination";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { PresumedExtinctHero } from "./presumed-extinct-hero/PresumedExtinctHero";
@@ -13,7 +13,7 @@ const PresumedExtinct = () => {
   return (
     <div className="py-8 md:py-12">
       <PresumedExtinctHero />
-      <RedListControls
+      <Controls
         filters={filters}
         onSearchChange={setSearch}
         onWithPhotoChange={setWithPhoto}

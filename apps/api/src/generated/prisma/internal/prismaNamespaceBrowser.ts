@@ -55,7 +55,8 @@ export const ModelName = {
   Session: 'Session',
   RedListSync: 'RedListSync',
   RedListLocation: 'RedListLocation',
-  RedListAssessment: 'RedListAssessment'
+  RedListAssessment: 'RedListAssessment',
+  Favorite: 'Favorite'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -143,6 +144,17 @@ export const RedListAssessmentScalarFieldEnum = {
 } as const
 
 export type RedListAssessmentScalarFieldEnum = (typeof RedListAssessmentScalarFieldEnum)[keyof typeof RedListAssessmentScalarFieldEnum]
+
+
+export const FavoriteScalarFieldEnum = {
+  userId: 'userId',
+  assessmentId: 'assessmentId',
+  createdAt: 'createdAt',
+  categoryAtAdd: 'categoryAtAdd',
+  versionAtAdd: 'versionAtAdd'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
 
 
 export const SortOrder = {

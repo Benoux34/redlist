@@ -1,14 +1,16 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { AuthProvider } from "@/context/AuthProvider";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
-import { AppLayout } from "@/components/layout/AppLayout";
-import Login from "@/pages/auth/login";
-import Register from "@/pages/auth/register";
+import { AppLayout } from "@/components/layout/main-layout/AppLayout";
+import { AuthLayout } from "@/components/layout/auth-layout/AuthLayout";
+import Login from "@/pages/auth/login/login";
+import Register from "@/pages/auth/register/register";
 import Account from "@/pages/account";
 import RedList from "@/pages/home";
 import Species from "@/pages/species";
 import PresumedExtinct from "@/pages/presumed-extinct";
 import Alphabet from "./pages/alphabet";
+import France from "./pages/france";
 
 function App() {
   return (
@@ -16,13 +18,16 @@ function App() {
       <AuthProvider>
         <Routes>
           {/* AUTH */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route element={<AuthLayout />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
 
           {/* MAIN */}
           <Route element={<AppLayout />}>
             <Route path="/" element={<RedList />} />
             <Route path="/red-list" element={<Navigate to="/" replace />} />
+            <Route path="/france" element={<France />} />
             <Route path="/presumed-extinct" element={<PresumedExtinct />} />
             <Route
               path="/especes"

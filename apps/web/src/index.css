@@ -78,6 +78,10 @@
   --color-status-en-bg: oklch(0.95 0.025 65);
   --color-status-en-border: oklch(0.85 0.05 65);
 
+  --color-status-vu: oklch(0.56 0.13 88);
+  --color-status-vu-bg: oklch(0.96 0.025 88);
+  --color-status-vu-border: oklch(0.86 0.05 88);
+
   --color-status-extinct: oklch(0.4 0.12 18);
   --color-status-extinct-bg: oklch(0.94 0.02 18);
 }

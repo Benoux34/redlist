@@ -27,6 +27,7 @@ function useRedList(lockedFilters?: Partial<RedListFilters>) {
     effectiveFilters.withPhoto,
     effectiveFilters.possiblyExtinct,
     effectiveFilters.letter,
+    effectiveFilters.countryCode,
     effectiveFilters.page,
   ]);
 

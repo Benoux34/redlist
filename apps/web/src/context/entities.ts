@@ -8,6 +8,7 @@ type AuthContextValue = {
   login: (email: string, password: string) => Promise<void>;
   register: (pseudo: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  deleteAccount: () => Promise<void>;
 };
 
 export type { AuthContextValue, AuthStatus };

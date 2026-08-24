@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router";
 import { useRedList } from "@/hooks/useRedList";
 import { AlphabetHero } from "./alphabet-hero/AlphabetHero";
 import { AlphabetNav } from "./alphabet-nav/AlphabetNav";
-import { RedListControls } from "../home/red-list-controls/RedListControls";
+import { Controls } from "@/components/controls/Controls";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 
@@ -33,7 +33,7 @@ const Alphabet = () => {
 
       <AlphabetNav activeLetter={currentLetter} />
 
-      <RedListControls
+      <Controls
         filters={filters}
         onSearchChange={setSearch}
         onWithPhotoChange={setWithPhoto}

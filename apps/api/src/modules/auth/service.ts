@@ -66,4 +66,8 @@ async function login(input: LoginInput, userAgent: string | null) {
   return { user: publicFields, session };
 }
 
-export { register, login };
+async function deleteAccount(userId: string): Promise<void> {
+  await db.user.delete({ where: { id: userId } });
+}
+
+export { register, login, deleteAccount };

@@ -38,6 +38,14 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  to="/france"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Espèces menacées en France
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/presumed-extinct"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
