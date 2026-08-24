@@ -11,6 +11,7 @@ import Species from "@/pages/species";
 import PresumedExtinct from "@/pages/presumed-extinct";
 import Alphabet from "./pages/alphabet";
 import France from "./pages/france";
+import Methodology from "./pages/methodology";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             />
             <Route path="/especes/:letter" element={<Alphabet />} />
             <Route path="/species/:assessmentId" element={<Species />} />
+            <Route path="/methodology" element={<Methodology />} />
             <Route
               path="/account"
               element={

@@ -105,6 +105,11 @@ const redListDetail = redListItem.extend({
   citation: z.string().nullable(),
 });
 
+const redListVersion = z.strictObject({
+  redListVersion: z.string(),
+  lastSyncedAt: z.string().nullable(),
+});
+
 export {
   redListItem,
   redListPage,
@@ -118,4 +123,5 @@ export {
   speciesPopulation,
   conservationAction,
   redListDetail,
+  redListVersion,
 };

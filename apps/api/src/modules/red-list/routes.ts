@@ -10,6 +10,7 @@ import {
   listAssessments,
 } from "./service";
 import { AppError } from "../../lib/errors";
+import { db } from "../../db";
 
 const listLimiter = rateLimit({
   limit: 60,
@@ -33,6 +34,17 @@ const redListRoutes = new Hono<AppEnv>()
     if (species === null) throw new AppError("NOT_FOUND");
 
     return c.json(species);
+  })
+  .get("/version", listLimiter, async (c) => {
+    const sync = await db.redListSync.findUnique({
+      where: { id: "singleton" },
+      select: { redListVersion: true, lastSyncedAt: true },
+    });
+
+    return c.json({
+      redListVersion: sync?.redListVersion ?? "unknown",
+      lastSyncedAt: sync?.lastSyncedAt.toISOString() ?? null,
+    });
   })
   .get(
     "/:assessmentId",

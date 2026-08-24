@@ -78,24 +78,32 @@ const Footer = () => {
             <p className="text-xs leading-relaxed">
               Données de référence issues de la{" "}
               <strong className="font-medium text-[var(--color-ink)]">
-                Liste Rouge de l'UICN
+                Liste Rouge de l&apos;UICN
               </strong>{" "}
               (Union Internationale pour la Conservation de la Nature).
             </p>
-            <a
-              href="https://www.iucnredlist.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs text-[var(--color-ink)] underline underline-offset-4 transition-opacity hover:opacity-80"
-            >
-              <span>Consulter le portail officiel de l&apos;UICN</span>
-              <ExternalLink className="size-3" />
-            </a>
+            <div className="flex flex-col space-y-1.5 pt-1">
+              <Link
+                to="/methodology"
+                className="inline-flex items-center text-xs font-medium text-[var(--color-ink)] underline underline-offset-4 transition-opacity hover:opacity-80"
+              >
+                Note méthodologique & sources
+              </Link>
+              <a
+                href="https://www.iucnredlist.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-[var(--color-ink-muted)] hover:text-[var(--color-ink)] transition-colors"
+              >
+                <span>Portail officiel de l&apos;UICN</span>
+                <ExternalLink className="size-3" />
+              </a>
+            </div>
           </div>
         </div>
 
         <div className="mt-10 border-t border-[var(--color-paper-border)]/80 pt-6 text-center text-[11px] text-[var(--color-ink-faint)] sm:flex sm:items-center sm:justify-between sm:text-left">
-          <p>© {currentYear} Freedom. Projet ouvert & indépendant.</p>
+          <p>© {currentYear} REDLIST. Projet ouvert & indépendant.</p>
           <p className="mt-2 sm:mt-0">
             Les photographies et descriptions demeurent la propriété de leurs
             auteurs et détenteurs de licence respectifs.

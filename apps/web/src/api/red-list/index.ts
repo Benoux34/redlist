@@ -3,10 +3,12 @@ import {
   redListDetail,
   redListItem,
   redListPage,
+  redListVersion,
   type RedListCategoryCount,
   type RedListDetail,
   type RedListItem,
   type RedListPage,
+  type RedListVersion,
 } from "@app/contracts";
 import { apiGet } from "../client";
 import type { RedListFilters } from "./entities";
@@ -30,9 +32,14 @@ function speciesOfTheDayRequest(): Promise<RedListItem> {
   return apiGet("/api/red-list/species-of-the-day", redListItem);
 }
 
+function redlistVersionRequest(): Promise<RedListVersion> {
+  return apiGet("/api/red-list/version", redListVersion);
+}
+
 export {
   redlistAssessmentsRequest,
   redlistCategoryCountsRequest,
   redlistDetailRequest,
   speciesOfTheDayRequest,
+  redlistVersionRequest,
 };

@@ -14,6 +14,7 @@ import {
   speciesTaxonomy,
   speciesThreat,
   conservationAction,
+  redListVersion,
 } from "./redlist.output";
 
 type RedListCategoryCode = z.infer<typeof redListCategoryCode>;
@@ -31,6 +32,7 @@ type SpeciesLocation = z.infer<typeof speciesLocation>;
 type SpeciesPopulation = z.infer<typeof speciesPopulation>;
 type ConservationAction = z.infer<typeof conservationAction>;
 type RedListDetail = z.infer<typeof redListDetail>;
+type RedListVersion = z.infer<typeof redListVersion>;
 
 export type {
   RedListCategoryCode,
@@ -48,4 +50,5 @@ export type {
   SpeciesPopulation,
   ConservationAction,
   RedListDetail,
+  RedListVersion,
 };
