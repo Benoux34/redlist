@@ -6,6 +6,7 @@ import { rateLimit } from "../../lib/rate-limit";
 import {
   getAssessmentDetail,
   getCategoryCounts,
+  getGroupCounts,
   getSpeciesOfTheDay,
   listAssessments,
 } from "./service";
@@ -29,12 +30,7 @@ const redListRoutes = new Hono<AppEnv>()
     c.json(await listAssessments(c.req.valid("query"))),
   )
   .get("/counts", listLimiter, async (c) => c.json(await getCategoryCounts()))
-  .get("/species-of-the-day", listLimiter, async (c) => {
-    const species = await getSpeciesOfTheDay();
-    if (species === null) throw new AppError("NOT_FOUND");
-
-    return c.json(species);
-  })
+  .get("/groups", listLimiter, async (c) => c.json(await getGroupCounts()))
   .get("/version", listLimiter, async (c) => {
     const sync = await db.redListSync.findUnique({
       where: { id: "singleton" },
@@ -45,6 +41,12 @@ const redListRoutes = new Hono<AppEnv>()
       redListVersion: sync?.redListVersion ?? "unknown",
       lastSyncedAt: sync?.lastSyncedAt.toISOString() ?? null,
     });
+  })
+  .get("/species-of-the-day", listLimiter, async (c) => {
+    const species = await getSpeciesOfTheDay();
+    if (species === null) throw new AppError("NOT_FOUND");
+
+    return c.json(species);
   })
   .get(
     "/:assessmentId",

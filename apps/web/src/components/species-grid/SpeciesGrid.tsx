@@ -2,6 +2,7 @@ import type { RedListPage } from "@app/contracts";
 import type { AsyncState } from "@/api/red-list/entities";
 import { SpeciesCard } from "./SpeciesCard";
 import { Loading } from "@/components/loading/Loading";
+import { group_labels } from "./utils";
 
 type Props = Readonly<{
   assessments: AsyncState<RedListPage>;
@@ -34,7 +35,7 @@ const SpeciesGrid = ({ assessments, onRetry }: Props) => {
       </section>
     );
 
-  const items = assessments.data.items;
+  const { items, resolvedAs, total } = assessments.data;
 
   if (items.length === 0)
     return (
@@ -51,6 +52,16 @@ const SpeciesGrid = ({ assessments, onRetry }: Props) => {
 
   return (
     <section className="mb-12">
+      {resolvedAs !== null && (
+        <div className="mb-6 border-l-2 border-[var(--color-paper-border-strong)] pl-3 text-sm text-[var(--color-ink-muted)]">
+          <p>
+            Aucune espèce ne s&apos;appelle «&nbsp;{resolvedAs.from}&nbsp;».
+            Voici les {new Intl.NumberFormat("fr-FR").format(total)}{" "}
+            {group_labels[resolvedAs.group].toLowerCase()}.
+          </p>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {items.map((species) => (
           <SpeciesCard key={species.assessmentId} species={species} />

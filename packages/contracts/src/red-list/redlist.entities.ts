@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { redListCategoryCode } from "./redlist.fields";
+import { redListCategoryCode, speciesGroup } from "./redlist.fields";
 import { redListQuery, redListDetailParams } from "./redlist.input";
 import {
   redListCategoryCount,
@@ -15,9 +15,12 @@ import {
   speciesThreat,
   conservationAction,
   redListVersion,
+  groupCounts,
+  groupCount,
 } from "./redlist.output";
 
 type RedListCategoryCode = z.infer<typeof redListCategoryCode>;
+type SpeciesGroup = z.infer<typeof speciesGroup>;
 type RedListQuery = z.infer<typeof redListQuery>;
 type RedListDetailParams = z.infer<typeof redListDetailParams>;
 type RedListItem = z.infer<typeof redListItem>;
@@ -33,9 +36,11 @@ type SpeciesPopulation = z.infer<typeof speciesPopulation>;
 type ConservationAction = z.infer<typeof conservationAction>;
 type RedListDetail = z.infer<typeof redListDetail>;
 type RedListVersion = z.infer<typeof redListVersion>;
+type GroupCount = z.infer<typeof groupCount>;
 
 export type {
   RedListCategoryCode,
+  SpeciesGroup,
   RedListQuery,
   RedListDetailParams,
   RedListItem,
@@ -51,4 +56,5 @@ export type {
   ConservationAction,
   RedListDetail,
   RedListVersion,
+  GroupCount,
 };

@@ -1,9 +1,11 @@
 import {
+  groupCounts,
   redListCategoryCounts,
   redListDetail,
   redListItem,
   redListPage,
   redListVersion,
+  type GroupCount,
   type RedListCategoryCount,
   type RedListDetail,
   type RedListItem,
@@ -46,6 +48,10 @@ function speciesByNamesRequest(names: string[]): Promise<RedListItem[]> {
   );
 }
 
+function groupCountsRequest(): Promise<GroupCount[]> {
+  return apiGet("/api/red-list/groups", groupCounts);
+}
+
 export {
   redlistAssessmentsRequest,
   redlistCategoryCountsRequest,
@@ -53,4 +59,5 @@ export {
   speciesOfTheDayRequest,
   redlistVersionRequest,
   speciesByNamesRequest,
+  groupCountsRequest,
 };

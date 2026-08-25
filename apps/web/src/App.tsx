@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import { AuthProvider } from "@/context/AuthProvider";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
+import { ScrollToTop } from "@/components/scroll-to-top/ScrollToTop";
 import { AppLayout } from "@/components/layout/main-layout/AppLayout";
 import { AuthLayout } from "@/components/layout/auth-layout/AuthLayout";
 import Login from "@/pages/auth/login/login";
@@ -17,6 +18,7 @@ import Methodology from "./pages/methodology";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AuthProvider>
         <Routes>
           {/* AUTH */}

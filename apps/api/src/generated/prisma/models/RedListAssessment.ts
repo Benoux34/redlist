@@ -31,6 +31,7 @@ export type RedListAssessmentAvgAggregateOutputType = {
   sisTaxonId: number | null
   scopeCode: number | null
   yearPublished: number | null
+  gbifUsageKey: number | null
 }
 
 export type RedListAssessmentSumAggregateOutputType = {
@@ -38,6 +39,7 @@ export type RedListAssessmentSumAggregateOutputType = {
   sisTaxonId: number | null
   scopeCode: number | null
   yearPublished: number | null
+  gbifUsageKey: number | null
 }
 
 export type RedListAssessmentMinAggregateOutputType = {
@@ -60,6 +62,13 @@ export type RedListAssessmentMinAggregateOutputType = {
   description: string | null
   descriptionSource: string | null
   descriptionFetchedAt: Date | null
+  gbifUsageKey: number | null
+  kingdom: string | null
+  phylum: string | null
+  className: string | null
+  order: string | null
+  family: string | null
+  taxonomyFetchedAt: Date | null
   detailFetchedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -85,6 +94,13 @@ export type RedListAssessmentMaxAggregateOutputType = {
   description: string | null
   descriptionSource: string | null
   descriptionFetchedAt: Date | null
+  gbifUsageKey: number | null
+  kingdom: string | null
+  phylum: string | null
+  className: string | null
+  order: string | null
+  family: string | null
+  taxonomyFetchedAt: Date | null
   detailFetchedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -110,6 +126,13 @@ export type RedListAssessmentCountAggregateOutputType = {
   description: number
   descriptionSource: number
   descriptionFetchedAt: number
+  gbifUsageKey: number
+  kingdom: number
+  phylum: number
+  className: number
+  order: number
+  family: number
+  taxonomyFetchedAt: number
   detail: number
   detailFetchedAt: number
   createdAt: number
@@ -123,6 +146,7 @@ export type RedListAssessmentAvgAggregateInputType = {
   sisTaxonId?: true
   scopeCode?: true
   yearPublished?: true
+  gbifUsageKey?: true
 }
 
 export type RedListAssessmentSumAggregateInputType = {
@@ -130,6 +154,7 @@ export type RedListAssessmentSumAggregateInputType = {
   sisTaxonId?: true
   scopeCode?: true
   yearPublished?: true
+  gbifUsageKey?: true
 }
 
 export type RedListAssessmentMinAggregateInputType = {
@@ -152,6 +177,13 @@ export type RedListAssessmentMinAggregateInputType = {
   description?: true
   descriptionSource?: true
   descriptionFetchedAt?: true
+  gbifUsageKey?: true
+  kingdom?: true
+  phylum?: true
+  className?: true
+  order?: true
+  family?: true
+  taxonomyFetchedAt?: true
   detailFetchedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -177,6 +209,13 @@ export type RedListAssessmentMaxAggregateInputType = {
   description?: true
   descriptionSource?: true
   descriptionFetchedAt?: true
+  gbifUsageKey?: true
+  kingdom?: true
+  phylum?: true
+  className?: true
+  order?: true
+  family?: true
+  taxonomyFetchedAt?: true
   detailFetchedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -202,6 +241,13 @@ export type RedListAssessmentCountAggregateInputType = {
   description?: true
   descriptionSource?: true
   descriptionFetchedAt?: true
+  gbifUsageKey?: true
+  kingdom?: true
+  phylum?: true
+  className?: true
+  order?: true
+  family?: true
+  taxonomyFetchedAt?: true
   detail?: true
   detailFetchedAt?: true
   createdAt?: true
@@ -315,6 +361,13 @@ export type RedListAssessmentGroupByOutputType = {
   description: string | null
   descriptionSource: string | null
   descriptionFetchedAt: Date | null
+  gbifUsageKey: number | null
+  kingdom: string | null
+  phylum: string | null
+  className: string | null
+  order: string | null
+  family: string | null
+  taxonomyFetchedAt: Date | null
   detail: runtime.JsonValue | null
   detailFetchedAt: Date | null
   createdAt: Date
@@ -364,6 +417,13 @@ export type RedListAssessmentWhereInput = {
   description?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   descriptionSource?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   descriptionFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
+  gbifUsageKey?: Prisma.IntNullableFilter<"RedListAssessment"> | number | null
+  kingdom?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  phylum?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  className?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  order?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  family?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  taxonomyFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
   detail?: Prisma.JsonNullableFilter<"RedListAssessment">
   detailFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"RedListAssessment"> | Date | string
@@ -392,6 +452,13 @@ export type RedListAssessmentOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionSource?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  kingdom?: Prisma.SortOrderInput | Prisma.SortOrder
+  phylum?: Prisma.SortOrderInput | Prisma.SortOrder
+  className?: Prisma.SortOrderInput | Prisma.SortOrder
+  order?: Prisma.SortOrderInput | Prisma.SortOrder
+  family?: Prisma.SortOrderInput | Prisma.SortOrder
+  taxonomyFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   detail?: Prisma.SortOrderInput | Prisma.SortOrder
   detailFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -423,6 +490,13 @@ export type RedListAssessmentWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   descriptionSource?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   descriptionFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
+  gbifUsageKey?: Prisma.IntNullableFilter<"RedListAssessment"> | number | null
+  kingdom?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  phylum?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  className?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  order?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  family?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  taxonomyFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
   detail?: Prisma.JsonNullableFilter<"RedListAssessment">
   detailFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"RedListAssessment"> | Date | string
@@ -451,6 +525,13 @@ export type RedListAssessmentOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionSource?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  kingdom?: Prisma.SortOrderInput | Prisma.SortOrder
+  phylum?: Prisma.SortOrderInput | Prisma.SortOrder
+  className?: Prisma.SortOrderInput | Prisma.SortOrder
+  order?: Prisma.SortOrderInput | Prisma.SortOrder
+  family?: Prisma.SortOrderInput | Prisma.SortOrder
+  taxonomyFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   detail?: Prisma.SortOrderInput | Prisma.SortOrder
   detailFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -485,6 +566,13 @@ export type RedListAssessmentScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
   descriptionSource?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
   descriptionFetchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RedListAssessment"> | Date | string | null
+  gbifUsageKey?: Prisma.IntNullableWithAggregatesFilter<"RedListAssessment"> | number | null
+  kingdom?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
+  phylum?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
+  className?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
+  order?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
+  family?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
+  taxonomyFetchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RedListAssessment"> | Date | string | null
   detail?: Prisma.JsonNullableWithAggregatesFilter<"RedListAssessment">
   detailFetchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RedListAssessment"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RedListAssessment"> | Date | string
@@ -511,6 +599,13 @@ export type RedListAssessmentCreateInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -539,6 +634,13 @@ export type RedListAssessmentUncheckedCreateInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -567,6 +669,13 @@ export type RedListAssessmentUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -595,6 +704,13 @@ export type RedListAssessmentUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -623,6 +739,13 @@ export type RedListAssessmentCreateManyInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -649,6 +772,13 @@ export type RedListAssessmentUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -675,6 +805,13 @@ export type RedListAssessmentUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -706,6 +843,13 @@ export type RedListAssessmentCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   descriptionSource?: Prisma.SortOrder
   descriptionFetchedAt?: Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrder
+  kingdom?: Prisma.SortOrder
+  phylum?: Prisma.SortOrder
+  className?: Prisma.SortOrder
+  order?: Prisma.SortOrder
+  family?: Prisma.SortOrder
+  taxonomyFetchedAt?: Prisma.SortOrder
   detail?: Prisma.SortOrder
   detailFetchedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -717,6 +861,7 @@ export type RedListAssessmentAvgOrderByAggregateInput = {
   sisTaxonId?: Prisma.SortOrder
   scopeCode?: Prisma.SortOrder
   yearPublished?: Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrder
 }
 
 export type RedListAssessmentMaxOrderByAggregateInput = {
@@ -739,6 +884,13 @@ export type RedListAssessmentMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   descriptionSource?: Prisma.SortOrder
   descriptionFetchedAt?: Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrder
+  kingdom?: Prisma.SortOrder
+  phylum?: Prisma.SortOrder
+  className?: Prisma.SortOrder
+  order?: Prisma.SortOrder
+  family?: Prisma.SortOrder
+  taxonomyFetchedAt?: Prisma.SortOrder
   detailFetchedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -764,6 +916,13 @@ export type RedListAssessmentMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   descriptionSource?: Prisma.SortOrder
   descriptionFetchedAt?: Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrder
+  kingdom?: Prisma.SortOrder
+  phylum?: Prisma.SortOrder
+  className?: Prisma.SortOrder
+  order?: Prisma.SortOrder
+  family?: Prisma.SortOrder
+  taxonomyFetchedAt?: Prisma.SortOrder
   detailFetchedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -774,6 +933,7 @@ export type RedListAssessmentSumOrderByAggregateInput = {
   sisTaxonId?: Prisma.SortOrder
   scopeCode?: Prisma.SortOrder
   yearPublished?: Prisma.SortOrder
+  gbifUsageKey?: Prisma.SortOrder
 }
 
 export type RedListAssessmentCreateNestedOneWithoutLocationsInput = {
@@ -840,6 +1000,13 @@ export type RedListAssessmentCreateWithoutLocationsInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -867,6 +1034,13 @@ export type RedListAssessmentUncheckedCreateWithoutLocationsInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -910,6 +1084,13 @@ export type RedListAssessmentUpdateWithoutLocationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -937,6 +1118,13 @@ export type RedListAssessmentUncheckedUpdateWithoutLocationsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -964,6 +1152,13 @@ export type RedListAssessmentCreateWithoutFavoritesInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -991,6 +1186,13 @@ export type RedListAssessmentUncheckedCreateWithoutFavoritesInput = {
   description?: string | null
   descriptionSource?: string | null
   descriptionFetchedAt?: Date | string | null
+  gbifUsageKey?: number | null
+  kingdom?: string | null
+  phylum?: string | null
+  className?: string | null
+  order?: string | null
+  family?: string | null
+  taxonomyFetchedAt?: Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Date | string | null
   createdAt?: Date | string
@@ -1034,6 +1236,13 @@ export type RedListAssessmentUpdateWithoutFavoritesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1061,6 +1270,13 @@ export type RedListAssessmentUncheckedUpdateWithoutFavoritesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionSource?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  gbifUsageKey?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  kingdom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phylum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  className?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  family?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taxonomyFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detail?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   detailFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1128,6 +1344,13 @@ export type RedListAssessmentSelect<ExtArgs extends runtime.Types.Extensions.Int
   description?: boolean
   descriptionSource?: boolean
   descriptionFetchedAt?: boolean
+  gbifUsageKey?: boolean
+  kingdom?: boolean
+  phylum?: boolean
+  className?: boolean
+  order?: boolean
+  family?: boolean
+  taxonomyFetchedAt?: boolean
   detail?: boolean
   detailFetchedAt?: boolean
   createdAt?: boolean
@@ -1157,6 +1380,13 @@ export type RedListAssessmentSelectCreateManyAndReturn<ExtArgs extends runtime.T
   description?: boolean
   descriptionSource?: boolean
   descriptionFetchedAt?: boolean
+  gbifUsageKey?: boolean
+  kingdom?: boolean
+  phylum?: boolean
+  className?: boolean
+  order?: boolean
+  family?: boolean
+  taxonomyFetchedAt?: boolean
   detail?: boolean
   detailFetchedAt?: boolean
   createdAt?: boolean
@@ -1183,6 +1413,13 @@ export type RedListAssessmentSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   description?: boolean
   descriptionSource?: boolean
   descriptionFetchedAt?: boolean
+  gbifUsageKey?: boolean
+  kingdom?: boolean
+  phylum?: boolean
+  className?: boolean
+  order?: boolean
+  family?: boolean
+  taxonomyFetchedAt?: boolean
   detail?: boolean
   detailFetchedAt?: boolean
   createdAt?: boolean
@@ -1209,13 +1446,20 @@ export type RedListAssessmentSelectScalar = {
   description?: boolean
   descriptionSource?: boolean
   descriptionFetchedAt?: boolean
+  gbifUsageKey?: boolean
+  kingdom?: boolean
+  phylum?: boolean
+  className?: boolean
+  order?: boolean
+  family?: boolean
+  taxonomyFetchedAt?: boolean
   detail?: boolean
   detailFetchedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RedListAssessmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"assessmentId" | "sisTaxonId" | "scientificName" | "categoryCode" | "scopeCode" | "criteria" | "yearPublished" | "assessmentDate" | "possiblyExtinct" | "officialUrl" | "redListVersion" | "vernacularNameFr" | "photoUrl" | "photoAttribution" | "photoLicense" | "mediaFetchedAt" | "description" | "descriptionSource" | "descriptionFetchedAt" | "detail" | "detailFetchedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["redListAssessment"]>
+export type RedListAssessmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"assessmentId" | "sisTaxonId" | "scientificName" | "categoryCode" | "scopeCode" | "criteria" | "yearPublished" | "assessmentDate" | "possiblyExtinct" | "officialUrl" | "redListVersion" | "vernacularNameFr" | "photoUrl" | "photoAttribution" | "photoLicense" | "mediaFetchedAt" | "description" | "descriptionSource" | "descriptionFetchedAt" | "gbifUsageKey" | "kingdom" | "phylum" | "className" | "order" | "family" | "taxonomyFetchedAt" | "detail" | "detailFetchedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["redListAssessment"]>
 export type RedListAssessmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   locations?: boolean | Prisma.RedListAssessment$locationsArgs<ExtArgs>
   favorites?: boolean | Prisma.RedListAssessment$favoritesArgs<ExtArgs>
@@ -1250,6 +1494,13 @@ export type $RedListAssessmentPayload<ExtArgs extends runtime.Types.Extensions.I
     description: string | null
     descriptionSource: string | null
     descriptionFetchedAt: Date | null
+    gbifUsageKey: number | null
+    kingdom: string | null
+    phylum: string | null
+    className: string | null
+    order: string | null
+    family: string | null
+    taxonomyFetchedAt: Date | null
     detail: runtime.JsonValue | null
     detailFetchedAt: Date | null
     createdAt: Date
@@ -1698,6 +1949,13 @@ export interface RedListAssessmentFieldRefs {
   readonly description: Prisma.FieldRef<"RedListAssessment", 'String'>
   readonly descriptionSource: Prisma.FieldRef<"RedListAssessment", 'String'>
   readonly descriptionFetchedAt: Prisma.FieldRef<"RedListAssessment", 'DateTime'>
+  readonly gbifUsageKey: Prisma.FieldRef<"RedListAssessment", 'Int'>
+  readonly kingdom: Prisma.FieldRef<"RedListAssessment", 'String'>
+  readonly phylum: Prisma.FieldRef<"RedListAssessment", 'String'>
+  readonly className: Prisma.FieldRef<"RedListAssessment", 'String'>
+  readonly order: Prisma.FieldRef<"RedListAssessment", 'String'>
+  readonly family: Prisma.FieldRef<"RedListAssessment", 'String'>
+  readonly taxonomyFetchedAt: Prisma.FieldRef<"RedListAssessment", 'DateTime'>
   readonly detail: Prisma.FieldRef<"RedListAssessment", 'Json'>
   readonly detailFetchedAt: Prisma.FieldRef<"RedListAssessment", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"RedListAssessment", 'DateTime'>

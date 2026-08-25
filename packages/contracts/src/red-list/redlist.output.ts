@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { redListCategoryCode } from "./redlist.fields";
+import { redListCategoryCode, speciesGroup } from "./redlist.fields";
 
 const redListItem = z.strictObject({
   assessmentId: z.number().int(),
@@ -16,12 +16,24 @@ const redListItem = z.strictObject({
   officialUrl: z.string().nullable(),
 });
 
+const resolvedAs = z.strictObject({
+  group: speciesGroup,
+  from: z.string(),
+});
+
+const groupCount = z.strictObject({
+  group: speciesGroup,
+  count: z.number().int(),
+});
+const groupCounts = z.array(groupCount);
+
 const redListPage = z.strictObject({
   items: z.array(redListItem),
   page: z.number().int(),
   pageSize: z.number().int(),
   total: z.number().int(),
   redListVersion: z.string(),
+  resolvedAs: resolvedAs.nullable(),
 });
 
 const redListCategoryCount = z.strictObject({
@@ -124,4 +136,6 @@ export {
   conservationAction,
   redListDetail,
   redListVersion,
+  groupCount,
+  groupCounts,
 };

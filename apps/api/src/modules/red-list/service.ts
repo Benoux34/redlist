@@ -3,13 +3,21 @@ import type {
   RedListItem,
   RedListPage,
   RedListQuery,
+  SpeciesGroup,
 } from "@app/contracts";
-import { redListDetail, redListItem, redListPage } from "@app/contracts";
+import {
+  groupCounts,
+  redListDetail,
+  redListItem,
+  redListPage,
+} from "@app/contracts";
 import { db } from "../../db";
 import { Prisma } from "../../generated/prisma/client";
 import { AppError } from "../../lib/errors";
 import { EMPTY_DETAIL, mapDetail } from "./detail-mapper";
 import { fetchAndStoreDetail } from "./detail-cache";
+import { GROUP_KEYS, groupWhere } from "../../lib/gbif/groups";
+import { aliasFor } from "../../lib/iucn/search-aliases";
 
 const PAGE_SIZE = 40;
 const SELECT = {
@@ -32,10 +40,12 @@ const DETAIL_SELECT = {
   detailFetchedAt: true,
 } as const;
 const MS_PER_DAY = 86_400_000;
+const EMPTY_RESOLVED = null;
 
 function buildWhere(query: RedListQuery): Prisma.RedListAssessmentWhereInput {
   return {
     ...(query.category ? { categoryCode: query.category } : {}),
+    ...groupWhere(query.group),
     ...(query.withPhoto === true ? { photoUrl: { not: null } } : {}),
     ...(query.possiblyExtinct === true ? { possiblyExtinct: true } : {}),
     ...(query.letter
@@ -60,7 +70,18 @@ function buildWhere(query: RedListQuery): Prisma.RedListAssessmentWhereInput {
   };
 }
 
-async function listAssessments(query: RedListQuery): Promise<RedListPage> {
+function buildOrderBy(
+  query: RedListQuery,
+): Prisma.RedListAssessmentOrderByWithRelationInput[] {
+  if (query.letter !== undefined) return [{ scientificName: "asc" }];
+
+  return [
+    { photoUrl: { sort: "asc", nulls: "last" } },
+    { scientificName: "asc" },
+  ];
+}
+
+async function runQuery(query: RedListQuery): Promise<RedListPage> {
   const where = buildWhere(query);
 
   const [rows, total, sync] = await Promise.all([
@@ -81,7 +102,32 @@ async function listAssessments(query: RedListQuery): Promise<RedListPage> {
     pageSize: PAGE_SIZE,
     total,
     redListVersion: sync?.redListVersion ?? "unknown",
+    resolvedAs: EMPTY_RESOLVED,
   });
+}
+
+async function listAssessments(query: RedListQuery): Promise<RedListPage> {
+  const direct = await runQuery(query);
+
+  if (
+    direct.total > 0 ||
+    query.search === undefined ||
+    query.group !== undefined
+  )
+    return direct;
+
+  const group = aliasFor(query.search);
+  if (group === null) return direct;
+
+  const { search: _search, ...rest } = query;
+  const fallback = await runQuery({ ...rest, group, page: 1 });
+
+  return fallback.total === 0
+    ? direct
+    : redListPage.parse({
+        ...fallback,
+        resolvedAs: { group, from: query.search },
+      });
 }
 
 async function getCategoryCounts() {
@@ -149,15 +195,15 @@ async function getSpeciesOfTheDay(): Promise<RedListItem | null> {
   return row === undefined ? null : redListItem.parse(row);
 }
 
-function buildOrderBy(
-  query: RedListQuery,
-): Prisma.RedListAssessmentOrderByWithRelationInput[] {
-  if (query.letter !== undefined) return [{ scientificName: "asc" }];
+async function getGroupCounts() {
+  const counts = await Promise.all(
+    GROUP_KEYS.map(async (group: SpeciesGroup) => ({
+      group,
+      count: await db.redListAssessment.count({ where: groupWhere(group) }),
+    })),
+  );
 
-  return [
-    { photoUrl: { sort: "asc", nulls: "last" } },
-    { scientificName: "asc" },
-  ];
+  return groupCounts.parse(counts.filter((entry) => entry.count > 0));
 }
 
 export {
@@ -166,4 +212,5 @@ export {
   getAssessmentDetail,
   getSpeciesOfTheDay,
   buildOrderBy,
+  getGroupCounts,
 };

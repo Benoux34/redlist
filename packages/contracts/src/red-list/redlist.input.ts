@@ -1,8 +1,9 @@
 import { z } from "zod";
-import { redListCategoryCode } from "./redlist.fields";
+import { redListCategoryCode, speciesGroup } from "./redlist.fields";
 
 const redListQuery = z.strictObject({
   category: redListCategoryCode.optional(),
+  group: speciesGroup.optional(),
   search: z.string().trim().min(2).max(80).optional(),
   withPhoto: z.stringbool().optional(),
   page: z.coerce.number().int().min(1).max(2000).default(1),

@@ -1,3 +1,5 @@
+import type { SpeciesGroup } from "@app/contracts";
+
 const category_colors: Record<
   string,
   { label: string; text: string; dot: string }
@@ -29,6 +31,17 @@ const category_colors: Record<
   },
 };
 
+const group_labels: Record<SpeciesGroup, string> = {
+  mammiferes: "Mammifères",
+  oiseaux: "Oiseaux",
+  reptiles: "Reptiles",
+  amphibiens: "Amphibiens",
+  poissons: "Poissons",
+  insectes: "Insectes",
+  mollusques: "Mollusques",
+  plantes: "Plantes",
+};
+
 const getInitials = (scientificName: string): string => {
   const parts = scientificName.trim().split(/\s+/);
   if (parts.length >= 2)
@@ -37,4 +50,4 @@ const getInitials = (scientificName: string): string => {
   return parts[0]?.[0] ?? "—";
 };
 
-export { getInitials, category_colors };
+export { getInitials, category_colors, group_labels };

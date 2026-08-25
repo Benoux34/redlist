@@ -82,6 +82,14 @@ model RedListAssessment {
   descriptionSource  String?
   descriptionFetchedAt DateTime? @db.Timestamptz(3)
 
+  gbifUsageKey      Int?
+  kingdom           String?
+  phylum            String?
+  className         String?
+  order             String?
+  family            String?
+  taxonomyFetchedAt DateTime? @db.Timestamptz(3)
+
   detail          Json?     @db.JsonB
   detailFetchedAt DateTime? @db.Timestamptz(3)
 
@@ -89,6 +97,8 @@ model RedListAssessment {
   updatedAt       DateTime  @updatedAt @db.Timestamptz(3)
 
   @@index([categoryCode, scientificName])
+  @@index([className])
+  @@index([kingdom])
   @@map("red_list_assessments")
 }
 
