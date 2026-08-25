@@ -8,7 +8,7 @@ import { sessionMiddleware } from "./middleware/auth";
 import { authRoutes } from "./modules/auth/routes";
 import { AppError } from "./lib/errors";
 import { HTTPException } from "hono/http-exception";
-import { redListRoutes } from "./modules/red-list/routes";
+import { redListRoutes } from "./modules/redlist";
 import { favoriteRoutes } from "./modules/favorite/routes";
 
 const app = new Hono<AppEnv>();
@@ -29,7 +29,6 @@ app.use("*", sessionMiddleware);
 app.route("/api/auth", authRoutes);
 app.route("/api/red-list", redListRoutes);
 app.route("/api/favorites", favoriteRoutes);
-app.get("/health", (c) => c.json({ status: "ok" }));
 
 app.onError((error, c) => {
   if (error instanceof AppError)

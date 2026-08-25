@@ -411,6 +411,14 @@ export type FavoriteUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.FavoriteScalarWhereInput | Prisma.FavoriteScalarWhereInput[]
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type FavoriteCreateNestedManyWithoutAssessmentInput = {
   create?: Prisma.XOR<Prisma.FavoriteCreateWithoutAssessmentInput, Prisma.FavoriteUncheckedCreateWithoutAssessmentInput> | Prisma.FavoriteCreateWithoutAssessmentInput[] | Prisma.FavoriteUncheckedCreateWithoutAssessmentInput[]
   connectOrCreate?: Prisma.FavoriteCreateOrConnectWithoutAssessmentInput | Prisma.FavoriteCreateOrConnectWithoutAssessmentInput[]

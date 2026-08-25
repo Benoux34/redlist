@@ -28,22 +28,22 @@ export type User = Prisma.UserModel
  */
 export type Session = Prisma.SessionModel
 /**
+ * Model Favorite
+ * 
+ */
+export type Favorite = Prisma.FavoriteModel
+/**
  * Model RedListSync
  * 
  */
 export type RedListSync = Prisma.RedListSyncModel
-/**
- * Model RedListLocation
- * 
- */
-export type RedListLocation = Prisma.RedListLocationModel
 /**
  * Model RedListAssessment
  * 
  */
 export type RedListAssessment = Prisma.RedListAssessmentModel
 /**
- * Model Favorite
+ * Model RedListLocation
  * 
  */
-export type Favorite = Prisma.FavoriteModel
+export type RedListLocation = Prisma.RedListLocationModel

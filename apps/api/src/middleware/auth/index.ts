@@ -1,11 +1,12 @@
-import type { MiddlewareHandler } from "hono";
+import type { Context, MiddlewareHandler } from "hono";
 import type { AppEnv } from "./entities";
 import {
   clearSessionCookie,
   getSessionCookie,
   setSessionCookie,
-} from "../../lib/cookies";
-import { validateSession } from "../../modules/auth/session";
+  AppError,
+} from "@/lib";
+import { validateSession } from "@/modules/auth/session";
 
 const sessionMiddleware: MiddlewareHandler<AppEnv> = async (c, next) => {
   const token = getSessionCookie(c);
@@ -35,4 +36,10 @@ const requireAuth: MiddlewareHandler<AppEnv> = async (c, next) => {
   return next();
 };
 
-export { sessionMiddleware, requireAuth };
+function currentUserId(c: Context<AppEnv>): string {
+  const user = c.get("user");
+  if (!user) throw new AppError("UNAUTHENTICATED");
+  return user.id;
+}
+
+export { sessionMiddleware, requireAuth, currentUserId };

@@ -399,10 +399,10 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Session: 'Session',
+  Favorite: 'Favorite',
   RedListSync: 'RedListSync',
-  RedListLocation: 'RedListLocation',
   RedListAssessment: 'RedListAssessment',
-  Favorite: 'Favorite'
+  RedListLocation: 'RedListLocation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -418,7 +418,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "redListSync" | "redListLocation" | "redListAssessment" | "favorite"
+    modelProps: "user" | "session" | "favorite" | "redListSync" | "redListAssessment" | "redListLocation"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -570,6 +570,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Favorite: {
+      payload: Prisma.$FavoritePayload<ExtArgs>
+      fields: Prisma.FavoriteFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FavoriteFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FavoriteFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+        }
+        findFirst: {
+          args: Prisma.FavoriteFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FavoriteFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+        }
+        findMany: {
+          args: Prisma.FavoriteFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+        }
+        create: {
+          args: Prisma.FavoriteCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+        }
+        createMany: {
+          args: Prisma.FavoriteCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FavoriteCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+        }
+        delete: {
+          args: Prisma.FavoriteDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+        }
+        update: {
+          args: Prisma.FavoriteUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+        }
+        deleteMany: {
+          args: Prisma.FavoriteDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FavoriteUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FavoriteUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+        }
+        upsert: {
+          args: Prisma.FavoriteUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+        }
+        aggregate: {
+          args: Prisma.FavoriteAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFavorite>
+        }
+        groupBy: {
+          args: Prisma.FavoriteGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FavoriteGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FavoriteCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FavoriteCountAggregateOutputType> | number
+        }
+      }
+    }
     RedListSync: {
       payload: Prisma.$RedListSyncPayload<ExtArgs>
       fields: Prisma.RedListSyncFieldRefs
@@ -641,80 +715,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.RedListSyncCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.RedListSyncCountAggregateOutputType> | number
-        }
-      }
-    }
-    RedListLocation: {
-      payload: Prisma.$RedListLocationPayload<ExtArgs>
-      fields: Prisma.RedListLocationFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.RedListLocationFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.RedListLocationFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
-        }
-        findFirst: {
-          args: Prisma.RedListLocationFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.RedListLocationFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
-        }
-        findMany: {
-          args: Prisma.RedListLocationFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
-        }
-        create: {
-          args: Prisma.RedListLocationCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
-        }
-        createMany: {
-          args: Prisma.RedListLocationCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.RedListLocationCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
-        }
-        delete: {
-          args: Prisma.RedListLocationDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
-        }
-        update: {
-          args: Prisma.RedListLocationUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
-        }
-        deleteMany: {
-          args: Prisma.RedListLocationDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.RedListLocationUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.RedListLocationUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
-        }
-        upsert: {
-          args: Prisma.RedListLocationUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
-        }
-        aggregate: {
-          args: Prisma.RedListLocationAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateRedListLocation>
-        }
-        groupBy: {
-          args: Prisma.RedListLocationGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RedListLocationGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.RedListLocationCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.RedListLocationCountAggregateOutputType> | number
         }
       }
     }
@@ -792,77 +792,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Favorite: {
-      payload: Prisma.$FavoritePayload<ExtArgs>
-      fields: Prisma.FavoriteFieldRefs
+    RedListLocation: {
+      payload: Prisma.$RedListLocationPayload<ExtArgs>
+      fields: Prisma.RedListLocationFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.FavoriteFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload> | null
+          args: Prisma.RedListLocationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.FavoriteFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+          args: Prisma.RedListLocationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
         }
         findFirst: {
-          args: Prisma.FavoriteFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload> | null
+          args: Prisma.RedListLocationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.FavoriteFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+          args: Prisma.RedListLocationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
         }
         findMany: {
-          args: Prisma.FavoriteFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+          args: Prisma.RedListLocationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
         }
         create: {
-          args: Prisma.FavoriteCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+          args: Prisma.RedListLocationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
         }
         createMany: {
-          args: Prisma.FavoriteCreateManyArgs<ExtArgs>
+          args: Prisma.RedListLocationCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.FavoriteCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+          args: Prisma.RedListLocationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
         }
         delete: {
-          args: Prisma.FavoriteDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+          args: Prisma.RedListLocationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
         }
         update: {
-          args: Prisma.FavoriteUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+          args: Prisma.RedListLocationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
         }
         deleteMany: {
-          args: Prisma.FavoriteDeleteManyArgs<ExtArgs>
+          args: Prisma.RedListLocationDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.FavoriteUpdateManyArgs<ExtArgs>
+          args: Prisma.RedListLocationUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.FavoriteUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>[]
+          args: Prisma.RedListLocationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>[]
         }
         upsert: {
-          args: Prisma.FavoriteUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FavoritePayload>
+          args: Prisma.RedListLocationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RedListLocationPayload>
         }
         aggregate: {
-          args: Prisma.FavoriteAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateFavorite>
+          args: Prisma.RedListLocationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRedListLocation>
         }
         groupBy: {
-          args: Prisma.FavoriteGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FavoriteGroupByOutputType>[]
+          args: Prisma.RedListLocationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RedListLocationGroupByOutputType>[]
         }
         count: {
-          args: Prisma.FavoriteCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FavoriteCountAggregateOutputType> | number
+          args: Prisma.RedListLocationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RedListLocationCountAggregateOutputType> | number
         }
       }
     }
@@ -930,6 +930,17 @@ export const SessionScalarFieldEnum = {
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
+export const FavoriteScalarFieldEnum = {
+  userId: 'userId',
+  assessmentId: 'assessmentId',
+  createdAt: 'createdAt',
+  categoryAtAdd: 'categoryAtAdd',
+  versionAtAdd: 'versionAtAdd'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
 export const RedListSyncScalarFieldEnum = {
   id: 'id',
   redListVersion: 'redListVersion',
@@ -937,14 +948,6 @@ export const RedListSyncScalarFieldEnum = {
 } as const
 
 export type RedListSyncScalarFieldEnum = (typeof RedListSyncScalarFieldEnum)[keyof typeof RedListSyncScalarFieldEnum]
-
-
-export const RedListLocationScalarFieldEnum = {
-  assessmentId: 'assessmentId',
-  countryCode: 'countryCode'
-} as const
-
-export type RedListLocationScalarFieldEnum = (typeof RedListLocationScalarFieldEnum)[keyof typeof RedListLocationScalarFieldEnum]
 
 
 export const RedListAssessmentScalarFieldEnum = {
@@ -983,15 +986,12 @@ export const RedListAssessmentScalarFieldEnum = {
 export type RedListAssessmentScalarFieldEnum = (typeof RedListAssessmentScalarFieldEnum)[keyof typeof RedListAssessmentScalarFieldEnum]
 
 
-export const FavoriteScalarFieldEnum = {
-  userId: 'userId',
+export const RedListLocationScalarFieldEnum = {
   assessmentId: 'assessmentId',
-  createdAt: 'createdAt',
-  categoryAtAdd: 'categoryAtAdd',
-  versionAtAdd: 'versionAtAdd'
+  countryCode: 'countryCode'
 } as const
 
-export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+export type RedListLocationScalarFieldEnum = (typeof RedListLocationScalarFieldEnum)[keyof typeof RedListLocationScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1270,10 +1270,10 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   session?: Prisma.SessionOmit
-  redListSync?: Prisma.RedListSyncOmit
-  redListLocation?: Prisma.RedListLocationOmit
-  redListAssessment?: Prisma.RedListAssessmentOmit
   favorite?: Prisma.FavoriteOmit
+  redListSync?: Prisma.RedListSyncOmit
+  redListAssessment?: Prisma.RedListAssessmentOmit
+  redListLocation?: Prisma.RedListLocationOmit
 }
 
 /* Types for Logging */
