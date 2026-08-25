@@ -30,10 +30,10 @@ const Footer = () => {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link
-                  to="/"
+                  to="/threatened-species"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
-                  La Liste Rouge des espèces
+                  Les espèces menacées
                 </Link>
               </li>
               <li>

@@ -7,6 +7,7 @@ import Login from "@/pages/auth/login/login";
 import Register from "@/pages/auth/register/register";
 import Account from "@/pages/account";
 import RedList from "@/pages/home";
+import ThreatenedSpecies from "@/pages/threatened-species";
 import Species from "@/pages/species";
 import PresumedExtinct from "@/pages/presumed-extinct";
 import Alphabet from "./pages/alphabet";
@@ -27,7 +28,14 @@ function App() {
           {/* MAIN */}
           <Route element={<AppLayout />}>
             <Route path="/" element={<RedList />} />
-            <Route path="/red-list" element={<Navigate to="/" replace />} />
+            <Route
+              path="/threatened-species"
+              element={<ThreatenedSpecies />}
+            />
+            <Route
+              path="/red-list"
+              element={<Navigate to="/threatened-species" replace />}
+            />
             <Route path="/france" element={<France />} />
             <Route path="/presumed-extinct" element={<PresumedExtinct />} />
             <Route

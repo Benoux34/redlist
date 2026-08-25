@@ -1,24 +1,23 @@
+import { Link } from "react-router";
 import { useRedList } from "@/hooks/useRedList";
-import { FranceHero } from "./france-hero/FranceHero";
-import { ThreatenedSpeciesFilters } from "../threatened-species/threatened-species-filters/ThreatenedSpeciesFilters";
+import { ThreatenedSpeciesHero } from "./threatened-species-hero/ThreatenedSpeciesHero";
+import { ThreatenedSpeciesFilters } from "./threatened-species-filters/ThreatenedSpeciesFilters";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 
-const LOCKED = { countryCode: "FR" } as const;
-
-const France = () => {
+const ThreatenedSpecies = () => {
   const {
     filters,
     setCategory,
     setSearch,
-    setWithPhoto,
     setPage,
+    setWithPhoto,
     assessments,
-  } = useRedList(LOCKED);
+  } = useRedList();
 
   return (
     <div className="py-8 md:py-12">
-      <FranceHero
+      <ThreatenedSpeciesHero
         searchValue={filters.search ?? ""}
         onSearchChange={setSearch}
       />
@@ -33,7 +32,6 @@ const France = () => {
       />
 
       <SpeciesGrid assessments={assessments} onRetry={assessments.reload} />
-
       <Pagination
         currentPage={filters.page}
         pageSize={assessments.data?.pageSize ?? 40}
@@ -41,8 +39,18 @@ const France = () => {
         onPageChange={setPage}
         isLoading={assessments.status === "loading"}
       />
+
+      <div className="mt-8 border-t border-[var(--color-paper-border)] pt-6 text-center text-xs text-[var(--color-ink-muted)]">
+        <span>Vous cherchez une espèce par son nom scientifique ? </span>
+        <Link
+          to="/especes/a"
+          className="font-medium text-[var(--color-ink)] underline underline-offset-4 hover:opacity-80 transition-opacity"
+        >
+          Consulter l&apos;index alphabétique A–Z →
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default France;
+export default ThreatenedSpecies;

@@ -21,7 +21,7 @@ const Header = () => {
         </div>
 
         <nav className="flex items-center gap-6 text-sm">
-          <NavLink to="/" end className={navLinkClass}>
+          <NavLink to="/threatened-species" className={navLinkClass}>
             Espèces menacées
           </NavLink>
           <NavLink to="/france" className={navLinkClass}>

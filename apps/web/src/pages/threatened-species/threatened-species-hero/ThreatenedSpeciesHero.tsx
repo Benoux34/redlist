@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SearchShell } from "@/components/search-shell/SearchShell";
+import { SearchShell } from "./search-shell/SearchShell";
 import { useDebounce } from "@/hooks/useDebounce";
 
 type Props = Readonly<{
@@ -7,7 +7,7 @@ type Props = Readonly<{
   onSearchChange?: (search: string) => void;
 }>;
 
-const FranceHero = ({ searchValue, onSearchChange }: Props) => {
+const ThreatenedSpeciesHero = ({ searchValue, onSearchChange }: Props) => {
   const [draft, setDraft] = useState<string>(searchValue ?? "");
   const debounced = useDebounce(draft, 300);
 
@@ -26,28 +26,23 @@ const FranceHero = ({ searchValue, onSearchChange }: Props) => {
     <section className="mt-8 mb-4 text-left">
       <div className="w-full text-left">
         <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl tracking-tight text-[var(--color-ink)] leading-[1.08] mb-6">
-          Les espèces menacées{" "}
+          L&apos;inventaire vivant de{" "}
           <span className="italic font-normal underline decoration-[var(--color-paper-border-strong)] decoration-2 underline-offset-8">
-            en France
-          </span>
-          .
+            50 167 espèces
+          </span>{" "}
+          au bord de l&apos;extinction.
         </h1>
 
         <p className="text-base sm:text-xl leading-relaxed text-[var(--color-ink-muted)] mb-10 max-w-5xl">
-          L&apos;ensemble des espèces recensées sur le territoire français
-          faisant l&apos;objet d&apos;un classement de risque d&apos;extinction
-          dans la base internationale de l&apos;UICN.
+          Du grand mammifère emblématique aux mollusques et flores discrets,
+          REDLIST documente chaque palier de menace sans artifice ni
+          sensationnalisme.
         </p>
 
-        <SearchShell
-          value={draft}
-          onChange={setDraft}
-          onClear={clear}
-          placeholder="Rechercher une espèce en France (ex : lynx, ours, chouette)…"
-        />
+        <SearchShell value={draft} onChange={setDraft} onClear={clear} />
       </div>
     </section>
   );
 };
 
-export { FranceHero };
+export { ThreatenedSpeciesHero };

@@ -1,26 +1,39 @@
 import { useRedList } from "@/hooks/useRedList";
-import { Controls } from "@/components/controls/Controls";
+import { PresumedExtinctHero } from "./presumed-extinct-hero/PresumedExtinctHero";
+import { ThreatenedSpeciesFilters } from "../threatened-species/threatened-species-filters/ThreatenedSpeciesFilters";
 import { Pagination } from "@/components/pagination/Pagination";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
-import { PresumedExtinctHero } from "./presumed-extinct-hero/PresumedExtinctHero";
 
 const LOCKED = { possiblyExtinct: true } as const;
 
 const PresumedExtinct = () => {
-  const { filters, setSearch, setWithPhoto, setPage, assessments } =
-    useRedList(LOCKED);
+  const {
+    filters,
+    setCategory,
+    setSearch,
+    setWithPhoto,
+    setPage,
+    assessments,
+  } = useRedList(LOCKED);
 
   return (
     <div className="py-8 md:py-12">
-      <PresumedExtinctHero />
-      <Controls
-        filters={filters}
+      <PresumedExtinctHero
+        searchValue={filters.search ?? ""}
         onSearchChange={setSearch}
+      />
+
+      <ThreatenedSpeciesFilters
+        selectedCategory={filters.category}
+        onCategoryChange={setCategory}
+        withPhoto={filters.withPhoto}
         onWithPhotoChange={setWithPhoto}
         totalItems={assessments.data?.total}
         isLoading={assessments.status === "loading"}
       />
+
       <SpeciesGrid assessments={assessments} onRetry={assessments.reload} />
+
       <Pagination
         currentPage={filters.page}
         pageSize={assessments.data?.pageSize ?? 40}

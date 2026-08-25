@@ -13,9 +13,10 @@ import {
 import { apiGet } from "../client";
 import type { RedListFilters } from "./entities";
 import { buildQueryString } from "./utils";
+import z from "zod";
 
 function redlistAssessmentsRequest(
-  filters: RedListFilters,
+  filters: Partial<RedListFilters>,
 ): Promise<RedListPage> {
   return apiGet(`/api/red-list?${buildQueryString(filters)}`, redListPage);
 }
@@ -36,10 +37,20 @@ function redlistVersionRequest(): Promise<RedListVersion> {
   return apiGet("/api/red-list/version", redListVersion);
 }
 
+function speciesByNamesRequest(names: string[]): Promise<RedListItem[]> {
+  const params = new URLSearchParams({ names: names.join(",") });
+
+  return apiGet(
+    `/api/red-list/by-names?${params.toString()}`,
+    z.array(redListItem),
+  );
+}
+
 export {
   redlistAssessmentsRequest,
   redlistCategoryCountsRequest,
   redlistDetailRequest,
   speciesOfTheDayRequest,
   redlistVersionRequest,
+  speciesByNamesRequest,
 };

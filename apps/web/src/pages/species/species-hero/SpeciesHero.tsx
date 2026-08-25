@@ -28,7 +28,7 @@ const SpeciesHero = ({ species }: Props) => {
     <section className="mb-10">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <Link
-          to="/"
+          to="/threatened-species"
           className="inline-flex items-center gap-1.5 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink-muted)] hover:border-[var(--color-paper-border-strong)] hover:text-[var(--color-ink)] transition-colors"
         >
           <ChevronLeft className="size-3.5" />
