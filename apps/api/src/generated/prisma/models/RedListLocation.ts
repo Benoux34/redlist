@@ -263,6 +263,16 @@ export type RedListLocationUncheckedUpdateManyInput = {
   countryCode?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
+export type RedListLocationListRelationFilter = {
+  every?: Prisma.RedListLocationWhereInput
+  some?: Prisma.RedListLocationWhereInput
+  none?: Prisma.RedListLocationWhereInput
+}
+
+export type RedListLocationOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type RedListLocationAssessmentIdCountryCodeCompoundUniqueInput = {
   assessmentId: number
   countryCode: string
@@ -289,24 +299,6 @@ export type RedListLocationMinOrderByAggregateInput = {
 
 export type RedListLocationSumOrderByAggregateInput = {
   assessmentId?: Prisma.SortOrder
-}
-
-export type RedListLocationListRelationFilter = {
-  every?: Prisma.RedListLocationWhereInput
-  some?: Prisma.RedListLocationWhereInput
-  none?: Prisma.RedListLocationWhereInput
-}
-
-export type RedListLocationOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type RedListLocationCreateNestedManyWithoutAssessmentInput = {

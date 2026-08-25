@@ -53,10 +53,10 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Session: 'Session',
+  Favorite: 'Favorite',
   RedListSync: 'RedListSync',
-  RedListLocation: 'RedListLocation',
   RedListAssessment: 'RedListAssessment',
-  Favorite: 'Favorite'
+  RedListLocation: 'RedListLocation'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,6 +100,17 @@ export const SessionScalarFieldEnum = {
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
+export const FavoriteScalarFieldEnum = {
+  userId: 'userId',
+  assessmentId: 'assessmentId',
+  createdAt: 'createdAt',
+  categoryAtAdd: 'categoryAtAdd',
+  versionAtAdd: 'versionAtAdd'
+} as const
+
+export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
 export const RedListSyncScalarFieldEnum = {
   id: 'id',
   redListVersion: 'redListVersion',
@@ -107,14 +118,6 @@ export const RedListSyncScalarFieldEnum = {
 } as const
 
 export type RedListSyncScalarFieldEnum = (typeof RedListSyncScalarFieldEnum)[keyof typeof RedListSyncScalarFieldEnum]
-
-
-export const RedListLocationScalarFieldEnum = {
-  assessmentId: 'assessmentId',
-  countryCode: 'countryCode'
-} as const
-
-export type RedListLocationScalarFieldEnum = (typeof RedListLocationScalarFieldEnum)[keyof typeof RedListLocationScalarFieldEnum]
 
 
 export const RedListAssessmentScalarFieldEnum = {
@@ -153,15 +156,12 @@ export const RedListAssessmentScalarFieldEnum = {
 export type RedListAssessmentScalarFieldEnum = (typeof RedListAssessmentScalarFieldEnum)[keyof typeof RedListAssessmentScalarFieldEnum]
 
 
-export const FavoriteScalarFieldEnum = {
-  userId: 'userId',
+export const RedListLocationScalarFieldEnum = {
   assessmentId: 'assessmentId',
-  createdAt: 'createdAt',
-  categoryAtAdd: 'categoryAtAdd',
-  versionAtAdd: 'versionAtAdd'
+  countryCode: 'countryCode'
 } as const
 
-export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+export type RedListLocationScalarFieldEnum = (typeof RedListLocationScalarFieldEnum)[keyof typeof RedListLocationScalarFieldEnum]
 
 
 export const SortOrder = {
