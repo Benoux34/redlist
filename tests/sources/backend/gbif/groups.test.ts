@@ -1,9 +1,9 @@
 import {
+  classNamesOf,
   GROUP_KEYS,
   GROUPS,
-  classNamesOf,
   groupWhere,
-} from "@api/sources/gbif/groups";
+} from "@api/modules/redlist/groups";
 import { describe, expect, it } from "bun:test";
 
 describe("Sources GBIF - Taxonomic Groups & Queries", () => {

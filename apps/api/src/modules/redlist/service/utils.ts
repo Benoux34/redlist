@@ -1,6 +1,6 @@
 import type { RedListQuery } from "@app/contracts";
 import { Prisma } from "@/generated/prisma/client";
-import { groupWhere } from "@/sources/gbif";
+import { groupWhere } from "../groups";
 
 const PAGE_SIZE = 40;
 const MS_PER_DAY = 86_400_000;

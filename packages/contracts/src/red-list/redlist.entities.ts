@@ -15,7 +15,6 @@ import {
   speciesThreat,
   conservationAction,
   redListVersion,
-  groupCounts,
   groupCount,
 } from "./redlist.output";
 

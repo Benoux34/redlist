@@ -14,7 +14,7 @@ import {
 import { db } from "@/db";
 import { Prisma } from "@/generated/prisma/client";
 import { AppError } from "@/lib";
-import { GROUP_KEYS, groupWhere, aliasFor } from "@/sources/gbif";
+import { aliasFor } from "@/sources/gbif";
 import { EMPTY_DETAIL, fetchAndStoreDetail, mapDetail } from "../detail";
 import {
   buildOrderBy,
@@ -25,6 +25,7 @@ import {
   PAGE_SIZE,
   SELECT,
 } from "./utils";
+import { GROUP_KEYS, groupWhere } from "../groups";
 
 async function runQuery(query: RedListQuery): Promise<RedListPage> {
   const where = buildWhere(query);

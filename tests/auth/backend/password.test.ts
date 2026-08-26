@@ -41,9 +41,13 @@ describe("Backend Auth - Password", () => {
 
   describe("fakeVerifyPassword (Timing Attack Mitigation)", () => {
     it("should execute fake verification against DUMMY_HASH without throwing", async () => {
-      await expect(
-        fakeVerifyPassword("any-attempted-password"),
-      ).resolves.toBeUndefined();
+      let threw = false;
+      try {
+        await fakeVerifyPassword("any-attempted-password");
+      } catch {
+        threw = true;
+      }
+      expect(threw).toBe(false);
     });
 
     it("should have a precomputed valid DUMMY_HASH using the same argon2id parameters", () => {

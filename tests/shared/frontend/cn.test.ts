@@ -13,7 +13,8 @@ describe("Shared Frontend - ClassName Utility (cn)", () => {
   });
 
   it("should handle conditional and falsy class values cleanly", () => {
-    expect(cn("base-btn", false && "hidden", null, undefined, "active")).toBe(
+    const isHidden = false;
+    expect(cn("base-btn", isHidden && "hidden", null, undefined, "active")).toBe(
       "base-btn active",
     );
   });
