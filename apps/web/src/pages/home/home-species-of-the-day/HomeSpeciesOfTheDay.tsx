@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 import { ArrowRight, ExternalLink } from "lucide-react";
-import { useSpeciesOfTheDay } from "@/hooks/useSpeciesOfTheDay";
 import { category_colors, getInitials } from "@/components/species-grid/utils";
 import { Button } from "@/components/ui/button";
 import { Loading } from "@/components/loading/Loading";
+import { useSpeciesOfTheDay } from "@/hooks/use-species-of-the-day/useSpeciesOfTheDay";
 
 const HomeSpeciesOfTheDay = () => {
   const { data: species, status } = useSpeciesOfTheDay();

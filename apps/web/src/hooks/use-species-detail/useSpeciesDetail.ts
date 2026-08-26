@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { redlistDetailRequest } from "../api/red-list";
-import { useAsyncData } from "./useAsyncData";
+import { redlistDetailRequest } from "@/api/red-list";
+import { useAsyncData } from "../use-async-data/useAsyncData";
 
 function useSpeciesDetail(assessmentId: number | null) {
   const loader = useCallback(() => {

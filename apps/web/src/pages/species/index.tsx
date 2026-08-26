@@ -1,4 +1,3 @@
-import { useSpeciesDetail } from "@/hooks/useSpeciesDetail";
 import { useParams } from "react-router";
 import { SpeciesHero } from "./species-hero/SpeciesHero";
 import { SpeciesTaxonomy } from "./species-taxonomy/SpeciesTaxonomy";
@@ -11,6 +10,7 @@ import { SpeciesCitation } from "./species-citation/SpeciesCitation";
 import { SpeciesError } from "./species-status/SpeciesError";
 import { SpeciesLoading } from "./species-status/SpeciesLoading";
 import { SpeciesNotFound } from "./species-status/SpeciesNotFound";
+import { useSpeciesDetail } from "@/hooks/use-species-detail/useSpeciesDetail";
 
 const Species = () => {
   const { assessmentId } = useParams();

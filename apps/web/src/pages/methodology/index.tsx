@@ -1,4 +1,4 @@
-import { useAsyncData } from "@/hooks/useAsyncData";
+import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
 import { redlistVersionRequest } from "@/api/red-list";
 import { MethodologyHero } from "./methodology-hero/MethodologyHero";
 import { MethodologyContent } from "./methodology-content/MethodologyContent";

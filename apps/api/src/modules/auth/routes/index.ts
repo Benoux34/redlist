@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { loginInput, registerInput } from "@app/contracts";
 import type { AppEnv } from "@/middleware/auth/entities";
-import { currentUserId, requireAuth } from "@/middleware";
 import {
   clearSessionCookie,
   getSessionCookie,
@@ -13,6 +12,7 @@ import {
 import { deleteAccount, login, register } from "../service";
 import { invalidateSession } from "../session";
 import { LOGIN_LIMIT, REGISTER_LIMIT, USER_AGENT_HEADER } from "./utils";
+import { currentUserId, requireAuth } from "@/middleware";
 
 const authRoutes = new Hono<AppEnv>()
   .post(

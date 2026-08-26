@@ -1,20 +1,6 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
-
-type AsyncState<T> =
-  | { status: "loading"; data: null; error: null }
-  | { status: "success"; data: T; error: null }
-  | { status: "error"; data: null; error: Error };
-
-type Action<T> =
-  { type: "resolved"; data: T } | { type: "rejected"; error: Error };
-
-function reducer<T>(_state: AsyncState<T>, action: Action<T>): AsyncState<T> {
-  return action.type === "resolved"
-    ? { status: "success", data: action.data, error: null }
-    : { status: "error", data: null, error: action.error };
-}
-
-const LOADING = { status: "loading", data: null, error: null } as const;
+import type { AsyncState } from "./entities";
+import { LOADING, reducer } from "./utils";
 
 function useAsyncData<T>(
   loader: () => Promise<T>,
@@ -22,13 +8,13 @@ function useAsyncData<T>(
 ): AsyncState<T> & { reload: () => void } {
   const depsKey = JSON.stringify(deps);
 
-  const [reloadToken, setReloadToken] = useState(0);
+  const [reloadToken, setReloadToken] = useState<number>(0);
   const [state, dispatch] = useReducer(reducer<T>, LOADING as AsyncState<T>);
   const [settledKey, setSettledKey] = useState<string | null>(null);
 
   const reload = useCallback(() => {
     setSettledKey(null);
-    setReloadToken((token) => token + 1);
+    setReloadToken((token: number) => token + 1);
   }, []);
 
   useEffect(() => {
@@ -54,12 +40,16 @@ function useAsyncData<T>(
     return () => {
       cancelled = true;
     };
-  }, [depsKey, reloadToken, loader]);
+  }, [loader, depsKey, reloadToken]);
 
-  const current: AsyncState<T> =
-    settledKey === depsKey ? state : (LOADING as AsyncState<T>);
+  const isStale = settledKey !== depsKey;
 
-  return { ...current, reload };
+  return {
+    status: isStale ? "loading" : state.status,
+    data: isStale ? null : state.data,
+    error: isStale ? null : state.error,
+    reload,
+  } as AsyncState<T> & { reload: () => void };
 }
 
 export { useAsyncData };

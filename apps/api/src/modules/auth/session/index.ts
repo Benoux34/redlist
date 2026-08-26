@@ -2,20 +2,11 @@ import { db } from "@/db";
 import {
   SESSION_RENEWAL_THRESHOLD_MS,
   SESSION_TTL_MS,
-  TOKEN_BYTES,
   USER_AGENT_MAX_LENGTH,
+  generateSessionToken,
+  hashSessionToken,
 } from "./utils";
 import { USER_SELECT } from "../constants";
-
-function generateSessionToken(): string {
-  return Buffer.from(
-    crypto.getRandomValues(new Uint8Array(TOKEN_BYTES)),
-  ).toString("base64url");
-}
-
-function hashSessionToken(token: string): string {
-  return new Bun.CryptoHasher("sha256").update(token).digest("hex");
-}
 
 async function createSession(
   userId: string,

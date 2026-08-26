@@ -1,6 +1,6 @@
-import { useRedList } from "@/hooks/useRedList";
+import { useRedList } from "@/hooks/use-red-list/useRedList";
 import { FranceHero } from "./france-hero/FranceHero";
-import { ThreatenedSpeciesFilters } from "../threatened-species/threatened-species-filters/ThreatenedSpeciesFilters";
+import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 
@@ -23,7 +23,7 @@ const France = () => {
         onSearchChange={setSearch}
       />
 
-      <ThreatenedSpeciesFilters
+      <SpeciesFilters
         selectedCategory={filters.category}
         onCategoryChange={setCategory}
         withPhoto={filters.withPhoto}

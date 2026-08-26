@@ -11,7 +11,6 @@ function ProtectedRoute({ children }: Props) {
   const location = useLocation();
 
   if (status === "loading") return <p>Loading...</p>;
-
   if (status === "anonymous")
     return <Navigate to="/login" state={{ from: location }} replace />;
 

@@ -1,8 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import type { RedListFilters } from "@/api/red-list/entities";
-
-const VALID_CATEGORIES = new Set(["EX", "EW", "CR", "EN", "VU"]);
+import { VALID_CATEGORIES } from "./utils";
 
 function useRedListFilters() {
   const [searchParams, setSearchParams] = useSearchParams();

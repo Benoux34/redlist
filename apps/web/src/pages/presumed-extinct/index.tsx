@@ -1,6 +1,6 @@
-import { useRedList } from "@/hooks/useRedList";
+import { useRedList } from "@/hooks/use-red-list/useRedList";
 import { PresumedExtinctHero } from "./presumed-extinct-hero/PresumedExtinctHero";
-import { ThreatenedSpeciesFilters } from "../threatened-species/threatened-species-filters/ThreatenedSpeciesFilters";
+import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
 import { Pagination } from "@/components/pagination/Pagination";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 
@@ -23,7 +23,7 @@ const PresumedExtinct = () => {
         onSearchChange={setSearch}
       />
 
-      <ThreatenedSpeciesFilters
+      <SpeciesFilters
         selectedCategory={filters.category}
         onCategoryChange={setCategory}
         withPhoto={filters.withPhoto}

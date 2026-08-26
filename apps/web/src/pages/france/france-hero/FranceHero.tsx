@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SearchShell } from "@/components/search-shell/SearchShell";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "@/hooks/use-debounce/useDebounce";
 
 type Props = Readonly<{
   searchValue: string;

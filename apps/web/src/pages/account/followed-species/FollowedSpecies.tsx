@@ -1,4 +1,4 @@
-import { useAsyncData } from "@/hooks/useAsyncData";
+import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
 import { favoritesRequest } from "@/api/favorite";
 import { FollowedSpeciesEmpty } from "./FollowedSpeciesEmpty";
 import { FollowedSpeciesCard } from "./FollowedSpeciesCard";

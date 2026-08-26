@@ -20,8 +20,11 @@ jobs:
       - run: bunx tsc --noEmit -p packages/contracts/tsconfig.json
       - run: bunx tsc --noEmit -p apps/api/tsconfig.json
       - run: bunx tsc --noEmit -p apps/web/tsconfig.json
+      - run: bunx tsc --noEmit
 
       - run: bunx oxlint --type-aware
+
+      - run: bun test
 
       - run: bun run build
         working-directory: apps/web

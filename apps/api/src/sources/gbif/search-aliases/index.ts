@@ -9,7 +9,7 @@ function aliasFor(search: string): SpeciesGroup | null {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[\s-]/g, "");
 
-  return SEARCH_ALIASES[key] ?? SEARCH_ALIASES[key.replace(/s$/, "")] ?? null;
+  return SEARCH_ALIASES[key] ?? SEARCH_ALIASES[key.replace(/[sx]$/, "")] ?? null;
 }
 
 export { aliasFor, SEARCH_ALIASES };

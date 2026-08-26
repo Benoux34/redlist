@@ -1,0 +1,3 @@
+const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+export { LETTERS };

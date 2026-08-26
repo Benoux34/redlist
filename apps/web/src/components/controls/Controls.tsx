@@ -3,7 +3,7 @@ import { Search, X } from "lucide-react";
 import type { RedListFilters } from "@/api/red-list/entities";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "@/hooks/use-debounce/useDebounce";
 
 type Props = Readonly<{
   filters: RedListFilters;

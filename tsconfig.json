@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "paths": {
+      "@app/contracts": ["./packages/contracts/src/index.ts"],
+      "@app/contracts/*": ["./packages/contracts/src/*"],
+      "@api/*": ["./apps/api/src/*"],
+      "@web/*": ["./apps/web/src/*"],
+      "@/*": ["./apps/api/src/*"]
+    }
+  },
+  "include": ["tests"]
+}

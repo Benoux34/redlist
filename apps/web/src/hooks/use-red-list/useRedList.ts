@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
-import { useAsyncData } from "./useAsyncData";
 import {
   redlistAssessmentsRequest,
   redlistCategoryCountsRequest,
 } from "@/api/red-list";
-import { useRedListFilters } from "./useRedListFilters";
 import type { RedListFilters } from "@/api/red-list/entities";
+import { useRedListFilters } from "../use-red-list-filters/useRedListFilters";
+import { useAsyncData } from "../use-async-data/useAsyncData";
 
 function useRedList(lockedFilters?: Partial<RedListFilters>) {
   const { filters, setCategory, setSearch, setWithPhoto, setPage } =

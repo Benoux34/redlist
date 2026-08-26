@@ -1,7 +1,7 @@
 import { Link } from "react-router";
-import { useRedList } from "@/hooks/useRedList";
+import { useRedList } from "@/hooks/use-red-list/useRedList";
 import { ThreatenedSpeciesHero } from "./threatened-species-hero/ThreatenedSpeciesHero";
-import { ThreatenedSpeciesFilters } from "./threatened-species-filters/ThreatenedSpeciesFilters";
+import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 
@@ -22,7 +22,7 @@ const ThreatenedSpecies = () => {
         onSearchChange={setSearch}
       />
 
-      <ThreatenedSpeciesFilters
+      <SpeciesFilters
         selectedCategory={filters.category}
         onCategoryChange={setCategory}
         withPhoto={filters.withPhoto}

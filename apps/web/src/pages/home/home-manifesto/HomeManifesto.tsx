@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { ExternalLink } from "lucide-react";
-import { useAsyncData } from "@/hooks/useAsyncData";
 import { redlistVersionRequest } from "@/api/red-list";
+import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
 import { PRINCIPLES } from "./utils";
 
 const HomeManifesto = () => {

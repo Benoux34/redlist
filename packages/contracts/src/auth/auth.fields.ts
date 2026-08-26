@@ -1,10 +1,11 @@
 import { z } from "zod";
 
 const emailSchema = z
-  .email({ message: "Invalid email" })
-  .max(254)
+  .string()
   .trim()
-  .toLowerCase();
+  .toLowerCase()
+  .email({ message: "Invalid email" })
+  .max(254);
 
 const passwordSchema = z
   .string()

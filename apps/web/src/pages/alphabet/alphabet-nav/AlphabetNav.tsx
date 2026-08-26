@@ -1,6 +1,5 @@
 import { Link } from "react-router";
-
-const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+import { LETTERS } from "./utils";
 
 type Props = Readonly<{
   activeLetter: string;

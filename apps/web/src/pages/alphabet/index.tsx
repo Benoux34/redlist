@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Navigate, useParams } from "react-router";
-import { useRedList } from "@/hooks/useRedList";
+import { useRedList } from "@/hooks/use-red-list/useRedList";
 import { AlphabetHero } from "./alphabet-hero/AlphabetHero";
 import { AlphabetNav } from "./alphabet-nav/AlphabetNav";
 import { Controls } from "@/components/controls/Controls";

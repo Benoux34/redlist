@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
-import { useAsyncData } from "@/hooks/useAsyncData";
+import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
 import { redlistCategoryCountsRequest } from "@/api/red-list";
 import { CATEGORY_GUIDE } from "./utils";
 

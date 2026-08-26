@@ -10,7 +10,7 @@ type Props = Readonly<{
   isLoading: boolean;
 }>;
 
-const ThreatenedSpeciesFilters = ({
+const SpeciesFilters = ({
   selectedCategory,
   onCategoryChange,
   withPhoto,
@@ -74,4 +74,4 @@ const ThreatenedSpeciesFilters = ({
   );
 };
 
-export { ThreatenedSpeciesFilters };
+export { SpeciesFilters };
