@@ -1,14 +1,11 @@
 import { useCallback, useMemo } from "react";
-import {
-  redlistAssessmentsRequest,
-  redlistCategoryCountsRequest,
-} from "@/api/red-list";
+import { redlistAssessmentsRequest } from "@/api/red-list";
 import type { RedListFilters } from "@/api/red-list/entities";
 import { useRedListFilters } from "../use-red-list-filters/useRedListFilters";
 import { useAsyncData } from "../use-async-data/useAsyncData";
 
 function useRedList(lockedFilters?: Partial<RedListFilters>) {
-  const { filters, setCategory, setSearch, setWithPhoto, setPage } =
+  const { filters, setCategory, setGroup, setSearch, setWithPhoto, setPage } =
     useRedListFilters();
 
   const effectiveFilters = useMemo(
@@ -23,6 +20,7 @@ function useRedList(lockedFilters?: Partial<RedListFilters>) {
 
   const assessments = useAsyncData(loadAssessments, [
     effectiveFilters.category,
+    effectiveFilters.group,
     effectiveFilters.search,
     effectiveFilters.withPhoto,
     effectiveFilters.possiblyExtinct,
@@ -31,16 +29,14 @@ function useRedList(lockedFilters?: Partial<RedListFilters>) {
     effectiveFilters.page,
   ]);
 
-  const counts = useAsyncData(redlistCategoryCountsRequest, []);
-
   return {
     filters,
     setCategory,
+    setGroup,
     setSearch,
     setPage,
     setWithPhoto,
     assessments,
-    counts,
   };
 }
 

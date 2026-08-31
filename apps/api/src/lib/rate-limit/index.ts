@@ -1,6 +1,14 @@
 import type { Context, MiddlewareHandler } from "hono";
+import { getConnInfo } from "hono/bun";
 import type { RateLimitOptions } from "./entities";
-import { BUCKETS, CLEANUP_INTERVAL_MS } from "./utils";
+import { env } from "../env";
+import {
+  BUCKETS,
+  CLEANUP_INTERVAL_MS,
+  REAL_IP_HEADER,
+  UNKNOWN_IP,
+  resolveClientIp,
+} from "./utils";
 
 setInterval(() => {
   const now = Date.now();
@@ -10,11 +18,21 @@ setInterval(() => {
   }
 }, CLEANUP_INTERVAL_MS).unref();
 
-function getClientIp(c: Context): string {
-  const forwarded = c.req.header("x-forwarded-for");
-  const first = forwarded?.split(",")[0]?.trim();
+function remoteAddressOf(c: Context): string | undefined {
+  try {
+    return getConnInfo(c).remote.address;
+  } catch {
+    // Not served by Bun.serve (tests, other adapters): no socket address.
+    return undefined;
+  }
+}
 
-  return first ?? "unknown";
+function getClientIp(c: Context): string {
+  return resolveClientIp({
+    trustProxy: env.TRUST_PROXY,
+    realIpHeader: c.req.header(REAL_IP_HEADER),
+    remoteAddress: remoteAddressOf(c),
+  });
 }
 
 function rateLimit(options: RateLimitOptions): MiddlewareHandler {
@@ -39,4 +57,4 @@ function rateLimit(options: RateLimitOptions): MiddlewareHandler {
   };
 }
 
-export { rateLimit };
+export { rateLimit, UNKNOWN_IP };

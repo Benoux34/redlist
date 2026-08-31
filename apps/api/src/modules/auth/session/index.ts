@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import {
+  SESSION_CLEANUP_INTERVAL_MS,
   SESSION_RENEWAL_THRESHOLD_MS,
   SESSION_TTL_MS,
   USER_AGENT_MAX_LENGTH,
@@ -68,7 +69,34 @@ async function invalidateAllUserSessions(userId: string): Promise<void> {
   await db.session.deleteMany({ where: { userId } });
 }
 
+async function deleteExpiredSessions(): Promise<number> {
+  const { count } = await db.session.deleteMany({
+    where: { expiresAt: { lte: new Date() } },
+  });
+
+  return count;
+}
+
+function startSessionCleanup(): () => void {
+  const sweep = (): void => {
+    void deleteExpiredSessions().catch((error: unknown) => {
+      console.error("Session cleanup failed:", error);
+    });
+  };
+
+  sweep();
+
+  const timer = setInterval(sweep, SESSION_CLEANUP_INTERVAL_MS);
+  timer.unref();
+
+  return () => {
+    clearInterval(timer);
+  };
+}
+
 export {
+  deleteExpiredSessions,
+  startSessionCleanup,
   generateSessionToken,
   hashSessionToken,
   createSession,

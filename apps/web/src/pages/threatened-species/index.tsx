@@ -9,6 +9,7 @@ const ThreatenedSpecies = () => {
   const {
     filters,
     setCategory,
+    setGroup,
     setSearch,
     setPage,
     setWithPhoto,
@@ -25,6 +26,8 @@ const ThreatenedSpecies = () => {
       <SpeciesFilters
         selectedCategory={filters.category}
         onCategoryChange={setCategory}
+        selectedGroup={filters.group}
+        onGroupChange={setGroup}
         withPhoto={filters.withPhoto}
         onWithPhotoChange={setWithPhoto}
         totalItems={assessments.data?.total}

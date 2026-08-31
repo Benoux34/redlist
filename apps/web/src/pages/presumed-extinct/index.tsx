@@ -10,6 +10,7 @@ const PresumedExtinct = () => {
   const {
     filters,
     setCategory,
+    setGroup,
     setSearch,
     setWithPhoto,
     setPage,
@@ -26,6 +27,8 @@ const PresumedExtinct = () => {
       <SpeciesFilters
         selectedCategory={filters.category}
         onCategoryChange={setCategory}
+        selectedGroup={filters.group}
+        onGroupChange={setGroup}
         withPhoto={filters.withPhoto}
         onWithPhotoChange={setWithPhoto}
         totalItems={assessments.data?.total}

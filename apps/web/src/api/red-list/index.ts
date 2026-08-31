@@ -15,7 +15,6 @@ import {
 import { apiGet } from "../client";
 import type { RedListFilters } from "./entities";
 import { buildQueryString } from "./utils";
-import z from "zod";
 
 function redlistAssessmentsRequest(
   filters: Partial<RedListFilters>,
@@ -39,15 +38,6 @@ function redlistVersionRequest(): Promise<RedListVersion> {
   return apiGet("/api/red-list/version", redListVersion);
 }
 
-function speciesByNamesRequest(names: string[]): Promise<RedListItem[]> {
-  const params = new URLSearchParams({ names: names.join(",") });
-
-  return apiGet(
-    `/api/red-list/by-names?${params.toString()}`,
-    z.array(redListItem),
-  );
-}
-
 function groupCountsRequest(): Promise<GroupCount[]> {
   return apiGet("/api/red-list/groups", groupCounts);
 }
@@ -58,6 +48,5 @@ export {
   redlistDetailRequest,
   speciesOfTheDayRequest,
   redlistVersionRequest,
-  speciesByNamesRequest,
   groupCountsRequest,
 };

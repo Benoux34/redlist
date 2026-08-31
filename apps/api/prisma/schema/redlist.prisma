@@ -46,6 +46,11 @@ model RedListAssessment {
   locations RedListLocation[]
   favorites Favorite[]
 
+  // Trigram indexes: the search filter is a substring ILIKE, which no btree can
+  // serve. Without them Postgres sequentially scans the whole table on every
+  // keystroke-driven query, and again for the accompanying count().
+  @@index([scientificName(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([vernacularNameFr(ops: raw("gin_trgm_ops"))], type: Gin)
   @@index([categoryCode, scientificName])
   @@index([className])
   @@index([kingdom])

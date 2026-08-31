@@ -1,13 +1,14 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import type { RedListFilters } from "@/api/red-list/entities";
-import { VALID_CATEGORIES } from "./utils";
+import { VALID_CATEGORIES, VALID_GROUPS } from "./utils";
 
 function useRedListFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filters = useMemo<RedListFilters>(() => {
     const rawCategory = searchParams.get("category");
+    const rawGroup = searchParams.get("group");
     const rawPage = Number(searchParams.get("page"));
     const rawSearch = searchParams.get("search");
     const rawLetter = searchParams.get("letter");
@@ -19,6 +20,7 @@ function useRedListFilters() {
         rawCategory !== null && VALID_CATEGORIES.has(rawCategory)
           ? rawCategory
           : null,
+      group: rawGroup !== null && VALID_GROUPS.has(rawGroup) ? rawGroup : null,
       search: rawSearch !== null && rawSearch.length >= 2 ? rawSearch : null,
       withPhoto: searchParams.get("withPhoto") === "true",
       possiblyExtinct: rawPossiblyExtinct,
@@ -35,6 +37,21 @@ function useRedListFilters() {
 
         if (category === null) next.delete("category");
         else next.set("category", category);
+
+        next.delete("page");
+        return next;
+      });
+    },
+    [setSearchParams],
+  );
+
+  const setGroup = useCallback(
+    (group: string | null) => {
+      setSearchParams((previous) => {
+        const next = new URLSearchParams(previous);
+
+        if (group === null) next.delete("group");
+        else next.set("group", group);
 
         next.delete("page");
         return next;
@@ -87,7 +104,7 @@ function useRedListFilters() {
     [setSearchParams],
   );
 
-  return { filters, setCategory, setSearch, setWithPhoto, setPage };
+  return { filters, setCategory, setGroup, setSearch, setWithPhoto, setPage };
 }
 
 export { useRedListFilters };

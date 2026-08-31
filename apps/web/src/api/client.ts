@@ -5,7 +5,7 @@ type RequestOptions = Omit<RequestInit, "headers"> & {
   headers?: Record<string, string>;
 };
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL: string = import.meta.env.VITE_API_URL ?? "";
 
 export class ApiError extends Error {
   readonly code: string;

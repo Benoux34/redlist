@@ -13,9 +13,9 @@ import {
 } from "@app/contracts";
 import { db } from "@/db";
 import { Prisma } from "@/generated/prisma/client";
-import { AppError } from "@/lib";
+import { AppError, cached } from "@/lib";
 import { aliasFor } from "@/sources/gbif";
-import { EMPTY_DETAIL, fetchAndStoreDetail, mapDetail } from "../detail";
+import { EMPTY_DETAIL, fetchDetailWithinDeadline, mapDetail } from "../detail";
 import {
   buildOrderBy,
   buildWhere,
@@ -76,7 +76,8 @@ async function listAssessments(query: RedListQuery): Promise<RedListPage> {
       });
 }
 
-async function getCategoryCounts() {
+// Cached: a groupBy over the whole table, hit by the home page on every visit.
+const getCategoryCounts = cached(async () => {
   const rows = await db.redListAssessment.groupBy({
     by: ["categoryCode"],
     _count: { _all: true },
@@ -86,7 +87,7 @@ async function getCategoryCounts() {
     categoryCode: row.categoryCode,
     count: row._count._all,
   }));
-}
+});
 
 async function getAssessmentDetail(
   assessmentId: number,
@@ -100,16 +101,13 @@ async function getAssessmentDetail(
 
   const { detail, detailFetchedAt, ...base } = row;
 
-  let raw: unknown = detail;
-
-  if (detailFetchedAt === null) {
-    try {
-      raw = await fetchAndStoreDetail(assessmentId);
-    } catch (error) {
-      console.error(`IUCN detail failed for ${assessmentId}:`, error);
-      raw = null;
-    }
-  }
+  // A cold detail is fetched behind a deadline: the page must not hang on the
+  // IUCN throttle queue. Missing detail renders as EMPTY_DETAIL, and the
+  // background fetch still populates the cache for the next visitor.
+  const raw: unknown =
+    detailFetchedAt === null
+      ? await fetchDetailWithinDeadline(assessmentId)
+      : detail;
 
   return redListDetail.parse({
     ...base,
@@ -141,7 +139,8 @@ async function getSpeciesOfTheDay(): Promise<RedListItem | null> {
   return row === undefined ? null : redListItem.parse(row);
 }
 
-async function getGroupCounts() {
+// Cached: eight full counts, one per group, on every list page render.
+const getGroupCounts = cached(async () => {
   const counts = await Promise.all(
     GROUP_KEYS.map(async (group: SpeciesGroup) => ({
       group,
@@ -150,7 +149,7 @@ async function getGroupCounts() {
   );
 
   return groupCounts.parse(counts.filter((entry) => entry.count > 0));
-}
+});
 
 export {
   getCategoryCounts,

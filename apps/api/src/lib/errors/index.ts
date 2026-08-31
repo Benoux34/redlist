@@ -6,6 +6,7 @@ const STATUS_BY_CODE: Record<AppErrorCode, AppErrorStatus> = {
   INVALID_CREDENTIALS: 401,
   UNAUTHENTICATED: 401,
   NOT_FOUND: 404,
+  RATE_LIMITED: 429,
 };
 
 export class AppError extends Error {

@@ -1,5 +1,6 @@
 type RedListFilters = Readonly<{
   category: string | null;
+  group: string | null;
   search: string | null;
   withPhoto: boolean;
   possiblyExtinct: boolean;

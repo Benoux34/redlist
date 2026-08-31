@@ -69,9 +69,4 @@ const getInitials = (scientificName: string): string => {
   return parts[0]?.[0] ?? "—";
 };
 
-export {
-  category_colors,
-  getTrendLabel,
-  translateSystem,
-  getInitials,
-};
+export { category_colors, getTrendLabel, translateSystem, getInitials };

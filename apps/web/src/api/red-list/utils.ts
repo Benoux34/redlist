@@ -4,6 +4,7 @@ function buildQueryString(filters: Partial<RedListFilters>): string {
   const params = new URLSearchParams();
 
   if (filters.category) params.set("category", filters.category);
+  if (filters.group) params.set("group", filters.group);
   if (filters.search) params.set("search", filters.search);
   if (filters.withPhoto) params.set("withPhoto", "true");
   if (filters.possiblyExtinct) params.set("possiblyExtinct", "true");
