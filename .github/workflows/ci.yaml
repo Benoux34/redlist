@@ -47,11 +47,12 @@ jobs:
         run: bunx prisma migrate deploy
         working-directory: apps/api
 
+      # --exit-code returns 2 when the applied migrations drift from the schema.
       - name: Check migrations match the schema
         run: |
           bunx prisma migrate diff \
-            --from-url "$DATABASE_URL" \
-            --to-schema-datamodel prisma/schema \
+            --from-config-datasource \
+            --to-schema prisma/schema \
             --exit-code
         working-directory: apps/api
 
