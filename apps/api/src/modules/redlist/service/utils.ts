@@ -1,4 +1,4 @@
-import type { RedListQuery } from "@app/contracts";
+import type { GroupCountsQuery, RedListQuery } from "@app/contracts";
 import { Prisma } from "@/generated/prisma/client";
 import { groupWhere } from "../groups";
 
@@ -27,18 +27,46 @@ const DETAIL_SELECT = {
   detailFetchedAt: true,
 } as const;
 
+function scopeWhere(
+  scope: GroupCountsQuery,
+): Prisma.RedListAssessmentWhereInput {
+  return {
+    ...(scope.letter === undefined
+      ? {}
+      : { scientificName: { startsWith: scope.letter, mode: "insensitive" } }),
+    ...(scope.countryCode === undefined
+      ? {}
+      : { locations: { some: { countryCode: scope.countryCode } } }),
+    ...(scope.possiblyExtinct === true ? { possiblyExtinct: true } : {}),
+  };
+}
+
+const SCOPE_KEY_SEPARATOR = "|";
+
+function scopeKey(scope: GroupCountsQuery): string {
+  return [
+    scope.letter ?? "",
+    scope.countryCode ?? "",
+    scope.possiblyExtinct === true ? "1" : "",
+  ].join(SCOPE_KEY_SEPARATOR);
+}
+
+function parseScopeKey(key: string): GroupCountsQuery {
+  const [letter, countryCode, possiblyExtinct] = key.split(SCOPE_KEY_SEPARATOR);
+
+  return {
+    ...(letter === undefined || letter === "" ? {} : { letter }),
+    ...(countryCode === undefined || countryCode === "" ? {} : { countryCode }),
+    ...(possiblyExtinct === "1" ? { possiblyExtinct: true } : {}),
+  };
+}
+
 function buildWhere(query: RedListQuery): Prisma.RedListAssessmentWhereInput {
   return {
     ...(query.category ? { categoryCode: query.category } : {}),
     ...groupWhere(query.group),
     ...(query.withPhoto === true ? { photoUrl: { not: null } } : {}),
-    ...(query.possiblyExtinct === true ? { possiblyExtinct: true } : {}),
-    ...(query.letter
-      ? { scientificName: { startsWith: query.letter, mode: "insensitive" } }
-      : {}),
-    ...(query.countryCode
-      ? { locations: { some: { countryCode: query.countryCode } } }
-      : {}),
+    ...scopeWhere(query),
     ...(query.search
       ? {
           OR: [
@@ -72,6 +100,9 @@ export {
   EMPTY_RESOLVED,
   SELECT,
   DETAIL_SELECT,
+  scopeWhere,
+  scopeKey,
+  parseScopeKey,
   buildWhere,
   buildOrderBy,
 };

@@ -1,3 +1,4 @@
+import type { GroupCountsQuery } from "@app/contracts";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SpeciesGroupFilter } from "./SpeciesGroupFilter";
 import { CATEGORY_PILLS, PILL_CLASS, PILL_IDLE, PILL_SELECTED } from "./utils";
@@ -7,6 +8,7 @@ type Props = Readonly<{
   onCategoryChange: (category: string | null) => void;
   selectedGroup?: string | null;
   onGroupChange?: (group: string | null) => void;
+  scope?: GroupCountsQuery | undefined;
   withPhoto: boolean;
   onWithPhotoChange: (withPhoto: boolean) => void;
   totalItems: number | undefined;
@@ -18,6 +20,7 @@ const SpeciesFilters = ({
   onCategoryChange,
   selectedGroup,
   onGroupChange,
+  scope,
   withPhoto,
   onWithPhotoChange,
   totalItems,
@@ -79,6 +82,7 @@ const SpeciesFilters = ({
         <SpeciesGroupFilter
           selectedGroup={selectedGroup ?? null}
           onGroupChange={onGroupChange}
+          scope={scope}
         />
       )}
     </section>

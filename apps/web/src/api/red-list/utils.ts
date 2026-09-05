@@ -1,3 +1,4 @@
+import type { GroupCountsQuery } from "@app/contracts";
 import type { RedListFilters } from "./entities";
 
 function buildQueryString(filters: Partial<RedListFilters>): string {
@@ -16,3 +17,15 @@ function buildQueryString(filters: Partial<RedListFilters>): string {
 }
 
 export { buildQueryString };
+
+function buildGroupCountsQuery(scope: GroupCountsQuery | undefined): string {
+  const params = new URLSearchParams();
+
+  if (scope?.letter) params.set("letter", scope.letter);
+  if (scope?.countryCode) params.set("countryCode", scope.countryCode);
+  if (scope?.possiblyExtinct === true) params.set("possiblyExtinct", "true");
+
+  return params.toString();
+}
+
+export { buildGroupCountsQuery };

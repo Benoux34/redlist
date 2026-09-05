@@ -3,9 +3,10 @@ import { Navigate, useParams } from "react-router";
 import { useRedList } from "@/hooks/use-red-list/useRedList";
 import { AlphabetHero } from "./alphabet-hero/AlphabetHero";
 import { AlphabetNav } from "./alphabet-nav/AlphabetNav";
-import { Controls } from "@/components/controls/Controls";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
+import { AlphabetSearch } from "./alphabet-search";
+import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
 
 const LETTER_PATTERN = /^[a-z]$/i;
 
@@ -19,8 +20,15 @@ const Alphabet = () => {
     [currentLetter],
   );
 
-  const { filters, setSearch, setWithPhoto, setPage, assessments } =
-    useRedList(lockedFilters);
+  const {
+    filters,
+    setCategory,
+    setGroup,
+    setSearch,
+    setWithPhoto,
+    setPage,
+    assessments,
+  } = useRedList(lockedFilters);
 
   if (!isValid) return <Navigate to="/especes/a" replace />;
 
@@ -30,9 +38,19 @@ const Alphabet = () => {
 
       <AlphabetNav activeLetter={currentLetter} />
 
-      <Controls
-        filters={filters}
+      <AlphabetSearch
+        letter={currentLetter}
+        searchValue={filters.search ?? ""}
         onSearchChange={setSearch}
+      />
+
+      <SpeciesFilters
+        selectedCategory={filters.category}
+        onCategoryChange={setCategory}
+        selectedGroup={filters.group}
+        onGroupChange={setGroup}
+        scope={lockedFilters}
+        withPhoto={filters.withPhoto}
         onWithPhotoChange={setWithPhoto}
         totalItems={assessments.data?.total}
         isLoading={assessments.status === "loading"}

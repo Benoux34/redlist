@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { redListCategoryCode, speciesGroup } from "./redlist.fields";
+import {
+  countryCodeFilter,
+  letterFilter,
+  redListCategoryCode,
+  speciesGroup,
+} from "./redlist.fields";
 
 const redListQuery = z.strictObject({
   category: redListCategoryCode.optional(),
@@ -8,20 +13,22 @@ const redListQuery = z.strictObject({
   withPhoto: z.stringbool().optional(),
   page: z.coerce.number().int().min(1).max(2000).default(1),
   possiblyExtinct: z.stringbool().optional(),
-  letter: z
-    .string()
-    .length(1)
-    .regex(/^[A-Z]$/)
-    .optional(),
-  countryCode: z
-    .string()
-    .length(2)
-    .regex(/^[A-Z]{2}$/)
-    .optional(),
+  letter: letterFilter.optional(),
+  countryCode: countryCodeFilter.optional(),
+});
+
+// The group pills are scoped to whatever the page they sit on locks down, so a
+// page only ever proposes groups that have species within its own listing.
+// Mirrors the subset of redListQuery that pages lock rather than let the user
+// change.
+const groupCountsQuery = z.strictObject({
+  letter: letterFilter.optional(),
+  countryCode: countryCodeFilter.optional(),
+  possiblyExtinct: z.stringbool().optional(),
 });
 
 const redListDetailParams = z.object({
   assessmentId: z.coerce.number().int().positive(),
 });
 
-export { redListQuery, redListDetailParams };
+export { redListQuery, groupCountsQuery, redListDetailParams };

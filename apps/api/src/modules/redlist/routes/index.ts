@@ -1,6 +1,10 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { redListDetailParams, redListQuery } from "@app/contracts";
+import {
+  groupCountsQuery,
+  redListDetailParams,
+  redListQuery,
+} from "@app/contracts";
 import type { AppEnv } from "@/middleware/auth/entities";
 import { AppError } from "@/lib";
 import { db } from "@/db";
@@ -18,7 +22,12 @@ const redListRoutes = new Hono<AppEnv>()
     c.json(await listAssessments(c.req.valid("query"))),
   )
   .get("/counts", listLimiter, async (c) => c.json(await getCategoryCounts()))
-  .get("/groups", listLimiter, async (c) => c.json(await getGroupCounts()))
+  .get(
+    "/groups",
+    listLimiter,
+    zValidator("query", groupCountsQuery),
+    async (c) => c.json(await getGroupCounts(c.req.valid("query"))),
+  )
   .get("/version", listLimiter, async (c) => {
     const sync = await db.redListSync.findUnique({
       where: { id: "singleton" },

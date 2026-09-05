@@ -1,4 +1,5 @@
 import type {
+  GroupCountsQuery,
   RedListDetail,
   RedListItem,
   RedListPage,
@@ -13,7 +14,7 @@ import {
 } from "@app/contracts";
 import { db } from "@/db";
 import { Prisma } from "@/generated/prisma/client";
-import { AppError, cached } from "@/lib";
+import { AppError, cached, cachedBy } from "@/lib";
 import { aliasFor } from "@/sources/gbif";
 import { EMPTY_DETAIL, fetchDetailWithinDeadline, mapDetail } from "../detail";
 import {
@@ -23,6 +24,9 @@ import {
   EMPTY_RESOLVED,
   MS_PER_DAY,
   PAGE_SIZE,
+  parseScopeKey,
+  scopeKey,
+  scopeWhere,
   SELECT,
 } from "./utils";
 import { GROUP_KEYS, groupWhere } from "../groups";
@@ -76,7 +80,6 @@ async function listAssessments(query: RedListQuery): Promise<RedListPage> {
       });
 }
 
-// Cached: a groupBy over the whole table, hit by the home page on every visit.
 const getCategoryCounts = cached(async () => {
   const rows = await db.redListAssessment.groupBy({
     by: ["categoryCode"],
@@ -101,9 +104,6 @@ async function getAssessmentDetail(
 
   const { detail, detailFetchedAt, ...base } = row;
 
-  // A cold detail is fetched behind a deadline: the page must not hang on the
-  // IUCN throttle queue. Missing detail renders as EMPTY_DETAIL, and the
-  // background fetch still populates the cache for the next visitor.
   const raw: unknown =
     detailFetchedAt === null
       ? await fetchDetailWithinDeadline(assessmentId)
@@ -139,17 +139,24 @@ async function getSpeciesOfTheDay(): Promise<RedListItem | null> {
   return row === undefined ? null : redListItem.parse(row);
 }
 
-// Cached: eight full counts, one per group, on every list page render.
-const getGroupCounts = cached(async () => {
+const countGroups = cachedBy(async (key: string) => {
+  const scope = parseScopeKey(key);
+
   const counts = await Promise.all(
     GROUP_KEYS.map(async (group: SpeciesGroup) => ({
       group,
-      count: await db.redListAssessment.count({ where: groupWhere(group) }),
+      count: await db.redListAssessment.count({
+        where: { ...scopeWhere(scope), ...groupWhere(group) },
+      }),
     })),
   );
 
   return groupCounts.parse(counts.filter((entry) => entry.count > 0));
 });
+
+function getGroupCounts(scope: GroupCountsQuery) {
+  return countGroups(scopeKey(scope));
+}
 
 export {
   getCategoryCounts,

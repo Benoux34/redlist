@@ -6,6 +6,7 @@ import {
   redListPage,
   redListVersion,
   type GroupCount,
+  type GroupCountsQuery,
   type RedListCategoryCount,
   type RedListDetail,
   type RedListItem,
@@ -14,7 +15,7 @@ import {
 } from "@app/contracts";
 import { apiGet } from "../client";
 import type { RedListFilters } from "./entities";
-import { buildQueryString } from "./utils";
+import { buildGroupCountsQuery, buildQueryString } from "./utils";
 
 function redlistAssessmentsRequest(
   filters: Partial<RedListFilters>,
@@ -38,8 +39,13 @@ function redlistVersionRequest(): Promise<RedListVersion> {
   return apiGet("/api/red-list/version", redListVersion);
 }
 
-function groupCountsRequest(): Promise<GroupCount[]> {
-  return apiGet("/api/red-list/groups", groupCounts);
+function groupCountsRequest(scope?: GroupCountsQuery): Promise<GroupCount[]> {
+  const query = buildGroupCountsQuery(scope);
+
+  return apiGet(
+    `/api/red-list/groups${query === "" ? "" : `?${query}`}`,
+    groupCounts,
+  );
 }
 
 export {

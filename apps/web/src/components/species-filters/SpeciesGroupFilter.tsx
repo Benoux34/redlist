@@ -1,4 +1,5 @@
-import type { GroupCount } from "@app/contracts";
+import type { GroupCount, GroupCountsQuery } from "@app/contracts";
+import { useCallback } from "react";
 import { groupCountsRequest } from "@/api/red-list";
 import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
 import { group_labels } from "@/components/species-grid/utils";
@@ -7,10 +8,15 @@ import { PILL_CLASS, PILL_IDLE, PILL_SELECTED } from "./utils";
 type Props = Readonly<{
   selectedGroup: string | null;
   onGroupChange: (group: string | null) => void;
+  // Restricts the counts to the filters the page locks down, so the pills match
+  // the listing below them. Must be referentially stable — a module constant or
+  // a memo — like the locked filters handed to useRedList.
+  scope?: GroupCountsQuery | undefined;
 }>;
 
-const SpeciesGroupFilter = ({ selectedGroup, onGroupChange }: Props) => {
-  const groups = useAsyncData(groupCountsRequest, []);
+const SpeciesGroupFilter = ({ selectedGroup, onGroupChange, scope }: Props) => {
+  const loadGroups = useCallback(() => groupCountsRequest(scope), [scope]);
+  const groups = useAsyncData(loadGroups, [scope]);
 
   if (groups.status !== "success" || groups.data.length === 0) return null;
 

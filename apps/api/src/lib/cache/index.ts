@@ -1,13 +1,6 @@
 import type { CacheEntry } from "./entities";
-import { AGGREGATE_TTL_MS } from "./utils";
+import { AGGREGATE_TTL_MS, MAX_KEYS } from "./utils";
 
-/**
- * Wraps a loader in a single-value TTL cache.
- *
- * Concurrent callers share the same in-flight promise, so a cold cache under
- * load issues one query rather than one per request. A rejected load is not
- * retained.
- */
 function cached<T>(
   loader: () => Promise<T>,
   ttlMs: number = AGGREGATE_TTL_MS,
@@ -33,4 +26,24 @@ function cached<T>(
   };
 }
 
-export { cached, AGGREGATE_TTL_MS };
+function cachedBy<T>(
+  loader: (key: string) => Promise<T>,
+  ttlMs: number = AGGREGATE_TTL_MS,
+): (key: string) => Promise<T> {
+  const loaders = new Map<string, () => Promise<T>>();
+
+  return (key: string) => {
+    let load = loaders.get(key);
+
+    if (load === undefined) {
+      if (loaders.size >= MAX_KEYS) loaders.clear();
+
+      load = cached(() => loader(key), ttlMs);
+      loaders.set(key, load);
+    }
+
+    return load();
+  };
+}
+
+export { cached, cachedBy, AGGREGATE_TTL_MS };

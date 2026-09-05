@@ -29,6 +29,7 @@ const France = () => {
         onCategoryChange={setCategory}
         selectedGroup={filters.group}
         onGroupChange={setGroup}
+        scope={LOCKED}
         withPhoto={filters.withPhoto}
         onWithPhotoChange={setWithPhoto}
         totalItems={assessments.data?.total}

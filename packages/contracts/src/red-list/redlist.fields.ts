@@ -13,4 +13,14 @@ const speciesGroup = z.enum([
   "plantes",
 ]);
 
-export { redListCategoryCode, speciesGroup };
+const letterFilter = z
+  .string()
+  .length(1)
+  .regex(/^[A-Z]$/);
+
+const countryCodeFilter = z
+  .string()
+  .length(2)
+  .regex(/^[A-Z]{2}$/);
+
+export { redListCategoryCode, speciesGroup, letterFilter, countryCodeFilter };
