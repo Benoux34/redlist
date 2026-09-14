@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { SpeciesHero } from "./species-hero/SpeciesHero";
 import { SpeciesTaxonomy } from "./species-taxonomy/SpeciesTaxonomy";
@@ -11,6 +12,7 @@ import { SpeciesError } from "./species-status/SpeciesError";
 import { SpeciesLoading } from "./species-status/SpeciesLoading";
 import { SpeciesNotFound } from "./species-status/SpeciesNotFound";
 import { useSpeciesDetail } from "@/hooks/use-species-detail/useSpeciesDetail";
+import { track } from "@/lib/analytics";
 
 const Species = () => {
   const { assessmentId } = useParams();
@@ -18,6 +20,21 @@ const Species = () => {
   const isValidId = Number.isInteger(parsedId) && parsedId > 0;
 
   const detail = useSpeciesDetail(isValidId ? parsedId : null);
+  const loaded = detail.status === "success" ? detail.data : null;
+
+  // Which pages get visited while still missing a photo or a description is
+  // what turns the enrichment scripts from a blind 50k walk into a worklist
+  // ordered by demand. detailAvailable is false when the IUCN fetch lost the
+  // race against its 2.5s deadline and the page rendered without its sections.
+  useEffect(() => {
+    if (loaded === null) return;
+
+    track("fiche-vue", {
+      photo: loaded.photoUrl !== null,
+      description: loaded.description !== null,
+      detailComplet: loaded.detailAvailable,
+    });
+  }, [loaded]);
 
   if (!isValidId) return <SpeciesNotFound />;
   if (detail.status === "loading") return <SpeciesLoading />;

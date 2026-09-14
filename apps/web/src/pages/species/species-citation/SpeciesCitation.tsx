@@ -99,6 +99,7 @@ const SpeciesCitation = ({
               href={officialUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="sortie-uicn"
               className="inline-flex items-center gap-1.5 font-medium text-[var(--color-ink)] hover:underline"
             >
               <span>Consulter l&apos;évaluation sur iucnredlist.org</span>

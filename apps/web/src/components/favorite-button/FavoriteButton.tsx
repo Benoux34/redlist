@@ -7,6 +7,7 @@ import {
   removeFavoriteRequest,
 } from "@/api/favorite";
 import { Bookmark, BookmarkCheck } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 type Props = Readonly<{
   assessmentId: number;
@@ -40,6 +41,9 @@ const FavoriteButton = ({ assessmentId, initialIsFavorite = false }: Props) => {
 
   const toggle = async () => {
     if (!isAuthenticated) {
+      // Favourites are the only feature a signed-in account unlocks, so this
+      // is the measure of whether registering is worth anything to visitors.
+      track("favori-refuse-anonyme");
       void navigate("/login", { state: { from: location } });
       return;
     }
