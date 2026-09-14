@@ -22,10 +22,6 @@ const Species = () => {
   const detail = useSpeciesDetail(isValidId ? parsedId : null);
   const loaded = detail.status === "success" ? detail.data : null;
 
-  // Which pages get visited while still missing a photo or a description is
-  // what turns the enrichment scripts from a blind 50k walk into a worklist
-  // ordered by demand. detailAvailable is false when the IUCN fetch lost the
-  // race against its 2.5s deadline and the page rendered without its sections.
   useEffect(() => {
     if (loaded === null) return;
 
