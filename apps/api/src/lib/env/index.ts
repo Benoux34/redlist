@@ -10,7 +10,7 @@ const envSchema = z
     TRUST_PROXY: z.stringbool().default(false),
     IUCN_API_TOKEN: z.string().min(1),
     IUCN_API_BASE_URL: z.url(),
-    IUCN_CONTACT_EMAIL: z.email(),
+    CONTACT_EMAIL: z.email(),
   })
   .refine(
     (value) =>
