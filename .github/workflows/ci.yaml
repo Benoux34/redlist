@@ -47,7 +47,6 @@ jobs:
         run: bunx prisma migrate deploy
         working-directory: apps/api
 
-      # --exit-code returns 2 when the applied migrations drift from the schema.
       - name: Check migrations match the schema
         run: |
           bunx prisma migrate diff \
@@ -84,3 +83,33 @@ jobs:
           push: false
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  deploy:
+    # Only after both gates pass, and never from a pull request: a fork's PR
+    # must not be able to reach the server.
+    needs: [check, images]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    # Two pushes in quick succession would otherwise build on the VPS at the
+    # same time and race over the same containers.
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          TARGET: ${{ secrets.DEPLOY_TARGET }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          # Pinned rather than discovered with ssh-keyscan, which would trust
+          # whatever answers at deploy time.
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          # No command: the key is restricted to deploy.sh in authorized_keys,
+          # so a leak cannot open a shell.
+          ssh -i ~/.ssh/id_ed25519 "$TARGET"

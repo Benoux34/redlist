@@ -1,8 +1,9 @@
 import type { RedListDetail } from "@app/contracts";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { ChevronLeft, ExternalLink } from "lucide-react";
 import { FavoriteButton } from "@/components/favorite-button/FavoriteButton";
 import {
+  backLinkClass,
   category_colors,
   getInitials,
   getTrendLabel,
@@ -14,6 +15,10 @@ type Props = Readonly<{
 }>;
 
 const SpeciesHero = ({ species }: Props) => {
+  const navigate = useNavigate();
+  const { key } = useLocation();
+  const cameFromApp = key !== "default";
+
   const category = category_colors[species.categoryCode] ?? {
     label: species.categoryCode,
     text: "text-[var(--color-ink-muted)]",
@@ -27,13 +32,21 @@ const SpeciesHero = ({ species }: Props) => {
   return (
     <section className="mb-10">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <Link
-          to="/threatened-species"
-          className="inline-flex items-center gap-1.5 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink-muted)] hover:border-[var(--color-paper-border-strong)] hover:text-[var(--color-ink)] transition-colors"
-        >
-          <ChevronLeft className="size-3.5" />
-          <span>Retour à la Liste Rouge</span>
-        </Link>
+        {cameFromApp ? (
+          <button
+            type="button"
+            onClick={() => void navigate(-1)}
+            className={backLinkClass}
+          >
+            <ChevronLeft className="size-3.5" />
+            <span>Retour</span>
+          </button>
+        ) : (
+          <Link to="/threatened-species" className={backLinkClass}>
+            <ChevronLeft className="size-3.5" />
+            <span>Retour à la Liste Rouge</span>
+          </Link>
+        )}
 
         <FavoriteButton assessmentId={species.assessmentId} />
       </div>

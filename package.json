@@ -13,6 +13,7 @@
   "private": true,
   "scripts": {
     "dev": "bun --filter './apps/*' dev",
+    "deploy": "ssh redlist-vps /srv/redlist/deploy/deploy.sh",
     "test": "bun test",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down"

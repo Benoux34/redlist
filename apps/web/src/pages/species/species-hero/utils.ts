@@ -69,4 +69,13 @@ const getInitials = (scientificName: string): string => {
   return parts[0]?.[0] ?? "—";
 };
 
-export { category_colors, getTrendLabel, translateSystem, getInitials };
+const backLinkClass =
+  "inline-flex items-center gap-1.5 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink-muted)] hover:border-[var(--color-paper-border-strong)] hover:text-[var(--color-ink)] transition-colors cursor-pointer";
+
+export {
+  category_colors,
+  getTrendLabel,
+  translateSystem,
+  getInitials,
+  backLinkClass,
+};
