@@ -963,6 +963,7 @@ export const RedListAssessmentScalarFieldEnum = {
   officialUrl: 'officialUrl',
   redListVersion: 'redListVersion',
   vernacularNameFr: 'vernacularNameFr',
+  vernacularFetchedAt: 'vernacularFetchedAt',
   photoUrl: 'photoUrl',
   photoAttribution: 'photoAttribution',
   photoLicense: 'photoLicense',

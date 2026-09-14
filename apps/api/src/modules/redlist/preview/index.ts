@@ -34,8 +34,7 @@ async function buildSpeciesMeta(assessmentId: number): Promise<Meta> {
       row.vernacularNameFr === null
         ? `${row.scientificName} — ${status}`
         : `${name} (${row.scientificName}) — ${status}`,
-    // Only a tenth of the catalogue has a description, so the status sentence
-    // is the common case rather than the fallback.
+
     description:
       row.description === null
         ? `${name} est classée « ${status} » sur la Liste rouge de l'UICN.`
@@ -50,8 +49,6 @@ function renderMetaDocument(meta: Meta): string {
   const description = escapeHtml(meta.description);
   const url = escapeHtml(meta.url);
 
-  // twitter:card must be present either way: without it X renders no card at
-  // all, and only 4.5% of the catalogue has a photo to show.
   const card = meta.image === null ? "summary" : "summary_large_image";
   const image =
     meta.image === null

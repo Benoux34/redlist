@@ -6,7 +6,7 @@ const envSchema = z
     PORT: z.coerce.number().int().positive().default(3000),
     DATABASE_URL: z.url(),
     WEB_ORIGIN: z.url(),
-    // Only enable behind a reverse proxy that overwrites X-Real-IP.
+
     TRUST_PROXY: z.stringbool().default(false),
     IUCN_API_TOKEN: z.string().min(1),
     IUCN_API_BASE_URL: z.url(),

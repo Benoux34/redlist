@@ -3,8 +3,6 @@ import { db } from "@/db";
 import { Prisma } from "@/generated/prisma/client";
 import { DETAIL_DEADLINE_MS } from "./utils";
 
-// The IUCN client serialises every call behind a global throttle, so two
-// visitors landing on the same cold species would queue two identical requests.
 const inFlight = new Map<number, Promise<unknown>>();
 
 async function fetchAndStoreDetail(assessmentId: number): Promise<unknown> {
@@ -34,23 +32,12 @@ function fetchAndStoreDetailOnce(assessmentId: number): Promise<unknown> {
   return request;
 }
 
-/**
- * Fetches the IUCN detail, but never makes the visitor wait on the throttle
- * queue for longer than the deadline.
- *
- * On timeout the request is *not* cancelled: it keeps running and writes to the
- * cache, so the page renders immediately without the detail sections and the
- * next visitor gets the full version. Returns null when nothing is available in
- * time.
- */
 async function fetchDetailWithinDeadline(
   assessmentId: number,
   deadlineMs: number = DETAIL_DEADLINE_MS,
 ): Promise<unknown> {
   const request = fetchAndStoreDetailOnce(assessmentId);
 
-  // Attached here so a later rejection is never an unhandled one, whether or
-  // not the race below is still listening.
   request.catch((error: unknown) => {
     console.error(`IUCN detail failed for ${assessmentId}:`, error);
   });

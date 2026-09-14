@@ -22,7 +22,6 @@ function remoteAddressOf(c: Context): string | undefined {
   try {
     return getConnInfo(c).remote.address;
   } catch {
-    // Not served by Bun.serve (tests, other adapters): no socket address.
     return undefined;
   }
 }

@@ -55,6 +55,7 @@ export type RedListAssessmentMinAggregateOutputType = {
   officialUrl: string | null
   redListVersion: string | null
   vernacularNameFr: string | null
+  vernacularFetchedAt: Date | null
   photoUrl: string | null
   photoAttribution: string | null
   photoLicense: string | null
@@ -87,6 +88,7 @@ export type RedListAssessmentMaxAggregateOutputType = {
   officialUrl: string | null
   redListVersion: string | null
   vernacularNameFr: string | null
+  vernacularFetchedAt: Date | null
   photoUrl: string | null
   photoAttribution: string | null
   photoLicense: string | null
@@ -119,6 +121,7 @@ export type RedListAssessmentCountAggregateOutputType = {
   officialUrl: number
   redListVersion: number
   vernacularNameFr: number
+  vernacularFetchedAt: number
   photoUrl: number
   photoAttribution: number
   photoLicense: number
@@ -170,6 +173,7 @@ export type RedListAssessmentMinAggregateInputType = {
   officialUrl?: true
   redListVersion?: true
   vernacularNameFr?: true
+  vernacularFetchedAt?: true
   photoUrl?: true
   photoAttribution?: true
   photoLicense?: true
@@ -202,6 +206,7 @@ export type RedListAssessmentMaxAggregateInputType = {
   officialUrl?: true
   redListVersion?: true
   vernacularNameFr?: true
+  vernacularFetchedAt?: true
   photoUrl?: true
   photoAttribution?: true
   photoLicense?: true
@@ -234,6 +239,7 @@ export type RedListAssessmentCountAggregateInputType = {
   officialUrl?: true
   redListVersion?: true
   vernacularNameFr?: true
+  vernacularFetchedAt?: true
   photoUrl?: true
   photoAttribution?: true
   photoLicense?: true
@@ -354,6 +360,7 @@ export type RedListAssessmentGroupByOutputType = {
   officialUrl: string | null
   redListVersion: string
   vernacularNameFr: string | null
+  vernacularFetchedAt: Date | null
   photoUrl: string | null
   photoAttribution: string | null
   photoLicense: string | null
@@ -410,6 +417,7 @@ export type RedListAssessmentWhereInput = {
   officialUrl?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   redListVersion?: Prisma.StringFilter<"RedListAssessment"> | string
   vernacularNameFr?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  vernacularFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
   photoUrl?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   photoAttribution?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   photoLicense?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
@@ -445,6 +453,7 @@ export type RedListAssessmentOrderByWithRelationInput = {
   officialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   redListVersion?: Prisma.SortOrder
   vernacularNameFr?: Prisma.SortOrderInput | Prisma.SortOrder
+  vernacularFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   photoAttribution?: Prisma.SortOrderInput | Prisma.SortOrder
   photoLicense?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -483,6 +492,7 @@ export type RedListAssessmentWhereUniqueInput = Prisma.AtLeast<{
   officialUrl?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   redListVersion?: Prisma.StringFilter<"RedListAssessment"> | string
   vernacularNameFr?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
+  vernacularFetchedAt?: Prisma.DateTimeNullableFilter<"RedListAssessment"> | Date | string | null
   photoUrl?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   photoAttribution?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
   photoLicense?: Prisma.StringNullableFilter<"RedListAssessment"> | string | null
@@ -518,6 +528,7 @@ export type RedListAssessmentOrderByWithAggregationInput = {
   officialUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   redListVersion?: Prisma.SortOrder
   vernacularNameFr?: Prisma.SortOrderInput | Prisma.SortOrder
+  vernacularFetchedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   photoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   photoAttribution?: Prisma.SortOrderInput | Prisma.SortOrder
   photoLicense?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -559,6 +570,7 @@ export type RedListAssessmentScalarWhereWithAggregatesInput = {
   officialUrl?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
   redListVersion?: Prisma.StringWithAggregatesFilter<"RedListAssessment"> | string
   vernacularNameFr?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
+  vernacularFetchedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"RedListAssessment"> | Date | string | null
   photoUrl?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
   photoAttribution?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
   photoLicense?: Prisma.StringNullableWithAggregatesFilter<"RedListAssessment"> | string | null
@@ -592,6 +604,7 @@ export type RedListAssessmentCreateInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -627,6 +640,7 @@ export type RedListAssessmentUncheckedCreateInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -662,6 +676,7 @@ export type RedListAssessmentUpdateInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -697,6 +712,7 @@ export type RedListAssessmentUncheckedUpdateInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -732,6 +748,7 @@ export type RedListAssessmentCreateManyInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -765,6 +782,7 @@ export type RedListAssessmentUpdateManyMutationInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -798,6 +816,7 @@ export type RedListAssessmentUncheckedUpdateManyInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -836,6 +855,7 @@ export type RedListAssessmentCountOrderByAggregateInput = {
   officialUrl?: Prisma.SortOrder
   redListVersion?: Prisma.SortOrder
   vernacularNameFr?: Prisma.SortOrder
+  vernacularFetchedAt?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   photoAttribution?: Prisma.SortOrder
   photoLicense?: Prisma.SortOrder
@@ -877,6 +897,7 @@ export type RedListAssessmentMaxOrderByAggregateInput = {
   officialUrl?: Prisma.SortOrder
   redListVersion?: Prisma.SortOrder
   vernacularNameFr?: Prisma.SortOrder
+  vernacularFetchedAt?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   photoAttribution?: Prisma.SortOrder
   photoLicense?: Prisma.SortOrder
@@ -909,6 +930,7 @@ export type RedListAssessmentMinOrderByAggregateInput = {
   officialUrl?: Prisma.SortOrder
   redListVersion?: Prisma.SortOrder
   vernacularNameFr?: Prisma.SortOrder
+  vernacularFetchedAt?: Prisma.SortOrder
   photoUrl?: Prisma.SortOrder
   photoAttribution?: Prisma.SortOrder
   photoLicense?: Prisma.SortOrder
@@ -993,6 +1015,7 @@ export type RedListAssessmentCreateWithoutFavoritesInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -1027,6 +1050,7 @@ export type RedListAssessmentUncheckedCreateWithoutFavoritesInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -1077,6 +1101,7 @@ export type RedListAssessmentUpdateWithoutFavoritesInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1111,6 +1136,7 @@ export type RedListAssessmentUncheckedUpdateWithoutFavoritesInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1145,6 +1171,7 @@ export type RedListAssessmentCreateWithoutLocationsInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -1179,6 +1206,7 @@ export type RedListAssessmentUncheckedCreateWithoutLocationsInput = {
   officialUrl?: string | null
   redListVersion: string
   vernacularNameFr?: string | null
+  vernacularFetchedAt?: Date | string | null
   photoUrl?: string | null
   photoAttribution?: string | null
   photoLicense?: string | null
@@ -1229,6 +1257,7 @@ export type RedListAssessmentUpdateWithoutLocationsInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1263,6 +1292,7 @@ export type RedListAssessmentUncheckedUpdateWithoutLocationsInput = {
   officialUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   redListVersion?: Prisma.StringFieldUpdateOperationsInput | string
   vernacularNameFr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vernacularFetchedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   photoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoAttribution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1337,6 +1367,7 @@ export type RedListAssessmentSelect<ExtArgs extends runtime.Types.Extensions.Int
   officialUrl?: boolean
   redListVersion?: boolean
   vernacularNameFr?: boolean
+  vernacularFetchedAt?: boolean
   photoUrl?: boolean
   photoAttribution?: boolean
   photoLicense?: boolean
@@ -1373,6 +1404,7 @@ export type RedListAssessmentSelectCreateManyAndReturn<ExtArgs extends runtime.T
   officialUrl?: boolean
   redListVersion?: boolean
   vernacularNameFr?: boolean
+  vernacularFetchedAt?: boolean
   photoUrl?: boolean
   photoAttribution?: boolean
   photoLicense?: boolean
@@ -1406,6 +1438,7 @@ export type RedListAssessmentSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   officialUrl?: boolean
   redListVersion?: boolean
   vernacularNameFr?: boolean
+  vernacularFetchedAt?: boolean
   photoUrl?: boolean
   photoAttribution?: boolean
   photoLicense?: boolean
@@ -1439,6 +1472,7 @@ export type RedListAssessmentSelectScalar = {
   officialUrl?: boolean
   redListVersion?: boolean
   vernacularNameFr?: boolean
+  vernacularFetchedAt?: boolean
   photoUrl?: boolean
   photoAttribution?: boolean
   photoLicense?: boolean
@@ -1459,7 +1493,7 @@ export type RedListAssessmentSelectScalar = {
   updatedAt?: boolean
 }
 
-export type RedListAssessmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"assessmentId" | "sisTaxonId" | "scientificName" | "categoryCode" | "scopeCode" | "criteria" | "yearPublished" | "assessmentDate" | "possiblyExtinct" | "officialUrl" | "redListVersion" | "vernacularNameFr" | "photoUrl" | "photoAttribution" | "photoLicense" | "mediaFetchedAt" | "description" | "descriptionSource" | "descriptionFetchedAt" | "gbifUsageKey" | "kingdom" | "phylum" | "className" | "order" | "family" | "taxonomyFetchedAt" | "detail" | "detailFetchedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["redListAssessment"]>
+export type RedListAssessmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"assessmentId" | "sisTaxonId" | "scientificName" | "categoryCode" | "scopeCode" | "criteria" | "yearPublished" | "assessmentDate" | "possiblyExtinct" | "officialUrl" | "redListVersion" | "vernacularNameFr" | "vernacularFetchedAt" | "photoUrl" | "photoAttribution" | "photoLicense" | "mediaFetchedAt" | "description" | "descriptionSource" | "descriptionFetchedAt" | "gbifUsageKey" | "kingdom" | "phylum" | "className" | "order" | "family" | "taxonomyFetchedAt" | "detail" | "detailFetchedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["redListAssessment"]>
 export type RedListAssessmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   locations?: boolean | Prisma.RedListAssessment$locationsArgs<ExtArgs>
   favorites?: boolean | Prisma.RedListAssessment$favoritesArgs<ExtArgs>
@@ -1487,6 +1521,7 @@ export type $RedListAssessmentPayload<ExtArgs extends runtime.Types.Extensions.I
     officialUrl: string | null
     redListVersion: string
     vernacularNameFr: string | null
+    vernacularFetchedAt: Date | null
     photoUrl: string | null
     photoAttribution: string | null
     photoLicense: string | null
@@ -1942,6 +1977,7 @@ export interface RedListAssessmentFieldRefs {
   readonly officialUrl: Prisma.FieldRef<"RedListAssessment", 'String'>
   readonly redListVersion: Prisma.FieldRef<"RedListAssessment", 'String'>
   readonly vernacularNameFr: Prisma.FieldRef<"RedListAssessment", 'String'>
+  readonly vernacularFetchedAt: Prisma.FieldRef<"RedListAssessment", 'DateTime'>
   readonly photoUrl: Prisma.FieldRef<"RedListAssessment", 'String'>
   readonly photoAttribution: Prisma.FieldRef<"RedListAssessment", 'String'>
   readonly photoLicense: Prisma.FieldRef<"RedListAssessment", 'String'>

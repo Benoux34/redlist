@@ -6,8 +6,6 @@ const IMPACT_SCORE_PATTERN = /:\s*(\d+)/;
 const HABITAT_SEPARATOR = " - ";
 const UNKNOWN = "Unknown";
 
-// How long a visitor may wait on the IUCN throttle queue before the page is
-// served without its detail sections.
 const DETAIL_DEADLINE_MS = 2_500;
 
 const EMPTY_DETAIL: MappedDetail = {

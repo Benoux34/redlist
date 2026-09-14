@@ -19,7 +19,9 @@ model RedListAssessment {
   officialUrl     String?
   redListVersion  String
 
-  vernacularNameFr String?
+  vernacularNameFr     String?
+  vernacularFetchedAt  DateTime? @db.Timestamptz(3)
+
   photoUrl         String?
   photoAttribution String?
   photoLicense     String?
