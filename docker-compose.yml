@@ -2,9 +2,10 @@
 # throwaway credentials. Production uses docker-compose.prod.yml, where
 # every secret comes from .env.prod.
 #
-# The project name is pinned: compose otherwise derives it from the directory,
-# so renaming the folder would silently point db:up at a brand-new empty volume
-# instead of the existing befree_pgdata.
+# Both the project name and the volume name are pinned. Pinning the project
+# alone is not enough: compose prefixes volume names with it, so `redlist-dev`
+# yielded a brand-new empty redlist-dev_pgdata and stranded the real data in
+# befree_pgdata. The volume is named explicitly below for that reason.
 name: redlist-dev
 
 services:
@@ -22,3 +23,4 @@ services:
 
 volumes:
   pgdata:
+    name: befree_pgdata
