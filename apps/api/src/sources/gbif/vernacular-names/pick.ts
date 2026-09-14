@@ -1,6 +1,6 @@
 type Candidate = Readonly<{
   vernacularName: string;
-  preferred?: boolean | null;
+  preferred?: boolean | null | undefined;
 }>;
 
 function pickFrenchName(candidates: readonly Candidate[]): string | null {
