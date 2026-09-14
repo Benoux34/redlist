@@ -84,40 +84,33 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  # deploy:
-  # needs: [check, images]
-  # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-  # runs-on: ubuntu-latest
+  deploy:
+    needs: [check, images]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
 
-  # concurrency:
-  #   group: deploy-production
-  #   cancel-in-progress: false
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
 
-  # steps:
-  #   - name: Deploy over SSH
-  #     env:
-  #       SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-  #       KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
-  #       TARGET: ${{ secrets.DEPLOY_TARGET }}
-  #     run: |
-  #       set -euo pipefail
+    steps:
+      - name: Deploy over SSH
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+          TARGET: ${{ secrets.DEPLOY_TARGET }}
+        run: |
+          set -euo pipefail
 
-  #       # An unset secret arrives as an empty string, and the failure that
-  #       # follows is "Host key verification failed" -- which points at the
-  #       # wrong thing entirely.
-  #       for name in SSH_KEY KNOWN_HOSTS TARGET; do
-  #         if [ -z "${!name:-}" ]; then
-  #           echo "!! Secret DEPLOY_$name is empty or missing." >&2
-  #           exit 1
-  #         fi
-  #       done
+          for name in SSH_KEY KNOWN_HOSTS TARGET; do
+            if [ -z "${!name:-}" ]; then
+              echo "!! Secret DEPLOY_$name is empty or missing." >&2
+              exit 1
+            fi
+          done
 
-  #       mkdir -p ~/.ssh && chmod 700 ~/.ssh
-  #       printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
-  #       chmod 600 ~/.ssh/id_ed25519
-  #       # Pinned rather than discovered with ssh-keyscan, which would trust
-  #       # whatever answers at deploy time.
-  #       printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
-  #       # No command: the key is restricted to deploy.sh in authorized_keys,
-  #       # so a leak cannot open a shell.
-  #       ssh -i ~/.ssh/id_ed25519 "$TARGET"
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_ed25519 "$TARGET"
