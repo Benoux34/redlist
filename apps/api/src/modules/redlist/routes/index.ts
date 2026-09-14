@@ -15,6 +15,7 @@ import {
   getSpeciesOfTheDay,
   listAssessments,
 } from "../service";
+import { buildSpeciesMeta, renderMetaDocument } from "../preview";
 import { listLimiter, detailLimiter } from "./utils";
 
 const redListRoutes = new Hono<AppEnv>()
@@ -45,6 +46,17 @@ const redListRoutes = new Hono<AppEnv>()
 
     return c.json(species);
   })
+  .get(
+    "/preview/:assessmentId",
+    listLimiter,
+    zValidator("param", redListDetailParams),
+    async (c) =>
+      c.html(
+        renderMetaDocument(
+          await buildSpeciesMeta(c.req.valid("param").assessmentId),
+        ),
+      ),
+  )
   .get(
     "/:assessmentId",
     detailLimiter,
