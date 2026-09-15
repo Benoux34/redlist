@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS, mobileNavLinkClass, navLinkClass } from "./utils";
+import { collapsibleClass } from "@/lib/utils";
 import { useAuth } from "@/context/useAuth";
 
 const Header = () => {
@@ -65,11 +66,12 @@ const Header = () => {
         </button>
       </div>
 
-      {isOpen && (
-        <nav
-          id="main-menu"
-          className="border-t border-[var(--color-paper-border)] md:hidden"
-        >
+      <nav
+        id="main-menu"
+        inert={!isOpen}
+        className={`${collapsibleClass(isOpen)} md:hidden`}
+      >
+        <div className="min-h-0 overflow-hidden border-t border-[var(--color-paper-border)]">
           <div className="mx-auto max-w-6xl divide-y divide-[var(--color-paper-border)]">
             {NAV_LINKS.map((link) => (
               <NavLink
@@ -84,8 +86,8 @@ const Header = () => {
               {accountLabel}
             </NavLink>
           </div>
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 };
