@@ -19,16 +19,20 @@ function useRedList(lockedFilters?: Partial<RedListFilters>) {
     [effectiveFilters],
   );
 
-  const assessments = useAsyncData(loadAssessments, [
-    effectiveFilters.category,
-    effectiveFilters.group,
-    effectiveFilters.search,
-    effectiveFilters.withPhoto,
-    effectiveFilters.possiblyExtinct,
-    effectiveFilters.letter,
-    effectiveFilters.countryCode,
-    effectiveFilters.page,
-  ]);
+  const assessments = useAsyncData(
+    loadAssessments,
+    [
+      effectiveFilters.category,
+      effectiveFilters.group,
+      effectiveFilters.search,
+      effectiveFilters.withPhoto,
+      effectiveFilters.possiblyExtinct,
+      effectiveFilters.letter,
+      effectiveFilters.countryCode,
+      effectiveFilters.page,
+    ],
+    { keepPreviousData: true },
+  );
 
   useEffect(() => {
     const term = effectiveFilters.search;

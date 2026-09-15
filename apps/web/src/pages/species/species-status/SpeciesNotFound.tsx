@@ -8,9 +8,11 @@ const SpeciesNotFound = () => {
         Spécimen introuvable
       </h2>
       <p className="text-sm text-[var(--color-ink-muted)] mb-6 max-w-md mx-auto">
-        L&apos;identifiant fourni ne correspond à aucun enregistrement de la Liste Rouge.
+        L&apos;identifiant fourni ne correspond à aucun enregistrement de la
+        Liste Rouge.
       </p>
       <Link
+        viewTransition
         to="/red-list"
         className="inline-flex items-center gap-1.5 border border-[var(--color-paper-border-strong)] bg-[var(--color-paper)] px-4 py-2 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-paper-muted)] transition-colors"
       >

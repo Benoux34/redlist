@@ -3,6 +3,8 @@ import { useEffect, useRef } from "react";
 import L from "leaflet";
 import type { Feature, Geometry } from "geojson";
 import {
+  BASEMAP_ATTRIBUTION,
+  BASEMAP_URL,
   buildPopup,
   COLORS,
   isoA2Of,
@@ -33,15 +35,10 @@ const SpeciesMap = ({ locations }: Props) => {
       worldCopyJump: true,
     });
 
-    L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-      {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: "abcd",
-        maxZoom: 19,
-      },
-    ).addTo(map);
+    L.tileLayer(BASEMAP_URL, {
+      attribution: BASEMAP_ATTRIBUTION,
+      maxZoom: 16,
+    }).addTo(map);
 
     const byCountryCode = new Map<string, SpeciesLocation>();
 

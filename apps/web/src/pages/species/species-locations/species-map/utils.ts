@@ -68,4 +68,18 @@ function buildPopup(location: SpeciesLocation): HTMLElement {
   return container;
 }
 
-export { loadWorldGeoJson, COLORS, presenceKindOf, isoA2Of, buildPopup };
+const BASEMAP_URL =
+  "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
+
+const BASEMAP_ATTRIBUTION =
+  'Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+export {
+  loadWorldGeoJson,
+  COLORS,
+  presenceKindOf,
+  isoA2Of,
+  buildPopup,
+  BASEMAP_URL,
+  BASEMAP_ATTRIBUTION,
+};

@@ -42,7 +42,11 @@ const SpeciesHero = ({ species }: Props) => {
             <span>Retour</span>
           </button>
         ) : (
-          <Link to="/threatened-species" className={backLinkClass}>
+          <Link
+            viewTransition
+            to="/threatened-species"
+            className={backLinkClass}
+          >
             <ChevronLeft className="size-3.5" />
             <span>Retour à la Liste Rouge</span>
           </Link>
@@ -108,6 +112,7 @@ const SpeciesHero = ({ species }: Props) => {
 
                 {species.possiblyExtinct && (
                   <Link
+                    viewTransition
                     to="/presumed-extinct"
                     className="border border-[var(--color-status-cr)]/40 bg-[var(--color-status-cr-bg)] px-2.5 py-0.5 font-medium text-[var(--color-status-cr)] hover:border-[var(--color-status-cr)] hover:underline transition-colors"
                     title="Découvrir les espèces présumées éteintes"
@@ -131,6 +136,7 @@ const SpeciesHero = ({ species }: Props) => {
                     </h1>
                     <p className="font-serif text-lg sm:text-xl italic text-[var(--color-ink-muted)]">
                       <Link
+                        viewTransition
                         to={`/especes/${(species.scientificName.trim()[0] ?? "a").toLowerCase()}`}
                         className="hover:text-[var(--color-ink)] hover:underline transition-colors"
                         title={`Voir l'index alphabétique des espèces en ${(species.scientificName.trim()[0] ?? "A").toUpperCase()}`}
@@ -148,6 +154,7 @@ const SpeciesHero = ({ species }: Props) => {
                   <>
                     <h1 className="font-serif text-3xl sm:text-4xl font-medium italic tracking-tight text-[var(--color-ink)] mb-1">
                       <Link
+                        viewTransition
                         to={`/especes/${(species.scientificName.trim()[0] ?? "a").toLowerCase()}`}
                         className="hover:underline transition-colors"
                         title={`Voir l'index alphabétique des espèces en ${(species.scientificName.trim()[0] ?? "A").toUpperCase()}`}

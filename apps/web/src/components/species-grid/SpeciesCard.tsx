@@ -20,6 +20,7 @@ const SpeciesCard = ({ species, banner }: Props) => {
 
   return (
     <Link
+      viewTransition
       to={`/species/${species.assessmentId}`}
       className="group flex flex-col justify-between border border-[var(--color-paper-border)] bg-transparent transition-colors hover:border-[var(--color-paper-border-strong)] cursor-pointer"
     >

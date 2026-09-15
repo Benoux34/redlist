@@ -6,4 +6,16 @@ type AsyncState<T> =
 type Action<T> =
   { type: "resolved"; data: T } | { type: "rejected"; error: Error };
 
-export type { AsyncState, Action };
+type AsyncOptions = Readonly<{
+  keepPreviousData?: boolean;
+}>;
+
+type AsyncResult<T> = AsyncState<T> &
+  Readonly<{
+    reload: () => void;
+    isRefreshing: boolean;
+  }>;
+
+type Resolved<T> = AsyncState<T> & { isRefreshing: boolean };
+
+export type { AsyncState, Action, AsyncOptions, AsyncResult, Resolved };

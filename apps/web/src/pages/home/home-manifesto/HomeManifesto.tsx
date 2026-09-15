@@ -40,6 +40,7 @@ const HomeManifesto = () => {
 
         <div className="flex items-center gap-4 text-xs">
           <Link
+            viewTransition
             to="/methodology"
             className="text-[var(--color-ink)] hover:underline hover:opacity-80 transition-opacity"
           >

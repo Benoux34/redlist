@@ -5,7 +5,7 @@ import { Loading } from "@/components/loading/Loading";
 import { group_labels } from "./utils";
 
 type Props = Readonly<{
-  assessments: AsyncState<RedListPage>;
+  assessments: AsyncState<RedListPage> & { isRefreshing?: boolean };
   onRetry?: () => void;
 }>;
 
@@ -36,6 +36,7 @@ const SpeciesGrid = ({ assessments, onRetry }: Props) => {
     );
 
   const { items, resolvedAs, total } = assessments.data;
+  const isRefreshing = assessments.isRefreshing === true;
 
   if (items.length === 0)
     return (
@@ -51,7 +52,12 @@ const SpeciesGrid = ({ assessments, onRetry }: Props) => {
     );
 
   return (
-    <section className="mb-12">
+    <section
+      aria-busy={isRefreshing}
+      className={`mb-12 transition-opacity duration-200 motion-reduce:transition-none ${
+        isRefreshing ? "opacity-60" : "opacity-100"
+      }`}
+    >
       {resolvedAs !== null && (
         <div className="mb-6 border-l-2 border-[var(--color-paper-border-strong)] pl-3 text-sm text-[var(--color-ink-muted)]">
           <p>

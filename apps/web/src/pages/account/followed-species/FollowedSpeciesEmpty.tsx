@@ -25,6 +25,7 @@ const FollowedSpeciesEmpty = () => {
 
       <div className="flex flex-wrap items-center gap-4">
         <Link
+          viewTransition
           to="/"
           className="inline-flex items-center gap-2 border border-[var(--color-ink)] bg-[var(--color-ink)] px-4 py-2.5 text-xs font-medium text-[var(--color-paper)] transition-opacity hover:opacity-90"
         >
@@ -33,6 +34,7 @@ const FollowedSpeciesEmpty = () => {
         </Link>
 
         <Link
+          viewTransition
           to="/france"
           className="inline-flex items-center gap-2 border border-[var(--color-paper-border)] bg-transparent px-4 py-2.5 text-xs font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-paper-border-strong)] hover:bg-[var(--color-paper-muted)]/50"
         >

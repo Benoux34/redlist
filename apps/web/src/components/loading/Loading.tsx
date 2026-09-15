@@ -13,7 +13,7 @@ const Loading = ({
   label = "Chargement des données...",
   size = "default",
   className,
-  minHeight = "min-h-[260px]",
+  minHeight = "min-h-dvh",
   inline = false,
 }: Props) => {
   if (inline)
@@ -36,29 +36,27 @@ const Loading = ({
       role="status"
       aria-live="polite"
       className={cn(
-        "flex flex-col items-center justify-center border border-[var(--color-paper-border)] bg-[var(--color-paper-muted)]/15 p-8 text-center transition-opacity",
+        "flex flex-col items-center justify-center gap-5 border border-[var(--color-paper-border)] bg-[var(--color-paper-muted)]/15 p-8 text-center transition-opacity",
         minHeight,
         className,
       )}
     >
-      <div className="mb-3 flex items-center justify-center">
-        <Loader2
-          className={cn(
-            "animate-spin text-[var(--color-ink-muted)]",
-            size === "sm" && "size-4",
-            size === "default" && "size-5",
-            size === "lg" && "size-7",
-          )}
-        />
-      </div>
+      <Loader2
+        className={cn(
+          "animate-spin text-[var(--color-ink-muted)]",
+          size === "sm" && "size-6",
+          size === "default" && "size-10",
+          size === "lg" && "size-14",
+        )}
+      />
 
       {label && (
         <p
           className={cn(
             "font-serif italic text-[var(--color-ink-muted)]",
-            size === "sm" && "text-xs",
-            size === "default" && "text-sm",
-            size === "lg" && "text-base",
+            size === "sm" && "text-sm",
+            size === "default" && "text-lg",
+            size === "lg" && "text-2xl",
           )}
         >
           {label}

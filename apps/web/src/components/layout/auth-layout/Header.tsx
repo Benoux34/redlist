@@ -5,6 +5,7 @@ const Header = () => {
   return (
     <header className="mx-auto flex w-full max-w-6xl items-center justify-between">
       <Link
+        viewTransition
         to="/"
         className="group flex items-baseline transition-opacity hover:opacity-80"
       >
@@ -15,6 +16,7 @@ const Header = () => {
       </Link>
 
       <Link
+        viewTransition
         to="/"
         className="inline-flex items-center gap-1.5 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink-muted)] transition-colors hover:border-[var(--color-paper-border-strong)] hover:text-[var(--color-ink)]"
       >

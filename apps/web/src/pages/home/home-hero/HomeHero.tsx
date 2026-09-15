@@ -24,7 +24,7 @@ const HomeHero = () => {
           <Button
             size="lg"
             className="h-12 px-6 text-base"
-            render={<Link to="/threatened-species" />}
+            render={<Link viewTransition to="/threatened-species" />}
           >
             <span>Explorer le catalogue</span>
             <ArrowRight className="size-4" />
@@ -34,7 +34,7 @@ const HomeHero = () => {
             variant="outline"
             size="lg"
             className="h-12 px-6 text-base"
-            render={<Link to="/france" />}
+            render={<Link viewTransition to="/france" />}
           >
             <span>Espèces en France</span>
           </Button>

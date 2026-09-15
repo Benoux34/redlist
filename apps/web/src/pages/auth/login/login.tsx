@@ -18,6 +18,7 @@ const Login = () => {
       <div className="border-t border-[var(--color-paper-border)] pt-5 text-center text-xs text-[var(--color-ink-muted)]">
         <span>Vous n&apos;avez pas encore de compte ? </span>
         <Link
+          viewTransition
           to="/register"
           className="font-medium text-[var(--color-ink)] underline underline-offset-4 transition-opacity hover:opacity-80"
         >

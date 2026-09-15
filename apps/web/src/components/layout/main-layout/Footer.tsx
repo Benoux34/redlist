@@ -10,6 +10,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="space-y-2">
             <Link
+              viewTransition
               to="/"
               className="flex items-baseline gap-1 font-serif text-2xl font-semibold tracking-tight text-[var(--color-ink)]"
             >
@@ -30,6 +31,7 @@ const Footer = () => {
             <ul className="space-y-2 text-xs">
               <li>
                 <Link
+                  viewTransition
                   to="/threatened-species"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
@@ -38,6 +40,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  viewTransition
                   to="/france"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
@@ -46,6 +49,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  viewTransition
                   to="/presumed-extinct"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
@@ -54,6 +58,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  viewTransition
                   to="/especes/a"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
@@ -62,6 +67,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  viewTransition
                   to="/account"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
@@ -84,6 +90,7 @@ const Footer = () => {
             </p>
             <div className="flex flex-col space-y-1.5 pt-1">
               <Link
+                viewTransition
                 to="/methodology"
                 className="inline-flex items-center text-xs font-medium text-[var(--color-ink)] underline underline-offset-4 transition-opacity hover:opacity-80"
               >

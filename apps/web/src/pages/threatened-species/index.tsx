@@ -46,6 +46,7 @@ const ThreatenedSpecies = () => {
       <div className="mt-8 border-t border-[var(--color-paper-border)] pt-6 text-center text-xs text-[var(--color-ink-muted)]">
         <span>Vous cherchez une espèce par son nom scientifique ? </span>
         <Link
+          viewTransition
           to="/especes/a"
           className="font-medium text-[var(--color-ink)] underline underline-offset-4 hover:opacity-80 transition-opacity"
         >

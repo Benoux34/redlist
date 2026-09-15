@@ -33,6 +33,7 @@ const Header = () => {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 md:px-4">
         <div className="flex items-center">
           <Link
+            viewTransition
             to="/"
             className="group flex items-baseline transition-opacity hover:opacity-80"
           >
@@ -45,11 +46,16 @@ const Header = () => {
 
         <nav className="hidden items-center gap-6 text-sm md:flex">
           {NAV_LINKS.map((link) => (
-            <NavLink key={link.to} to={link.to} className={navLinkClass}>
+            <NavLink
+              viewTransition
+              key={link.to}
+              to={link.to}
+              className={navLinkClass}
+            >
               {link.label}
             </NavLink>
           ))}
-          <NavLink to={accountTo} className={navLinkClass}>
+          <NavLink viewTransition to={accountTo} className={navLinkClass}>
             {accountLabel}
           </NavLink>
         </nav>
@@ -75,6 +81,7 @@ const Header = () => {
           <div className="mx-auto max-w-6xl divide-y divide-[var(--color-paper-border)]">
             {NAV_LINKS.map((link) => (
               <NavLink
+                viewTransition
                 key={link.to}
                 to={link.to}
                 className={mobileNavLinkClass}
@@ -82,7 +89,11 @@ const Header = () => {
                 {link.label}
               </NavLink>
             ))}
-            <NavLink to={accountTo} className={mobileNavLinkClass}>
+            <NavLink
+              viewTransition
+              to={accountTo}
+              className={mobileNavLinkClass}
+            >
               {accountLabel}
             </NavLink>
           </div>

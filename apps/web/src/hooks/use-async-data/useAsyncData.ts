@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
-import type { AsyncState } from "./entities";
-import { LOADING, reducer } from "./utils";
+import type { AsyncOptions, AsyncResult, AsyncState } from "./entities";
+import { LOADING, reducer, resolveState } from "./utils";
 
 function useAsyncData<T>(
   loader: () => Promise<T>,
   deps: readonly unknown[],
-): AsyncState<T> & { reload: () => void } {
+  options?: AsyncOptions,
+): AsyncResult<T> {
   const depsKey = JSON.stringify(deps);
+  const keepPreviousData = options?.keepPreviousData === true;
 
   const [reloadToken, setReloadToken] = useState<number>(0);
   const [state, dispatch] = useReducer(reducer<T>, LOADING as AsyncState<T>);
@@ -45,11 +47,9 @@ function useAsyncData<T>(
   const isStale = settledKey !== depsKey;
 
   return {
-    status: isStale ? "loading" : state.status,
-    data: isStale ? null : state.data,
-    error: isStale ? null : state.error,
+    ...resolveState(state, isStale, keepPreviousData),
     reload,
-  } as AsyncState<T> & { reload: () => void };
+  } as AsyncResult<T>;
 }
 
 export { useAsyncData };

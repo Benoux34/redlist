@@ -30,6 +30,7 @@ const HomeCategories = () => {
 
             return (
               <Link
+                viewTransition
                 key={cat.code}
                 to={`/threatened-species?category=${cat.code}`}
                 className="group grid grid-cols-1 lg:grid-cols-[270px_1fr_130px_90px] items-start lg:items-center gap-3 lg:gap-6 p-5 lg:px-6 lg:py-5 transition-colors hover:bg-[var(--color-paper-muted)]/40 cursor-pointer text-left"
@@ -88,7 +89,7 @@ const HomeCategories = () => {
           sont pas incluses dans cet inventaire.
         </p>
 
-        <Link to="/methodology" className="hover:underline">
+        <Link viewTransition to="/methodology" className="hover:underline">
           Comprendre la méthode UICN
         </Link>
       </div>

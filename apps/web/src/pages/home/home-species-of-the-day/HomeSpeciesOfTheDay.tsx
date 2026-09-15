@@ -153,7 +153,12 @@ const HomeSpeciesOfTheDay = () => {
                 <Button
                   size="default"
                   className="h-9 px-4 text-xs font-medium"
-                  render={<Link to={`/species/${species.assessmentId}`} />}
+                  render={
+                    <Link
+                      viewTransition
+                      to={`/species/${species.assessmentId}`}
+                    />
+                  }
                 >
                   <span>Consulter la fiche de l&apos;espèce du jour</span>
                   <ArrowRight className="size-3.5 ml-1" />

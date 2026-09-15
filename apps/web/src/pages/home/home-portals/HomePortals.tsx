@@ -8,6 +8,7 @@ const HomePortals = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-[var(--color-paper-border)] bg-transparent">
         {PORTALS.map((portal) => (
           <Link
+            viewTransition
             key={portal.href}
             to={portal.href}
             className="group flex flex-col justify-between p-6 sm:p-7 border-r border-b border-[var(--color-paper-border)] transition-colors hover:bg-[var(--color-paper-muted)]/40 cursor-pointer text-left"
