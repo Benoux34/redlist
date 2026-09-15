@@ -1,9 +1,15 @@
 import type { CountryCategoryCounts } from "@app/contracts";
 
 const CATEGORY_ROWS = [
-  { code: "CR", label: "En danger critique", color: "#a52a24" },
-  { code: "EN", label: "En danger", color: "#9a5500" },
-  { code: "VU", label: "Vulnérable", color: "#946e00" },
+  { code: "EX", label: "Éteint", color: "var(--color-ink)" },
+  {
+    code: "EW",
+    label: "Éteint à l'état sauvage",
+    color: "var(--color-status-ew)",
+  },
+  { code: "CR", label: "En danger critique", color: "var(--color-status-cr)" },
+  { code: "EN", label: "En danger", color: "var(--color-status-en)" },
+  { code: "VU", label: "Vulnérable", color: "var(--color-status-vu)" },
 ] as const;
 
 const CHOROPLETH_STEPS = [
@@ -25,9 +31,16 @@ function choroplethColor(total: number | null): string {
 }
 
 function barWidth(value: number, counts: CountryCategoryCounts): string {
-  const max = Math.max(counts.CR, counts.EN, counts.VU, 1);
+  const max = Math.max(
+    counts.EX,
+    counts.EW,
+    counts.CR,
+    counts.EN,
+    counts.VU,
+    1,
+  );
 
-  return `${Math.max(2, Math.round((value / max) * 100))}%`;
+  return value === 0 ? "0%" : `${Math.max(2, Math.round((value / max) * 100))}%`;
 }
 
 const numberFr = new Intl.NumberFormat("fr-FR");

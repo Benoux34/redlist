@@ -66,7 +66,10 @@ const CountryPanel = ({ index, selected, hovered }: Props) => {
                 <div key={row.code} className="flex flex-col gap-1">
                   <div className="flex items-baseline justify-between gap-2">
                     <span className="text-xs text-[var(--color-ink-muted)]">
-                      {row.label}
+                      {row.label}{" "}
+                      <span className="font-mono text-[var(--color-ink-faint)]">
+                        ({row.code})
+                      </span>
                     </span>
                     <span className="font-mono text-xs tabular-nums text-[var(--color-ink)]">
                       {numberFr.format(value)}
@@ -84,16 +87,6 @@ const CountryPanel = ({ index, selected, hovered }: Props) => {
                 </div>
               );
             })}
-          </div>
-
-          <div className="flex items-baseline justify-between gap-2 border-t border-[var(--color-paper-border)] pt-4">
-            <span className="text-xs text-[var(--color-ink-muted)]">
-              Disparues
-            </span>
-            <span className="font-mono text-xs tabular-nums text-[var(--color-ink)]">
-              {numberFr.format(snapshot.counts.EX)} éteintes ·{" "}
-              {numberFr.format(snapshot.counts.EW)} en captivité
-            </span>
           </div>
 
           {(isLoading || species.length > 0) && (
