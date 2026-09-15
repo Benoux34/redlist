@@ -17,6 +17,9 @@ const PresumedExtinct = lazy(() => import("@/pages/presumed-extinct"));
 const Alphabet = lazy(() => import("@/pages/alphabet"));
 const France = lazy(() => import("@/pages/france"));
 const Methodology = lazy(() => import("@/pages/methodology"));
+const LegalNotice = lazy(() => import("@/pages/legal/mentions"));
+const Privacy = lazy(() => import("@/pages/legal/confidentialite"));
+const Terms = lazy(() => import("@/pages/legal/cgu"));
 
 function App() {
   return (
@@ -51,6 +54,9 @@ function App() {
               <Route path="/especes/:letter" element={<Alphabet />} />
               <Route path="/species/:assessmentId" element={<Species />} />
               <Route path="/methodology" element={<Methodology />} />
+              <Route path="/mentions-legales" element={<LegalNotice />} />
+              <Route path="/confidentialite" element={<Privacy />} />
+              <Route path="/cgu" element={<Terms />} />
               <Route
                 path="/account"
                 element={

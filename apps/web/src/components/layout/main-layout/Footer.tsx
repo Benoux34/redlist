@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="mt-auto border-t border-[var(--color-paper-border)] text-[var(--color-ink-muted)]">
       <div className="mx-auto max-w-6xl px-6 pt-10 pb-8 md:px-4">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-2">
             <Link
               viewTransition
@@ -106,6 +106,41 @@ const Footer = () => {
                 <ExternalLink className="size-3" />
               </a>
             </div>
+          </div>
+
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">
+              Informations légales
+            </p>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link
+                  viewTransition
+                  to="/mentions-legales"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Mentions légales
+                </Link>
+              </li>
+              <li>
+                <Link
+                  viewTransition
+                  to="/confidentialite"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Politique de confidentialité
+                </Link>
+              </li>
+              <li>
+                <Link
+                  viewTransition
+                  to="/cgu"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Conditions d&apos;utilisation
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
