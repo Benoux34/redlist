@@ -1,9 +1,31 @@
-import { Link, NavLink } from "react-router";
-import { navLinkClass } from "../main-layout/utils";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router";
+import { Menu, X } from "lucide-react";
+import { NAV_LINKS, mobileNavLinkClass, navLinkClass } from "./utils";
 import { useAuth } from "@/context/useAuth";
 
 const Header = () => {
   const { user } = useAuth();
+  const { pathname } = useLocation();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  const accountTo = user ? "/account" : "/login";
+  const accountLabel = user ? user.pseudo : "Connectez-vous";
 
   return (
     <header className="w-full border-b border-[var(--color-paper-border)]">
@@ -20,27 +42,50 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="flex items-center gap-6 text-sm">
-          <NavLink to="/threatened-species" className={navLinkClass}>
-            Espèces menacées
-          </NavLink>
-          <NavLink to="/france" className={navLinkClass}>
-            En France
-          </NavLink>
-          <NavLink to="/presumed-extinct" className={navLinkClass}>
-            Présumées éteintes
-          </NavLink>
-          {user ? (
-            <NavLink to="/account" className={navLinkClass}>
-              {user.pseudo}
+        <nav className="hidden items-center gap-6 text-sm md:flex">
+          {NAV_LINKS.map((link) => (
+            <NavLink key={link.to} to={link.to} className={navLinkClass}>
+              {link.label}
             </NavLink>
-          ) : (
-            <NavLink to="/login" className={navLinkClass}>
-              Connectez-vous
-            </NavLink>
-          )}
+          ))}
+          <NavLink to={accountTo} className={navLinkClass}>
+            {accountLabel}
+          </NavLink>
         </nav>
+
+        <button
+          type="button"
+          onClick={() => setIsOpen((open) => !open)}
+          aria-expanded={isOpen}
+          aria-controls="main-menu"
+          aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          className="-mr-2 inline-flex cursor-pointer items-center justify-center p-2 text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)] md:hidden"
+        >
+          {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
       </div>
+
+      {isOpen && (
+        <nav
+          id="main-menu"
+          className="border-t border-[var(--color-paper-border)] md:hidden"
+        >
+          <div className="mx-auto max-w-6xl divide-y divide-[var(--color-paper-border)]">
+            {NAV_LINKS.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={mobileNavLinkClass}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+            <NavLink to={accountTo} className={mobileNavLinkClass}>
+              {accountLabel}
+            </NavLink>
+          </div>
+        </nav>
+      )}
     </header>
   );
 };
