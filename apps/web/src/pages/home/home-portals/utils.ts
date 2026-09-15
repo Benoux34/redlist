@@ -14,7 +14,7 @@ const PORTALS: PortalItem[] = [
     title: "En France & Outre-mer",
     description:
       "Découvrez les espèces en péril sur le territoire métropolitain ainsi que dans les points chauds de biodiversité ultra-marins (Guyane, Réunion, Nouvelle-Calédonie).",
-    href: "/france",
+    href: "/pays/fr",
     cta: "Voir les espèces en France",
   },
   {

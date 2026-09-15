@@ -35,7 +35,7 @@ const FollowedSpeciesEmpty = () => {
 
         <Link
           viewTransition
-          to="/france"
+          to="/pays/fr"
           className="inline-flex items-center gap-2 border border-[var(--color-paper-border)] bg-transparent px-4 py-2.5 text-xs font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-paper-border-strong)] hover:bg-[var(--color-paper-muted)]/50"
         >
           <span>Consulter les espèces en France</span>

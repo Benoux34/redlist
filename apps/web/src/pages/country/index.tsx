@@ -1,12 +1,24 @@
+import { useMemo } from "react";
+import { Link, useParams } from "react-router";
+import { Globe } from "lucide-react";
 import { useRedList } from "@/hooks/use-red-list/useRedList";
-import { FranceHero } from "./france-hero/FranceHero";
+import { normalizeCountryCode, translateCountry } from "@/lib/country";
 import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
+import { PILL_CLASS, PILL_IDLE } from "@/components/species-filters/utils";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
+import { CountryHero } from "./country-hero/CountryHero";
+import { CountryNotFound } from "./country-status/CountryNotFound";
 
-const LOCKED = { countryCode: "FR" } as const;
+const CountryPage = () => {
+  const { code } = useParams();
+  const countryCode = normalizeCountryCode(code);
 
-const France = () => {
+  const locked = useMemo(
+    () => (countryCode === null ? {} : { countryCode }),
+    [countryCode],
+  );
+
   const {
     filters,
     setCategory,
@@ -15,11 +27,16 @@ const France = () => {
     setWithPhoto,
     setPage,
     assessments,
-  } = useRedList(LOCKED);
+  } = useRedList(locked);
+
+  if (countryCode === null) return <CountryNotFound code={code ?? ""} />;
+
+  const countryName = translateCountry(countryCode, countryCode);
 
   return (
     <div className="py-8 md:py-12">
-      <FranceHero
+      <CountryHero
+        countryName={countryName}
         searchValue={filters.search ?? ""}
         onSearchChange={setSearch}
       />
@@ -29,11 +46,21 @@ const France = () => {
         onCategoryChange={setCategory}
         selectedGroup={filters.group}
         onGroupChange={setGroup}
-        scope={LOCKED}
+        scope={locked}
         withPhoto={filters.withPhoto}
         onWithPhotoChange={setWithPhoto}
         totalItems={assessments.data?.total}
         isLoading={assessments.status === "loading"}
+        actions={
+          <Link
+            viewTransition
+            to="/atlas"
+            className={`${PILL_CLASS} ${PILL_IDLE}`}
+          >
+            <Globe className="size-3.5" aria-hidden="true" />
+            <span>Explorer un autre pays</span>
+          </Link>
+        }
       />
 
       <SpeciesGrid assessments={assessments} onRetry={assessments.reload} />
@@ -49,4 +76,4 @@ const France = () => {
   );
 };
 
-export default France;
+export default CountryPage;

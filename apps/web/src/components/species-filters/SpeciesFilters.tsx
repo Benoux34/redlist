@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import type { GroupCountsQuery } from "@app/contracts";
 import { ChevronDown, SlidersHorizontal } from "lucide-react";
 import { collapsibleClass } from "@/lib/utils";
@@ -16,6 +16,7 @@ type Props = Readonly<{
   onWithPhotoChange: (withPhoto: boolean) => void;
   totalItems: number | undefined;
   isLoading: boolean;
+  actions?: ReactNode;
 }>;
 
 const SpeciesFilters = ({
@@ -28,6 +29,7 @@ const SpeciesFilters = ({
   onWithPhotoChange,
   totalItems,
   isLoading,
+  actions,
 }: Props) => {
   const activeCount = [
     selectedCategory !== null,
@@ -40,25 +42,29 @@ const SpeciesFilters = ({
   return (
     <section className="mb-8 border-b border-[var(--color-paper-border)] pb-4">
       <div className="flex items-center justify-between gap-4">
-        <button
-          type="button"
-          onClick={() => setIsOpen((open) => !open)}
-          aria-expanded={isOpen}
-          aria-controls="species-filters"
-          className={`${PILL_CLASS} ${activeCount > 0 ? PILL_SELECTED : PILL_IDLE}`}
-        >
-          <SlidersHorizontal className="size-3.5" aria-hidden="true" />
-          <span>Filtres</span>
-          {activeCount > 0 && (
-            <span className="inline-flex size-4 items-center justify-center bg-[var(--color-status-cr)] font-mono text-[10px] leading-none text-white">
-              {activeCount}
-            </span>
-          )}
-          <ChevronDown
-            className={`size-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`}
-            aria-hidden="true"
-          />
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setIsOpen((open) => !open)}
+            aria-expanded={isOpen}
+            aria-controls="species-filters"
+            className={`${PILL_CLASS} ${activeCount > 0 ? PILL_SELECTED : PILL_IDLE}`}
+          >
+            <SlidersHorizontal className="size-3.5" aria-hidden="true" />
+            <span>Filtres</span>
+            {activeCount > 0 && (
+              <span className="inline-flex size-4 items-center justify-center bg-[var(--color-status-cr)] font-mono text-[10px] leading-none text-white">
+                {activeCount}
+              </span>
+            )}
+            <ChevronDown
+              className={`size-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`}
+              aria-hidden="true"
+            />
+          </button>
+
+          {actions}
+        </div>
 
         <div className="font-mono text-xs text-[var(--color-ink-muted)]">
           {isLoading ? (

@@ -12,8 +12,9 @@ const mobileNavLinkClass = ({ isActive }: { isActive: boolean }): string => {
 
 const NAV_LINKS = [
   { to: "/threatened-species", label: "Espèces menacées" },
-  { to: "/france", label: "En France" },
+  { to: "/pays/fr", label: "En France" },
   { to: "/presumed-extinct", label: "Présumées éteintes" },
+  { to: "/atlas", label: "Atlas" },
 ] as const;
 
 export { navLinkClass, mobileNavLinkClass, NAV_LINKS };

@@ -6,6 +6,7 @@ import type {
   RedListQuery,
   SpeciesGroup,
 } from "@app/contracts";
+import type { CountryCategoryRow } from "./utils";
 import {
   groupCounts,
   redListDetail,
@@ -18,6 +19,7 @@ import { AppError, cached, cachedBy } from "@/lib";
 import { aliasFor } from "@/sources/gbif";
 import { EMPTY_DETAIL, fetchDetailWithinDeadline, mapDetail } from "../detail";
 import {
+  buildCountryCounts,
   buildOrderBy,
   buildWhere,
   DETAIL_SELECT,
@@ -92,6 +94,19 @@ const getCategoryCounts = cached(async () => {
   }));
 });
 
+const getCountryCounts = cached(async () => {
+  const rows = await db.$queryRaw<CountryCategoryRow[]>`
+    select l."countryCode"      as "countryCode",
+           a."categoryCode"     as "categoryCode",
+           count(*)::int        as "count"
+    from red_list_locations l
+    join red_list_assessments a on a."assessmentId" = l."assessmentId"
+    group by 1, 2
+  `;
+
+  return buildCountryCounts(rows);
+});
+
 async function getAssessmentDetail(
   assessmentId: number,
 ): Promise<RedListDetail> {
@@ -160,6 +175,7 @@ function getGroupCounts(scope: GroupCountsQuery) {
 
 export {
   getCategoryCounts,
+  getCountryCounts,
   listAssessments,
   getAssessmentDetail,
   getSpeciesOfTheDay,

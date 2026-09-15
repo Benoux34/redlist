@@ -1,5 +1,5 @@
 {
-  "name": "befree",
+  "name": "redlist",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/pg": "^8.21.0",

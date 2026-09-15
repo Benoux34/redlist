@@ -8,17 +8,14 @@ import { useAuth } from "@/context/useAuth";
 const Header = () => {
   const { user } = useAuth();
   const { pathname } = useLocation();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+  const [openedAt, setOpenedAt] = useState<string | null>(null);
+  const isOpen = openedAt === pathname;
 
   useEffect(() => {
     if (!isOpen) return;
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setIsOpen(false);
+      if (event.key === "Escape") setOpenedAt(null);
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -62,7 +59,7 @@ const Header = () => {
 
         <button
           type="button"
-          onClick={() => setIsOpen((open) => !open)}
+          onClick={() => setOpenedAt(isOpen ? null : pathname)}
           aria-expanded={isOpen}
           aria-controls="main-menu"
           aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}

@@ -1,14 +1,5 @@
-import type { FeatureCollection, Geometry } from "geojson";
-
-type CountryProperties = Readonly<{
-  iso_a2: string | null;
-  iso_a3: string | null;
-  name: string;
-  name_fr: string;
-}>;
-
-type WorldGeoJson = FeatureCollection<Geometry, CountryProperties>;
+export type { CountryProperties, WorldGeoJson } from "@/lib/world-geojson";
 
 type PresenceKind = "current" | "past";
 
-export type { CountryProperties, WorldGeoJson, PresenceKind };
+export type { PresenceKind };

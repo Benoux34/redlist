@@ -32,6 +32,15 @@ const Footer = () => {
               <li>
                 <Link
                   viewTransition
+                  to="/atlas"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Atlas
+                </Link>
+              </li>
+              <li>
+                <Link
+                  viewTransition
                   to="/threatened-species"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
@@ -41,7 +50,7 @@ const Footer = () => {
               <li>
                 <Link
                   viewTransition
-                  to="/france"
+                  to="/pays/fr"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
                   Espèces menacées en France

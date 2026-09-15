@@ -1,6 +1,7 @@
 import {
   groupCounts,
   redListCategoryCounts,
+  redListCountryCounts,
   redListDetail,
   redListItem,
   redListPage,
@@ -8,6 +9,7 @@ import {
   type GroupCount,
   type GroupCountsQuery,
   type RedListCategoryCount,
+  type RedListCountryCount,
   type RedListDetail,
   type RedListItem,
   type RedListPage,
@@ -25,6 +27,10 @@ function redlistAssessmentsRequest(
 
 function redlistCategoryCountsRequest(): Promise<RedListCategoryCount[]> {
   return apiGet("/api/red-list/counts", redListCategoryCounts);
+}
+
+function countryCountsRequest(): Promise<RedListCountryCount[]> {
+  return apiGet("/api/red-list/countries", redListCountryCounts);
 }
 
 function redlistDetailRequest(assessmentId: number): Promise<RedListDetail> {
@@ -51,6 +57,7 @@ function groupCountsRequest(scope?: GroupCountsQuery): Promise<GroupCount[]> {
 export {
   redlistAssessmentsRequest,
   redlistCategoryCountsRequest,
+  countryCountsRequest,
   redlistDetailRequest,
   speciesOfTheDayRequest,
   redlistVersionRequest,

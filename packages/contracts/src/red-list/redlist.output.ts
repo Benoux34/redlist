@@ -117,6 +117,22 @@ const redListDetail = redListItem.extend({
   citation: z.string().nullable(),
 });
 
+const countryCategoryCounts = z.strictObject({
+  EX: z.number().int(),
+  EW: z.number().int(),
+  CR: z.number().int(),
+  EN: z.number().int(),
+  VU: z.number().int(),
+});
+
+const redListCountryCount = z.strictObject({
+  countryCode: z.string().length(2),
+  counts: countryCategoryCounts,
+  threatened: z.number().int(),
+  rank: z.number().int(),
+});
+const redListCountryCounts = z.array(redListCountryCount);
+
 const redListVersion = z.strictObject({
   redListVersion: z.string(),
   lastSyncedAt: z.string().nullable(),
@@ -138,4 +154,7 @@ export {
   redListVersion,
   groupCount,
   groupCounts,
+  countryCategoryCounts,
+  redListCountryCount,
+  redListCountryCounts,
 };

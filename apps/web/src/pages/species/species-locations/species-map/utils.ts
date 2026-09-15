@@ -1,19 +1,7 @@
 import type { SpeciesLocation } from "@app/contracts";
-import type { CountryProperties, PresenceKind, WorldGeoJson } from "./entities";
+import type { CountryProperties, PresenceKind } from "./entities";
+import { loadWorldGeoJson } from "@/lib/world-geojson";
 import { translateCountry, translateOrigin, translatePresence } from "../utils";
-
-let cached: Promise<WorldGeoJson> | null = null;
-
-const loadWorldGeoJson = (): Promise<WorldGeoJson> => {
-  cached ??= fetch("/countries.geo.json").then((response) => {
-    if (!response.ok)
-      throw new Error(`Failed to load world GeoJSON: ${response.status}`);
-
-    return response.json() as Promise<WorldGeoJson>;
-  });
-
-  return cached;
-};
 
 const COLORS: Record<PresenceKind, { stroke: string; fill: string }> = {
   current: { stroke: "#b93826", fill: "#dc3e26" },

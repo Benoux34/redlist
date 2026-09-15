@@ -20,6 +20,9 @@ import {
   conservationAction,
   redListVersion,
   groupCount,
+  countryCategoryCounts,
+  redListCountryCount,
+  redListCountryCounts,
 } from "./redlist.output";
 
 type RedListCategoryCode = z.infer<typeof redListCategoryCode>;
@@ -41,6 +44,9 @@ type ConservationAction = z.infer<typeof conservationAction>;
 type RedListDetail = z.infer<typeof redListDetail>;
 type RedListVersion = z.infer<typeof redListVersion>;
 type GroupCount = z.infer<typeof groupCount>;
+type CountryCategoryCounts = z.infer<typeof countryCategoryCounts>;
+type RedListCountryCount = z.infer<typeof redListCountryCount>;
+type RedListCountryCounts = z.infer<typeof redListCountryCounts>;
 
 export type {
   RedListCategoryCode,
@@ -62,4 +68,7 @@ export type {
   RedListDetail,
   RedListVersion,
   GroupCount,
+  CountryCategoryCounts,
+  RedListCountryCount,
+  RedListCountryCounts,
 };

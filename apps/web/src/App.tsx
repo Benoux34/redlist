@@ -15,8 +15,10 @@ const ThreatenedSpecies = lazy(() => import("@/pages/threatened-species"));
 const Species = lazy(() => import("@/pages/species"));
 const PresumedExtinct = lazy(() => import("@/pages/presumed-extinct"));
 const Alphabet = lazy(() => import("@/pages/alphabet"));
-const France = lazy(() => import("@/pages/france"));
+const CountryPage = lazy(() => import("@/pages/country"));
 const Methodology = lazy(() => import("@/pages/methodology"));
+const Atlas = lazy(() => import("@/pages/atlas"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 const LegalNotice = lazy(() => import("@/pages/legal/mentions"));
 const Privacy = lazy(() => import("@/pages/legal/confidentialite"));
 const Terms = lazy(() => import("@/pages/legal/cgu"));
@@ -45,7 +47,15 @@ function App() {
                 path="/red-list"
                 element={<Navigate to="/threatened-species" replace />}
               />
-              <Route path="/france" element={<France />} />
+              <Route path="/pays/:code" element={<CountryPage />} />
+              <Route
+                path="/france"
+                element={<Navigate to="/pays/fr" replace />}
+              />
+              <Route
+                path="/pays"
+                element={<Navigate to="/pays/fr" replace />}
+              />
               <Route path="/presumed-extinct" element={<PresumedExtinct />} />
               <Route
                 path="/especes"
@@ -54,6 +64,7 @@ function App() {
               <Route path="/especes/:letter" element={<Alphabet />} />
               <Route path="/species/:assessmentId" element={<Species />} />
               <Route path="/methodology" element={<Methodology />} />
+              <Route path="/atlas" element={<Atlas />} />
               <Route path="/mentions-legales" element={<LegalNotice />} />
               <Route path="/confidentialite" element={<Privacy />} />
               <Route path="/cgu" element={<Terms />} />
@@ -65,6 +76,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>
         </Suspense>

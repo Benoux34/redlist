@@ -1,7 +1,4 @@
-const regionNames = new Intl.DisplayNames(["fr"], {
-  type: "region",
-  fallback: "none",
-});
+import { translateCountry } from "@/lib/country";
 
 const PRESENCE_FR: Record<string, string> = {
   Extant: "Présente",
@@ -18,18 +15,6 @@ const ORIGIN_FR: Record<string, string> = {
   Vagrant: "Erratique",
   "Origin Uncertain": "Origine incertaine",
   "Assisted Colonisation": "Colonisation assistée",
-};
-
-const translateCountry = (
-  countryCode: string | null,
-  fallback: string,
-): string => {
-  if (!countryCode || countryCode.length !== 2) return fallback;
-  try {
-    return regionNames.of(countryCode) ?? fallback;
-  } catch {
-    return fallback;
-  }
 };
 
 const translatePresence = (presence: string | null): string | null => {

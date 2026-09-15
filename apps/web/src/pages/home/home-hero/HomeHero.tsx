@@ -34,7 +34,7 @@ const HomeHero = () => {
             variant="outline"
             size="lg"
             className="h-12 px-6 text-base"
-            render={<Link viewTransition to="/france" />}
+            render={<Link viewTransition to="/pays/fr" />}
           >
             <span>Espèces en France</span>
           </Button>

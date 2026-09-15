@@ -11,6 +11,7 @@ import { db } from "@/db";
 import {
   getAssessmentDetail,
   getCategoryCounts,
+  getCountryCounts,
   getGroupCounts,
   getSpeciesOfTheDay,
   listAssessments,
@@ -23,6 +24,9 @@ const redListRoutes = new Hono<AppEnv>()
     c.json(await listAssessments(c.req.valid("query"))),
   )
   .get("/counts", listLimiter, async (c) => c.json(await getCategoryCounts()))
+  .get("/countries", listLimiter, async (c) =>
+    c.json(await getCountryCounts()),
+  )
   .get(
     "/groups",
     listLimiter,
