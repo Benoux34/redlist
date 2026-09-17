@@ -17,7 +17,7 @@ const PresumedExtinct = lazy(() => import("@/pages/presumed-extinct"));
 const Alphabet = lazy(() => import("@/pages/alphabet"));
 const CountryPage = lazy(() => import("@/pages/country"));
 const Methodology = lazy(() => import("@/pages/methodology"));
-const Atlas = lazy(() => import("@/pages/atlas"));
+const Planet = lazy(() => import("@/pages/planet"));
 const Actions = lazy(() => import("@/pages/actions"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const LegalNotice = lazy(() => import("@/pages/legal/mentions"));
@@ -65,7 +65,11 @@ function App() {
               <Route path="/especes/:letter" element={<Alphabet />} />
               <Route path="/species/:assessmentId" element={<Species />} />
               <Route path="/methodology" element={<Methodology />} />
-              <Route path="/atlas" element={<Atlas />} />
+              <Route path="/notre-planete" element={<Planet />} />
+              <Route
+                path="/atlas"
+                element={<Navigate to="/notre-planete" replace />}
+              />
               <Route path="/agir" element={<Actions />} />
               <Route path="/mentions-legales" element={<LegalNotice />} />
               <Route path="/confidentialite" element={<Privacy />} />

@@ -3,6 +3,7 @@ import { redListCategoryCode, speciesGroup } from "./redlist.fields";
 import {
   redListQuery,
   groupCountsQuery,
+  countryCountsQuery,
   redListDetailParams,
 } from "./redlist.input";
 import {
@@ -29,6 +30,7 @@ type RedListCategoryCode = z.infer<typeof redListCategoryCode>;
 type SpeciesGroup = z.infer<typeof speciesGroup>;
 type RedListQuery = z.infer<typeof redListQuery>;
 type GroupCountsQuery = z.infer<typeof groupCountsQuery>;
+type CountryCountsQuery = z.infer<typeof countryCountsQuery>;
 type RedListDetailParams = z.infer<typeof redListDetailParams>;
 type RedListItem = z.infer<typeof redListItem>;
 type RedListPage = z.infer<typeof redListPage>;
@@ -53,6 +55,7 @@ export type {
   SpeciesGroup,
   RedListQuery,
   GroupCountsQuery,
+  CountryCountsQuery,
   RedListDetailParams,
   RedListItem,
   RedListPage,

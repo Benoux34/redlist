@@ -54,7 +54,7 @@ const CountryPage = () => {
         actions={
           <Link
             viewTransition
-            to="/atlas"
+            to="/notre-planete"
             className={`${PILL_CLASS} ${PILL_IDLE}`}
           >
             <Globe className="size-3.5" aria-hidden="true" />

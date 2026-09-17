@@ -1,4 +1,5 @@
 import type {
+  CountryCountsQuery,
   GroupCountsQuery,
   RedListDetail,
   RedListItem,
@@ -14,6 +15,7 @@ import {
   redListPage,
 } from "@app/contracts";
 import { db } from "@/db";
+import { Prisma } from "@/generated/prisma/client";
 import { AppError, cached, cachedBy } from "@/lib";
 import { aliasFor } from "@/sources/gbif";
 import { EMPTY_DETAIL, fetchDetailWithinDeadline, mapDetail } from "../detail";
@@ -31,7 +33,7 @@ import {
   scopeWhere,
   SELECT,
 } from "./utils";
-import { GROUP_KEYS, groupWhere } from "../groups";
+import { GROUPS, GROUP_KEYS, groupWhere } from "../groups";
 
 async function runQuery(query: RedListQuery): Promise<RedListPage> {
   const where = buildWhere(query);
@@ -94,18 +96,38 @@ const getCategoryCounts = cached(async () => {
   }));
 });
 
-const getCountryCounts = cached(async () => {
+function groupSql(group: SpeciesGroup | undefined): Prisma.Sql {
+  if (group === undefined) return Prisma.empty;
+
+  const definition = GROUPS[group];
+
+  if (definition.kingdom !== undefined)
+    return Prisma.sql`and a."kingdom" = ${definition.kingdom}`;
+
+  if (definition.classNames !== undefined)
+    return Prisma.sql`and a."className" in (${Prisma.join(definition.classNames)})`;
+
+  return Prisma.empty;
+}
+
+const countCountries = cachedBy(async (key: string) => {
+  const group = key === "" ? undefined : (key as SpeciesGroup);
   const rows = await db.$queryRaw<CountryCategoryRow[]>`
     select l."countryCode"      as "countryCode",
            a."categoryCode"     as "categoryCode",
            count(*)::int        as "count"
     from red_list_locations l
     join red_list_assessments a on a."assessmentId" = l."assessmentId"
+    where true ${groupSql(group)}
     group by 1, 2
   `;
 
   return buildCountryCounts(rows);
 });
+
+function getCountryCounts(query: CountryCountsQuery) {
+  return countCountries(query.group ?? "");
+}
 
 async function getAssessmentDetail(
   assessmentId: number,

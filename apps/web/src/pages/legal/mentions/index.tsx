@@ -4,7 +4,7 @@ import {
   LegalSection,
   LegalField,
   UPDATED_AT,
-} from "@/components/legal";
+} from "../_components/index";
 
 const LegalNotice = () => {
   return (

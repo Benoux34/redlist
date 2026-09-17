@@ -48,11 +48,11 @@ const NotFound = () => {
 
         <Link
           viewTransition
-          to="/atlas"
+          to="/notre-planete"
           className="mt-8 inline-flex items-center gap-1.5 border border-[var(--color-paper-border)] px-3 py-1.5 text-xs text-[var(--color-ink-muted)] transition-colors hover:border-[var(--color-paper-border-strong)] hover:text-[var(--color-ink)]"
         >
           <Globe className="size-3.5" aria-hidden="true" />
-          <span>Ou explorer le globe</span>
+          <span>Ou explorer la carte du monde</span>
         </Link>
       </div>
     </div>

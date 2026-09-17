@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import {
+  countryCountsQuery,
   groupCountsQuery,
   redListDetailParams,
   redListQuery,
@@ -24,8 +25,11 @@ const redListRoutes = new Hono<AppEnv>()
     c.json(await listAssessments(c.req.valid("query"))),
   )
   .get("/counts", listLimiter, async (c) => c.json(await getCategoryCounts()))
-  .get("/countries", listLimiter, async (c) =>
-    c.json(await getCountryCounts()),
+  .get(
+    "/countries",
+    listLimiter,
+    zValidator("query", countryCountsQuery),
+    async (c) => c.json(await getCountryCounts(c.req.valid("query"))),
   )
   .get(
     "/groups",

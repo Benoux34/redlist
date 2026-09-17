@@ -68,6 +68,15 @@ const Footer = () => {
               <li>
                 <Link
                   viewTransition
+                  to="/notre-planete"
+                  className="transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Notre planète, le tour du monde
+                </Link>
+              </li>
+              <li>
+                <Link
+                  viewTransition
                   to="/especes/a"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >

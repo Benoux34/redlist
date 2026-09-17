@@ -14,6 +14,7 @@ import {
   type RedListItem,
   type RedListPage,
   type RedListVersion,
+  type SpeciesGroup,
 } from "@app/contracts";
 import { apiGet } from "../client";
 import type { RedListFilters } from "./entities";
@@ -29,8 +30,13 @@ function redlistCategoryCountsRequest(): Promise<RedListCategoryCount[]> {
   return apiGet("/api/red-list/counts", redListCategoryCounts);
 }
 
-function countryCountsRequest(): Promise<RedListCountryCount[]> {
-  return apiGet("/api/red-list/countries", redListCountryCounts);
+function countryCountsRequest(
+  group: SpeciesGroup | null,
+): Promise<RedListCountryCount[]> {
+  return apiGet(
+    `/api/red-list/countries${group === null ? "" : `?group=${group}`}`,
+    redListCountryCounts,
+  );
 }
 
 function redlistDetailRequest(assessmentId: number): Promise<RedListDetail> {

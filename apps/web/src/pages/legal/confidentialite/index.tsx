@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { LegalPage, LegalSection, UPDATED_AT } from "@/components/legal";
+import { LegalPage, LegalSection, UPDATED_AT } from "../_components/index";
 
 const Privacy = () => {
   return (

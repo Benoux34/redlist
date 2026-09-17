@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { DOMAINS } from "@/components/gestures/utils";
-import { THREATS } from "@/components/threats/utils";
 import { ActionsHero } from "./actions-hero/ActionsHero";
 import { CauseFilter } from "./cause-filter/CauseFilter";
 import { GestureDomain } from "./gesture-domain/GestureDomain";
@@ -17,11 +16,7 @@ const Actions = () => {
 
   return (
     <div className="py-8 md:py-12">
-      <ActionsHero
-        gestureCount={countGestures(DOMAINS)}
-        domainCount={DOMAINS.length}
-        causeCount={THREATS.length}
-      />
+      <ActionsHero />
 
       <CauseFilter
         cause={cause}

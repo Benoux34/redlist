@@ -27,8 +27,17 @@ const groupCountsQuery = z.strictObject({
   possiblyExtinct: z.stringbool().optional(),
 });
 
+const countryCountsQuery = z.strictObject({
+  group: speciesGroup.optional(),
+});
+
 const redListDetailParams = z.object({
   assessmentId: z.coerce.number().int().positive(),
 });
 
-export { redListQuery, groupCountsQuery, redListDetailParams };
+export {
+  redListQuery,
+  groupCountsQuery,
+  countryCountsQuery,
+  redListDetailParams,
+};
