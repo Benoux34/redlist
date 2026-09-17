@@ -40,7 +40,7 @@ const PresumedExtinct = () => {
 
       <Pagination
         currentPage={filters.page}
-        pageSize={assessments.data?.pageSize ?? 40}
+        pageSize={assessments.data?.pageSize ?? 42}
         totalItems={assessments.data?.total}
         onPageChange={setPage}
         isLoading={assessments.status === "loading"}

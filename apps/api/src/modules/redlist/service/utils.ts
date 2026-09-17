@@ -7,7 +7,7 @@ import type {
 import { Prisma } from "@/generated/prisma/client";
 import { groupWhere } from "../groups";
 
-const PAGE_SIZE = 40;
+const PAGE_SIZE = 42;
 const MS_PER_DAY = 86_400_000;
 const EMPTY_RESOLVED = null;
 

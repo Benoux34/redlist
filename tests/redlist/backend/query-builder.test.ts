@@ -8,8 +8,8 @@ import { describe, expect, it } from "bun:test";
 
 describe("Backend RedList - Query Builder & Constants", () => {
   describe("Pagination & Time Constants", () => {
-    it("should set page size to 40 items", () => {
-      expect(PAGE_SIZE).toBe(40);
+    it("should set page size to 42 items", () => {
+      expect(PAGE_SIZE).toBe(42);
     });
 
     it("should define milliseconds per day (86,400,000)", () => {

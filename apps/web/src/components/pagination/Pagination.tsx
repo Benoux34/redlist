@@ -21,6 +21,11 @@ const Pagination = ({
   const hasPrevious = currentPage > 1;
   const hasNext = currentPage < totalPages;
 
+  const goTo = (page: number) => {
+    onPageChange(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const from = (currentPage - 1) * pageSize + 1;
   const to = Math.min(currentPage * pageSize, totalItems);
 
@@ -47,7 +52,7 @@ const Pagination = ({
           <button
             type="button"
             disabled={!hasPrevious || isLoading}
-            onClick={() => onPageChange(currentPage - 1)}
+            onClick={() => goTo(currentPage - 1)}
             className="flex items-center gap-1 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink)] transition-colors hover:border-[var(--color-paper-border-strong)] hover:bg-[var(--color-paper-muted)]/40 disabled:pointer-events-none disabled:opacity-40 cursor-pointer"
           >
             <ChevronLeft className="size-3.5" />
@@ -68,7 +73,7 @@ const Pagination = ({
           <button
             type="button"
             disabled={!hasNext || isLoading}
-            onClick={() => onPageChange(currentPage + 1)}
+            onClick={() => goTo(currentPage + 1)}
             className="flex items-center gap-1 border border-[var(--color-paper-border)] bg-transparent px-3 py-1.5 text-xs text-[var(--color-ink)] transition-colors hover:border-[var(--color-paper-border-strong)] hover:bg-[var(--color-paper-muted)]/40 disabled:pointer-events-none disabled:opacity-40 cursor-pointer"
           >
             <span>Suivant</span>
