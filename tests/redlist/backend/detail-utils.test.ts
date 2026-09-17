@@ -1,7 +1,6 @@
 import {
   EMPTY_DETAIL,
   cleanValue,
-  familyCodeOf,
   labelOf,
   parseImpact,
   parseYesNo,
@@ -74,19 +73,6 @@ describe("Backend RedList - Detail Extraction Utilities", () => {
     });
   });
 
-  describe("familyCodeOf", () => {
-    it("should extract family code before underscore separator", () => {
-      expect(familyCodeOf("5.1_2")).toBe("5.1");
-      expect(familyCodeOf("2.1_1")).toBe("2.1");
-      expect(familyCodeOf("1")).toBe("1");
-    });
-
-    it("should handle null and undefined safely", () => {
-      expect(familyCodeOf(null)).toBeNull();
-      expect(familyCodeOf(undefined)).toBeNull();
-    });
-  });
-
   describe("labelOf & EMPTY_DETAIL", () => {
     it("should extract English description label", () => {
       expect(labelOf({ description: { en: "Terrestrial" } })).toBe(
@@ -97,9 +83,9 @@ describe("Backend RedList - Detail Extraction Utilities", () => {
 
     it("should define a complete fallback EMPTY_DETAIL object", () => {
       expect(EMPTY_DETAIL.detailAvailable).toBe(false);
-      expect(EMPTY_DETAIL.threats).toEqual([]);
-      expect(EMPTY_DETAIL.habitats).toEqual([]);
-      expect(EMPTY_DETAIL.locations).toEqual([]);
+      expect(EMPTY_DETAIL.threats).toEqual({ groups: [], items: [] });
+      expect(EMPTY_DETAIL.distribution).toEqual({ presence: [], habitats: [] });
+      expect(EMPTY_DETAIL.conservation).toEqual([]);
     });
   });
 });

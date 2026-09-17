@@ -1,30 +1,12 @@
-import { translateCountry } from "@/lib/country";
+import type { PresenceKind } from "@app/contracts";
 
-const PRESENCE_FR: Record<string, string> = {
-  Extant: "Présente",
-  "Possibly Extant": "Présence probable",
-  "Possibly Extinct": "Probablement disparue",
-  "Extinct Post-1500": "Disparue depuis 1500",
-  "Presence Uncertain": "Présence incertaine",
+const PRESENCE_FILLS: Record<PresenceKind, string> = {
+  current: "var(--color-status-cr)",
+  uncertain: "var(--color-status-cr-border)",
+  extinct: "var(--color-ink-faint)",
 };
 
-const ORIGIN_FR: Record<string, string> = {
-  Native: "Indigène",
-  Reintroduced: "Réintroduite",
-  Introduced: "Introduite",
-  Vagrant: "Erratique",
-  "Origin Uncertain": "Origine incertaine",
-  "Assisted Colonisation": "Colonisation assistée",
-};
+const EYEBROW =
+  "mb-2 font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-faint)]";
 
-const translatePresence = (presence: string | null): string | null => {
-  if (!presence) return null;
-  return PRESENCE_FR[presence] ?? presence;
-};
-
-const translateOrigin = (origin: string | null): string | null => {
-  if (!origin) return null;
-  return ORIGIN_FR[origin] ?? origin;
-};
-
-export { translateCountry, translatePresence, translateOrigin };
+export { EYEBROW, PRESENCE_FILLS };

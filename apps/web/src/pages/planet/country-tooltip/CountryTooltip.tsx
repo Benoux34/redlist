@@ -1,4 +1,5 @@
-import type { CountryValues, MapCountry, MapFilters } from "../entities";
+import type { MapCountry } from "@/components/world-map/entities";
+import type { CountryValues, MapFilters } from "../entities";
 import { numberFr } from "../utils";
 import { filterQualifier } from "../map-filters/utils";
 

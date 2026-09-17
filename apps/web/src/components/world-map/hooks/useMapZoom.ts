@@ -1,5 +1,5 @@
 import { useRef, useState, type MouseEvent, type PointerEvent } from "react";
-import type { MapPoint } from "../../entities";
+import type { MapPoint } from "../entities";
 import {
   MAP_BOUNDS,
   MAX_ZOOM,

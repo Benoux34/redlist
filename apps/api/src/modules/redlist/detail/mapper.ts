@@ -1,11 +1,14 @@
 import { htmlToParagraphs } from "@/lib";
 import { assessmentDetailResponse } from "@/sources";
 import type { MappedDetail } from "./entities";
+import { buildConservation } from "./conservation";
+import { buildDistribution } from "./distribution";
+import { buildPopulation } from "./population";
+import { buildTaxonLadder, buildTexts } from "./taxonomy";
+import { buildThreats } from "./threats";
 import {
   cleanValue,
   EMPTY_DETAIL,
-  familyCodeOf,
-  HABITAT_SEPARATOR,
   labelOf,
   parseImpact,
   parseYesNo,
@@ -26,59 +29,44 @@ function mapDetail(raw: unknown): MappedDetail {
   const doc = data.documentation;
   const info = data.supplementary_info;
 
-  const threats = data.threats
-    .map((threat) => {
-      const label = labelOf(threat);
-      if (label === null) return null;
+  const threats = data.threats.flatMap((threat) => {
+    const label = labelOf(threat);
+    if (label === null) return [];
 
-      return {
+    return [
+      {
         code: threat.code ?? null,
-        familyCode: familyCodeOf(threat.code),
         label,
         scope: threat.scope ?? null,
         timing: threat.timing ?? null,
-        severity:
-          threat.severity === UNKNOWN ? null : (threat.severity ?? null),
+        severity: threat.severity === UNKNOWN ? null : (threat.severity ?? null),
         ...parseImpact(threat.score),
-      };
-    })
-    .filter((threat) => threat !== null)
-    .sort((a, b) => (b.impactScore ?? -1) - (a.impactScore ?? -1));
+      },
+    ];
+  });
 
-  const habitats = data.habitats
-    .map((habitat) => {
-      const label = labelOf(habitat);
-      if (label === null) return null;
+  const locations = data.locations.flatMap((location) => {
+    const name = labelOf(location);
+    if (name === null) return [];
 
-      const [group, ...rest] = label.split(HABITAT_SEPARATOR);
-
-      return {
-        code: habitat.code ?? null,
-        familyCode: familyCodeOf(habitat.code),
-        group: group ?? label,
-        detail: rest.length > 0 ? rest.join(HABITAT_SEPARATOR) : null,
-        suitability: habitat.suitability ?? null,
-      };
-    })
-    .filter((habitat) => habitat !== null);
-
-  const locations = data.locations
-    .map((location) => {
-      const name = labelOf(location);
-      if (name === null) return null;
-
-      return {
-        countryCode: location.code ?? null,
+    return [
+      {
+        code: location.code ?? null,
         name,
         presence: location.presence ?? null,
         origin: location.origin ?? null,
-      };
-    })
-    .filter((location) => location !== null);
+      },
+    ];
+  });
+
+  const habitats = data.habitats.map((habitat) => ({
+    code: habitat.code ?? null,
+    suitability: habitat.suitability ?? null,
+  }));
 
   return {
     detailAvailable: true,
-    population: {
+    population: buildPopulation({
       trend: cleanValue(data.population_trend?.description?.en),
       size: cleanValue(info?.population_size),
       subpopulationCount: cleanValue(info?.no_of_subpopulations),
@@ -87,40 +75,26 @@ function mapDetail(raw: unknown): MappedDetail {
       ),
       severelyFragmented: parseYesNo(info?.population_severely_fragmented),
       generationalLength: cleanValue(info?.generational_length),
-    },
+    }),
     commonNameEn:
       taxon?.common_names.find((name) => name.main === true)?.name ??
       taxon?.common_names[0]?.name ??
       null,
     taxonomy: {
-      kingdom: titleCase(taxon?.kingdom_name),
-      phylum: titleCase(taxon?.phylum_name),
-      className: titleCase(taxon?.class_name),
-      order: titleCase(taxon?.order_name),
-      family: titleCase(taxon?.family_name),
       authority: htmlToParagraphs(taxon?.authority)[0] ?? null,
+      ladder: buildTaxonLadder({
+        kingdom: titleCase(taxon?.kingdom_name),
+        phylum: titleCase(taxon?.phylum_name),
+        className: titleCase(taxon?.class_name),
+        order: titleCase(taxon?.order_name),
+        family: titleCase(taxon?.family_name),
+        species: taxon?.scientific_name ?? null,
+      }),
     },
-    sections: {
-      range: htmlToParagraphs(doc?.range),
-      population: htmlToParagraphs(doc?.population),
-      habitats: htmlToParagraphs(doc?.habitats),
-      threats: htmlToParagraphs(doc?.threats),
-      measures: htmlToParagraphs(doc?.measures),
-      useTrade: htmlToParagraphs(doc?.use_trade),
-    },
-    threats,
-    habitats,
-    locations,
-    conservationActions: (
-      data.supplementary_info?.conservation_actions_in_place ?? []
-    ).map((group) => ({
-      group: group.name,
-      items: group.actions.map((action) =>
-        action.value !== null && action.value !== undefined
-          ? `${action.name} : ${action.value}`
-          : action.name,
-      ),
-    })),
+    texts: buildTexts((key) => htmlToParagraphs(doc?.[key])),
+    threats: buildThreats(threats),
+    distribution: buildDistribution(locations, habitats),
+    conservation: buildConservation(info?.conservation_actions_in_place ?? []),
     systems: data.systems
       .map(labelOf)
       .filter((system): system is string => system !== null),

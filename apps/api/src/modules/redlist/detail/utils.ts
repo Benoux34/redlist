@@ -3,7 +3,6 @@ import type { MappedDetail, WithDescription } from "./entities";
 const YES = "Yes";
 const NO = "No";
 const IMPACT_SCORE_PATTERN = /:\s*(\d+)/;
-const HABITAT_SEPARATOR = " - ";
 const UNKNOWN = "Unknown";
 
 const DETAIL_DEADLINE_MS = 2_500;
@@ -11,34 +10,18 @@ const DETAIL_DEADLINE_MS = 2_500;
 const EMPTY_DETAIL: MappedDetail = {
   detailAvailable: false,
   population: {
-    trend: null,
-    size: null,
-    subpopulationCount: null,
-    largestSubpopulation: null,
-    severelyFragmented: null,
-    generationalLength: null,
+    trend: "Unknown",
+    trendLabel: "Tendance inconnue",
+    trendText:
+      "Les données manquent pour savoir si la population augmente ou diminue.",
+    facts: [],
   },
   commonNameEn: null,
-  taxonomy: {
-    kingdom: null,
-    phylum: null,
-    className: null,
-    order: null,
-    family: null,
-    authority: null,
-  },
-  sections: {
-    range: [],
-    population: [],
-    habitats: [],
-    threats: [],
-    measures: [],
-    useTrade: [],
-  },
-  threats: [],
-  habitats: [],
-  locations: [],
-  conservationActions: [],
+  taxonomy: { authority: null, ladder: [] },
+  texts: [],
+  threats: { groups: [], items: [] },
+  distribution: { presence: [], habitats: [] },
+  conservation: [],
   systems: [],
   isEndemic: false,
   assessors: null,
@@ -84,16 +67,11 @@ function parseImpact(score: string | null | undefined): {
   };
 }
 
-function familyCodeOf(code: string | null | undefined): string | null {
-  return code?.split("_")[0] ?? null;
-}
-
 export {
   DETAIL_DEADLINE_MS,
   YES,
   NO,
   UNKNOWN,
-  HABITAT_SEPARATOR,
   IMPACT_SCORE_PATTERN,
   EMPTY_DETAIL,
   labelOf,
@@ -101,5 +79,4 @@ export {
   cleanValue,
   parseYesNo,
   parseImpact,
-  familyCodeOf,
 };

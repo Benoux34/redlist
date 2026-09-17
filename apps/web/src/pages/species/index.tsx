@@ -1,18 +1,16 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { SpeciesHero } from "./species-hero/SpeciesHero";
-import { SpeciesTaxonomy } from "./species-taxonomy/SpeciesTaxonomy";
-import { SpeciesPopulationSection } from "./species-population/SpeciesPopulation";
-import { SpeciesThreats } from "./species-threats/SpeciesThreats";
-import { SpeciesConservation } from "./species-conservation/SpeciesConservation";
-import { SpeciesDocumentation } from "./species-documentation/SpeciesDocumentation";
-import { SpeciesLocations } from "./species-locations/SpeciesLocations";
-import { SpeciesCitation } from "./species-citation/SpeciesCitation";
-import { SpeciesError } from "./species-status/SpeciesError";
-import { SpeciesLoading } from "./species-status/SpeciesLoading";
-import { SpeciesNotFound } from "./species-status/SpeciesNotFound";
 import { useSpeciesDetail } from "@/hooks/use-species-detail/useSpeciesDetail";
 import { track } from "@/lib/analytics";
+import { Loading } from "@/components/loading/Loading";
+import { SpeciesHero } from "./species-hero/SpeciesHero";
+import { SpeciesThreats } from "./species-threats/SpeciesThreats";
+import { SpeciesPopulation } from "./species-population/SpeciesPopulation";
+import { SpeciesLocations } from "./species-locations/SpeciesLocations";
+import { SpeciesConservation } from "./species-conservation/SpeciesConservation";
+import { SpeciesFurther } from "./species-further/SpeciesFurther";
+import { SpeciesError } from "./_components/species-status/SpeciesError";
+import { SpeciesNotFound } from "./_components/species-status/SpeciesNotFound";
 
 const Species = () => {
   const { assessmentId } = useParams();
@@ -33,30 +31,22 @@ const Species = () => {
   }, [loaded]);
 
   if (!isValidId) return <SpeciesNotFound />;
-  if (detail.status === "loading") return <SpeciesLoading />;
+  if (detail.status === "loading")
+    return <Loading label="Chargement de la fiche…" />;
   if (detail.status === "error")
     return <SpeciesError onRetry={detail.reload} />;
 
-  const species = detail.data;
-
   return (
-    <div className="py-6">
-      <SpeciesHero species={species} />
-      <SpeciesTaxonomy
-        taxonomy={species.taxonomy}
-        scientificName={species.scientificName}
+    <div className="py-8 md:py-12">
+      <SpeciesHero species={detail.data} />
+      <SpeciesThreats threats={detail.data.threats} />
+      <SpeciesPopulation population={detail.data.population} />
+      <SpeciesLocations
+        distribution={detail.data.distribution}
+        isEndemic={detail.data.isEndemic}
       />
-      <SpeciesPopulationSection population={species.population} />
-      <SpeciesThreats threats={species.threats} habitats={species.habitats} />
-      <SpeciesConservation actions={species.conservationActions} />
-      <SpeciesDocumentation sections={species.sections} />
-      <SpeciesLocations locations={species.locations} />
-      <SpeciesCitation
-        citation={species.citation}
-        assessors={species.assessors}
-        officialUrl={species.officialUrl}
-        yearPublished={species.yearPublished}
-      />
+      <SpeciesConservation groups={detail.data.conservation} />
+      <SpeciesFurther species={detail.data} />
     </div>
   );
 };

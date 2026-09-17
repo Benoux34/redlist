@@ -87,8 +87,18 @@ function topCountries(
     .map(([code, value]) => ({ code, value }));
 }
 
+function buildCountryFills(
+  values: CountryValues,
+  scale: readonly ScaleStep[],
+): Map<string, string> {
+  return new Map(
+    [...values].map(([code, value]) => [code, scaleColor(scale, value)]),
+  );
+}
+
 export {
   NO_DATA_COLOR,
+  buildCountryFills,
   topCountries,
   countrySearch,
   buildCountryValues,

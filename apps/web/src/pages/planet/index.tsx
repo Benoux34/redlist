@@ -1,13 +1,19 @@
 import { useCallback, useMemo, useState } from "react";
 import { countryCountsRequest } from "@/api/red-list";
 import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
-import { WorldMap } from "./world-map/WorldMap";
+import { WorldMap } from "@/components/world-map/WorldMap";
+import type { MapCountry } from "@/components/world-map/entities";
 import { CountryTooltip } from "./country-tooltip/CountryTooltip";
 import { MapLegend } from "./map-legend/MapLegend";
 import { MapFilters } from "./map-filters/MapFilters";
 import { CountryRanking } from "./country-ranking/CountryRanking";
-import type { MapCountry, MapFilters as Filters } from "./entities";
-import { buildCountryValues, buildScale, countrySearch } from "./utils";
+import type { MapFilters as Filters } from "./entities";
+import {
+  buildCountryFills,
+  buildCountryValues,
+  buildScale,
+  countrySearch,
+} from "./utils";
 
 const Planet = () => {
   const [hovered, setHovered] = useState<MapCountry | null>(null);
@@ -29,6 +35,11 @@ const Planet = () => {
     [counts.data, filters.status],
   );
   const scale = useMemo(() => buildScale(values.values()), [values]);
+  const fills = useMemo(
+    () => buildCountryFills(values, scale),
+    [values, scale],
+  );
+  const search = countrySearch(filters);
 
   return (
     <div className="py-8 md:py-12">
@@ -57,9 +68,9 @@ const Planet = () => {
         <MapLegend filters={filters} scale={scale} />
         <div className="relative">
           <WorldMap
-            values={values}
-            scale={scale}
-            search={countrySearch(filters)}
+            label="Planisphère des espèces par pays"
+            fills={fills}
+            hrefOf={(code) => `/pays/${code.toLowerCase()}${search}`}
             onHover={setHovered}
           />
           <CountryTooltip values={values} filters={filters} country={hovered} />

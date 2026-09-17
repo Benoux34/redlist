@@ -1,106 +1,102 @@
-import type { SpeciesPopulation } from "@app/contracts";
-import { getTrendLabel } from "../species-hero/utils";
+import type { SpeciesPopulation as Population } from "@app/contracts";
+import { HomeSectionHeader } from "@/pages/home/_components/home-section-header/HomeSectionHeader";
+import { useInView } from "@/hooks/use-in-view/useInView";
+import { Reveal } from "@/components/reveal/Reveal";
+import { FactTooltip } from "./fact-tooltip/FactTooltip";
+import {
+  FACT_ICONS,
+  GENERATION_TOOLTIP,
+  TREND_COLORS,
+  TREND_ICONS,
+} from "./utils";
 
 type Props = Readonly<{
-  population: SpeciesPopulation;
+  population: Population;
 }>;
 
-const SpeciesPopulationSection = ({ population }: Props) => {
-  const hasAnyData =
-    population.trend !== null ||
-    population.size !== null ||
-    population.subpopulationCount !== null ||
-    population.largestSubpopulation !== null ||
-    population.severelyFragmented !== null ||
-    population.generationalLength !== null;
+const SpeciesPopulation = ({ population }: Props) => {
+  const { ref, inView } = useInView<HTMLDivElement>();
+  const { trend, facts } = population;
 
-  if (!hasAnyData) return null;
+  if (trend === "Unknown" && facts.length === 0) return null;
+
+  const TrendIcon = TREND_ICONS[trend];
 
   return (
-    <section className="mb-10">
-      <div className="mb-4 flex items-baseline justify-between border-b border-[var(--color-paper-border)] pb-2.5">
-        <p className="text-sm font-medium tracking-wide text-[var(--color-ink-muted)]">
-          Dynamique de population • Données démographiques
-        </p>
-      </div>
+    <section id="population" className="mb-20 scroll-mt-24 text-left">
+      <HomeSectionHeader
+        eyebrow="La population"
+        title="Combien en reste-t-il ?"
+        lede="Les derniers chiffres connus de l'UICN, traduits en clair."
+      />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 divide-y sm:divide-y-0 border border-[var(--color-paper-border)] bg-transparent">
-        {population.generationalLength !== null && (
-          <div className="flex flex-col justify-between border-b sm:border-r border-[var(--color-paper-border)] p-5 text-left bg-[var(--color-paper-muted)]/20">
-            <span className="text-xs uppercase tracking-wider text-[var(--color-ink-faint)] mb-1.5">
-              Durée d&apos;une génération
-            </span>
-            <p className="font-serif text-xl sm:text-2xl font-medium text-[var(--color-ink)]">
-              {population.generationalLength}{" "}
-              <span className="text-sm font-sans font-normal text-[var(--color-ink-muted)]">
-                ans
-              </span>
+      <div
+        ref={ref}
+        className="grid grid-cols-1 border border-[var(--color-paper-border)] lg:grid-cols-12"
+      >
+        <Reveal
+          inView={inView}
+          className="group relative flex flex-col justify-center gap-4 overflow-hidden border-b border-[var(--color-paper-border)] bg-[var(--color-paper-muted)]/30 p-6 sm:p-8 lg:col-span-5 lg:border-b-0 lg:border-r"
+        >
+          <p className="font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-faint)]">
+            Tendance
+          </p>
+          <div className={`flex items-center gap-4 ${TREND_COLORS[trend]}`}>
+            <TrendIcon
+              className="size-12 shrink-0 transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
+            <p className="font-serif text-4xl font-medium tracking-tight sm:text-5xl">
+              {population.trendLabel}
             </p>
           </div>
-        )}
+          <p className="text-sm leading-relaxed text-[var(--color-ink-muted)]">
+            {population.trendText}
+          </p>
+        </Reveal>
 
-        {population.trend !== null && (
-          <div className="flex flex-col justify-between border-b sm:border-r border-[var(--color-paper-border)] p-5 text-left">
-            <span className="text-xs uppercase tracking-wider text-[var(--color-ink-faint)] mb-1.5">
-              Tendance globale
-            </span>
-            <p className="font-serif text-lg font-medium text-[var(--color-ink)]">
-              {getTrendLabel(population.trend)}
-            </p>
-          </div>
-        )}
+        {facts.length > 0 && (
+          <ul className="divide-y divide-[var(--color-paper-border)] lg:col-span-7">
+            {facts.map((fact, index) => {
+              const Icon = FACT_ICONS[fact.key];
 
-        {population.size !== null && (
-          <div className="flex flex-col justify-between border-b sm:border-r border-[var(--color-paper-border)] p-5 text-left">
-            <span className="text-xs uppercase tracking-wider text-[var(--color-ink-faint)] mb-1.5">
-              Individus matures estimés
-            </span>
-            <p className="font-serif text-lg font-medium text-[var(--color-ink)]">
-              {population.size}
-            </p>
-          </div>
-        )}
-
-        {population.subpopulationCount !== null && (
-          <div className="flex flex-col justify-between border-b sm:border-r border-[var(--color-paper-border)] p-5 text-left">
-            <span className="text-xs uppercase tracking-wider text-[var(--color-ink-faint)] mb-1.5">
-              Sous-populations distinctes
-            </span>
-            <p className="font-serif text-lg font-medium text-[var(--color-ink)]">
-              {population.subpopulationCount}
-            </p>
-          </div>
-        )}
-
-        {population.largestSubpopulation !== null && (
-          <div className="flex flex-col justify-between border-b sm:border-r border-[var(--color-paper-border)] p-5 text-left">
-            <span className="text-xs uppercase tracking-wider text-[var(--color-ink-faint)] mb-1.5">
-              Plus grande sous-population
-            </span>
-            <p className="font-serif text-lg font-medium text-[var(--color-ink)]">
-              {population.largestSubpopulation}{" "}
-              <span className="text-xs font-sans font-normal text-[var(--color-ink-muted)]">
-                individus
-              </span>
-            </p>
-          </div>
-        )}
-
-        {population.severelyFragmented !== null && (
-          <div className="flex flex-col justify-between border-b sm:border-r border-[var(--color-paper-border)] p-5 text-left">
-            <span className="text-xs uppercase tracking-wider text-[var(--color-ink-faint)] mb-1.5">
-              Fragmentation de l&apos;habitat
-            </span>
-            <p className="font-serif text-base font-medium text-[var(--color-ink)]">
-              {population.severelyFragmented
-                ? "Population sévèrement fragmentée"
-                : "Non sévèrement fragmentée"}
-            </p>
-          </div>
+              return (
+                <li key={fact.key} className="group">
+                  <Reveal inView={inView} index={index + 1}>
+                    <div className="flex gap-4 px-6 py-4 transition-colors duration-300 group-hover:bg-[var(--color-paper-muted)]/60 sm:px-8">
+                      <span className="mt-0.5 inline-flex size-9 shrink-0 items-center justify-center border border-[var(--color-paper-border-strong)] bg-[var(--color-paper-card)] text-[var(--color-ink)] transition-colors duration-300 group-hover:border-[var(--color-ink)] group-hover:bg-[var(--color-ink)] group-hover:text-[var(--color-paper)]">
+                        <Icon className="size-4" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="mb-0.5 font-mono text-[11px] uppercase tracking-wider text-[var(--color-ink-faint)]">
+                          {fact.label}
+                        </p>
+                        <p className="font-serif text-lg leading-snug text-[var(--color-ink)]">
+                          {fact.text}
+                          {fact.key === "generation" && (
+                            <>
+                              {" "}
+                              <FactTooltip text={GENERATION_TOOLTIP} />
+                            </>
+                          )}
+                        </p>
+                        {fact.hint && (
+                          <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                            {fact.hint}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </Reveal>
+                </li>
+              );
+            })}
+          </ul>
         )}
       </div>
     </section>
   );
 };
 
-export { SpeciesPopulationSection };
+export { SpeciesPopulation };

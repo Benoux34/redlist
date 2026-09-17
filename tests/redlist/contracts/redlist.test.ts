@@ -1,3 +1,4 @@
+import type { RedListDetail } from "@app/contracts";
 import { describe, expect, it } from "bun:test";
 import {
   groupCounts,
@@ -200,67 +201,69 @@ describe("Contracts - RedList Outputs", () => {
   });
 
   it("should validate full redListDetail schema", () => {
-    const fullDetail = {
+    const fullDetail: RedListDetail = {
       ...sampleItem,
       detailAvailable: true,
       commonNameEn: "Snow Leopard",
       population: {
         trend: "Decreasing",
-        size: "4000-6500",
-        subpopulationCount: null,
-        largestSubpopulation: null,
-        severelyFragmented: true,
-        generationalLength: "8 years",
+        trendLabel: "En déclin",
+        trendText: "Le nombre d'individus diminue.",
+        facts: [
+          {
+            key: "size",
+            label: "Effectif",
+            text: "Entre 4 000 et 6 500 individus adultes",
+            hint: null,
+          },
+        ],
       },
       taxonomy: {
-        kingdom: "Animalia",
-        phylum: "Chordata",
-        className: "Mammalia",
-        order: "Carnivora",
-        family: "Felidae",
         authority: "Schreber, 1775",
+        ladder: [{ rank: "Classe", name: "Mammalia", french: "Mammifères" }],
       },
-      sections: {
-        range: ["Montagnes d'Asie Centrale"],
-        population: ["En déclin"],
-        habitats: ["Régions alpines"],
-        threats: ["Braconnage", "Changement climatique"],
-        measures: ["Aires protégées"],
-        useTrade: ["Commerce illégal de fourrure"],
+      texts: [{ title: "Répartition", paragraphs: ["Montagnes d'Asie"] }],
+      threats: {
+        groups: [
+          {
+            cause: "exploitation",
+            impact: "high",
+            impactLabel: "Impact fort",
+            impactLevel: 3,
+            labels: ["Chasse, piégeage et persécution"],
+          },
+        ],
+        items: [
+          {
+            label: "Chasse, piégeage et persécution",
+            originalLabel: "Hunting & trapping terrestrial animals",
+            impactLabel: "Impact fort",
+            scope: null,
+            severity: "Déclin rapide",
+            timing: "En cours",
+          },
+        ],
       },
-      threats: [
+      distribution: {
+        presence: [
+          {
+            presence: "current",
+            label: "Encore présente",
+            countries: [{ code: "CN", name: "Chine", introduced: false }],
+          },
+        ],
+        habitats: ["Milieux rocheux"],
+      },
+      conservation: [
         {
-          code: "5.1.1",
-          familyCode: "5.1",
-          label: "Chasse et capture",
-          scope: null,
-          timing: "Ongoing",
-          severity: "High",
-          impactScore: 8,
-          impactLabel: "High Impact",
-        },
-      ],
-      habitats: [
-        {
-          code: "6",
-          familyCode: null,
-          group: "Régions rocheuses",
-          detail: "Altitude > 3000m",
-          suitability: "Suitable",
-        },
-      ],
-      locations: [
-        {
-          countryCode: "CN",
-          name: "China",
-          presence: "Extant",
-          origin: "Native",
-        },
-      ],
-      conservationActions: [
-        {
-          group: "Protection des espèces",
-          items: ["Interdiction stricte de la chasse"],
+          title: "Protection des milieux",
+          measures: [
+            {
+              label: "Présente dans au moins une aire protégée",
+              status: "yes",
+              detail: null,
+            },
+          ],
         },
       ],
       systems: ["Terrestrial"],

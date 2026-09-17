@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { clampCenter, zoomedViewBox } from "@web/pages/planet/world-map/utils";
+import { clampCenter, zoomedViewBox } from "@web/components/world-map/utils";
 
 const bounds = { x: 0, y: 0, width: 400, height: 200 };
 

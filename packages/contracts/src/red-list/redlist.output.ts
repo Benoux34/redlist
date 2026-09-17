@@ -43,62 +43,116 @@ const redListCategoryCount = z.strictObject({
 
 const redListCategoryCounts = z.array(redListCategoryCount);
 
-const speciesTaxonomy = z.strictObject({
-  kingdom: z.string().nullable(),
-  phylum: z.string().nullable(),
-  className: z.string().nullable(),
-  order: z.string().nullable(),
-  family: z.string().nullable(),
-  authority: z.string().nullable(),
-});
+const threatCause = z.enum([
+  "habitat",
+  "exploitation",
+  "climate",
+  "pollution",
+  "invasive",
+  "other",
+]);
 
-const speciesSections = z.strictObject({
-  range: z.array(z.string()),
-  population: z.array(z.string()),
-  habitats: z.array(z.string()),
-  threats: z.array(z.string()),
-  measures: z.array(z.string()),
-  useTrade: z.array(z.string()),
-});
+const threatImpact = z.enum([
+  "high",
+  "medium",
+  "low",
+  "negligible",
+  "past",
+  "unknown",
+]);
 
 const speciesThreat = z.strictObject({
-  code: z.string().nullable(),
-  familyCode: z.string().nullable(),
   label: z.string(),
+  originalLabel: z.string(),
+  impactLabel: z.string(),
   scope: z.string().nullable(),
-  timing: z.string().nullable(),
   severity: z.string().nullable(),
-  impactScore: z.number().nullable(),
-  impactLabel: z.string().nullable(),
+  timing: z.string().nullable(),
 });
 
-const speciesHabitat = z.strictObject({
-  code: z.string().nullable(),
-  familyCode: z.string().nullable(),
-  group: z.string(),
-  detail: z.string().nullable(),
-  suitability: z.string().nullable(),
+const speciesThreatGroup = z.strictObject({
+  cause: threatCause,
+  impact: threatImpact,
+  impactLabel: z.string(),
+  impactLevel: z.number().int().min(0).max(3),
+  labels: z.array(z.string()),
 });
 
-const speciesLocation = z.strictObject({
-  countryCode: z.string().nullable(),
-  name: z.string(),
-  presence: z.string().nullable(),
-  origin: z.string().nullable(),
+const speciesThreats = z.strictObject({
+  groups: z.array(speciesThreatGroup),
+  items: z.array(speciesThreat),
+});
+
+const populationTrend = z.enum(["Decreasing", "Increasing", "Stable", "Unknown"]);
+
+const populationFactKey = z.enum([
+  "size",
+  "subpopulations",
+  "largest",
+  "fragmentation",
+  "generation",
+]);
+
+const populationFact = z.strictObject({
+  key: populationFactKey,
+  label: z.string(),
+  text: z.string(),
+  hint: z.string().nullable(),
 });
 
 const speciesPopulation = z.strictObject({
-  trend: z.string().nullable(),
-  size: z.string().nullable(),
-  subpopulationCount: z.string().nullable(),
-  largestSubpopulation: z.string().nullable(),
-  severelyFragmented: z.boolean().nullable(),
-  generationalLength: z.string().nullable(),
+  trend: populationTrend,
+  trendLabel: z.string(),
+  trendText: z.string(),
+  facts: z.array(populationFact),
 });
 
-const conservationAction = z.strictObject({
-  group: z.string(),
-  items: z.array(z.string()),
+const presenceKind = z.enum(["current", "uncertain", "extinct"]);
+
+const speciesCountry = z.strictObject({
+  code: z.string().length(2),
+  name: z.string(),
+  introduced: z.boolean(),
+});
+
+const presenceGroup = z.strictObject({
+  presence: presenceKind,
+  label: z.string(),
+  countries: z.array(speciesCountry),
+});
+
+const speciesDistribution = z.strictObject({
+  presence: z.array(presenceGroup),
+  habitats: z.array(z.string()),
+});
+
+const measureStatus = z.enum(["yes", "partial", "no"]);
+
+const conservationMeasure = z.strictObject({
+  label: z.string(),
+  status: measureStatus,
+  detail: z.string().nullable(),
+});
+
+const conservationGroup = z.strictObject({
+  title: z.string(),
+  measures: z.array(conservationMeasure),
+});
+
+const taxonRung = z.strictObject({
+  rank: z.string(),
+  name: z.string(),
+  french: z.string().nullable(),
+});
+
+const speciesTaxonomy = z.strictObject({
+  authority: z.string().nullable(),
+  ladder: z.array(taxonRung),
+});
+
+const assessmentText = z.strictObject({
+  title: z.string(),
+  paragraphs: z.array(z.string()),
 });
 
 const redListDetail = redListItem.extend({
@@ -106,11 +160,10 @@ const redListDetail = redListItem.extend({
   population: speciesPopulation,
   commonNameEn: z.string().nullable(),
   taxonomy: speciesTaxonomy,
-  sections: speciesSections,
-  threats: z.array(speciesThreat),
-  habitats: z.array(speciesHabitat),
-  locations: z.array(speciesLocation),
-  conservationActions: z.array(conservationAction),
+  texts: z.array(assessmentText),
+  threats: speciesThreats,
+  distribution: speciesDistribution,
+  conservation: z.array(conservationGroup),
   systems: z.array(z.string()),
   isEndemic: z.boolean(),
   assessors: z.string().nullable(),
@@ -143,13 +196,25 @@ export {
   redListPage,
   redListCategoryCount,
   redListCategoryCounts,
+  threatCause,
+  threatImpact,
   speciesThreat,
-  speciesHabitat,
-  speciesLocation,
-  speciesSections,
-  speciesTaxonomy,
+  speciesThreatGroup,
+  speciesThreats,
+  populationTrend,
+  populationFactKey,
+  populationFact,
   speciesPopulation,
-  conservationAction,
+  presenceKind,
+  speciesCountry,
+  presenceGroup,
+  speciesDistribution,
+  measureStatus,
+  conservationMeasure,
+  conservationGroup,
+  taxonRung,
+  speciesTaxonomy,
+  assessmentText,
   redListDetail,
   redListVersion,
   groupCount,

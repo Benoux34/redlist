@@ -1,6 +1,6 @@
 import type { Position } from "geojson";
-import type { WorldGeoJson } from "../../../lib/world-geojson";
-import type { MapBounds, MapPoint } from "../entities";
+import type { WorldGeoJson } from "../../lib/world-geojson";
+import type { MapBounds, MapPoint } from "./entities";
 
 const SCALE = 100;
 const A1 = 1.340264;

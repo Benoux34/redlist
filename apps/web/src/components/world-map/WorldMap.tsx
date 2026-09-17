@@ -2,23 +2,24 @@ import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { Link } from "react-router";
 import { loadWorldGeoJson, type WorldGeoJson } from "@/lib/world-geojson";
 import { translateCountry } from "@/lib/country";
-import type { CountryValues, MapCountry, ScaleStep } from "../entities";
-import { scaleColor } from "../utils";
+import type { MapCountry } from "./entities";
 import { ISLAND_POINTS, OUTLINE_PATH, buildCountryPaths } from "./utils";
 import { useMapZoom } from "./hooks/useMapZoom";
 import { ZoomControls } from "./zoom-controls/ZoomControls";
 
 type Props = Readonly<{
-  values: CountryValues;
-  scale: readonly ScaleStep[];
-  search: string;
-  onHover: (country: MapCountry | null) => void;
+  label: string;
+  fills: ReadonlyMap<string, string>;
+  hrefOf: (code: string) => string;
+  onHover?: (country: MapCountry | null) => void;
 }>;
+
+const EMPTY_FILL = "var(--color-paper-card)";
 
 const SHAPE_CLASS =
   "cursor-pointer fill-[var(--fill)] stroke-[var(--color-paper-border-strong)] outline-none transition-colors hover:fill-[var(--color-ink)] focus-visible:fill-[var(--color-ink)]";
 
-const WorldMap = ({ values, scale, search, onHover }: Props) => {
+const WorldMap = ({ label, fills, hrefOf, onHover }: Props) => {
   const [world, setWorld] = useState<WorldGeoJson | null>(null);
   const map = useMapZoom();
 
@@ -41,23 +42,23 @@ const WorldMap = ({ values, scale, search, onHover }: Props) => {
     [world],
   );
 
-  const islands = ISLAND_POINTS.filter((island) => values.has(island.code));
+  const islands = ISLAND_POINTS.filter((island) => fills.has(island.code));
 
   const shape = (code: string, name: string) => {
     const country = { code, name: translateCountry(code, name) };
 
     return {
       label: country.name,
-      to: `/pays/${code.toLowerCase()}${search}`,
+      to: hrefOf(code),
       handlers: {
         style: {
-          "--fill": scaleColor(scale, values.get(code)),
+          "--fill": fills.get(code) ?? EMPTY_FILL,
         } as CSSProperties,
         className: SHAPE_CLASS,
-        onMouseEnter: () => onHover(country),
-        onMouseLeave: () => onHover(null),
-        onFocus: () => onHover(country),
-        onBlur: () => onHover(null),
+        onMouseEnter: () => onHover?.(country),
+        onMouseLeave: () => onHover?.(null),
+        onFocus: () => onHover?.(country),
+        onBlur: () => onHover?.(null),
       },
     };
   };
@@ -66,7 +67,7 @@ const WorldMap = ({ values, scale, search, onHover }: Props) => {
     <div className="relative">
       <svg
         viewBox={map.viewBox}
-        aria-label="Planisphère des espèces par pays"
+        aria-label={label}
         className={`block h-auto w-full select-none ${map.zoom > 1 ? "cursor-grab touch-none active:cursor-grabbing" : ""}`}
         {...map.panHandlers}
       >
@@ -78,22 +79,22 @@ const WorldMap = ({ values, scale, search, onHover }: Props) => {
         />
 
         {countries.map((country) => {
-          const { label, to, handlers } = shape(country.code, country.name);
+          const shapeProps = shape(country.code, country.name);
           const path = (
             <path
               d={country.d}
               strokeWidth={0.5}
               strokeLinejoin="round"
               vectorEffect="non-scaling-stroke"
-              {...handlers}
+              {...shapeProps.handlers}
             />
           );
 
-          return values.has(country.code) ? (
+          return fills.has(country.code) ? (
             <Link
               key={`${country.code}-${country.name}`}
-              to={to}
-              aria-label={label}
+              to={shapeProps.to}
+              aria-label={shapeProps.label}
             >
               {path}
             </Link>
@@ -103,17 +104,21 @@ const WorldMap = ({ values, scale, search, onHover }: Props) => {
         })}
 
         {islands.map((island) => {
-          const { label, to, handlers } = shape(island.code, island.code);
+          const shapeProps = shape(island.code, island.code);
 
           return (
-            <Link key={island.code} to={to} aria-label={label}>
+            <Link
+              key={island.code}
+              to={shapeProps.to}
+              aria-label={shapeProps.label}
+            >
               <circle
                 cx={island.x}
                 cy={island.y}
                 r={2.2 / Math.sqrt(map.zoom)}
                 strokeWidth={0.75}
                 vectorEffect="non-scaling-stroke"
-                {...handlers}
+                {...shapeProps.handlers}
               />
             </Link>
           );

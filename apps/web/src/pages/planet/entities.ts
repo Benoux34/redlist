@@ -1,10 +1,5 @@
 import type { SpeciesGroup } from "@app/contracts";
 
-type MapCountry = Readonly<{
-  code: string;
-  name: string;
-}>;
-
 type MapStatus = "threatened" | "EX" | "EW" | "CR" | "EN" | "VU";
 
 type MapFilters = Readonly<{
@@ -19,23 +14,4 @@ type ScaleStep = Readonly<{
   color: string;
 }>;
 
-type MapPoint = Readonly<{
-  x: number;
-  y: number;
-}>;
-
-type MapBounds = MapPoint &
-  Readonly<{
-    width: number;
-    height: number;
-  }>;
-
-export type {
-  CountryValues,
-  MapBounds,
-  MapCountry,
-  MapFilters,
-  MapPoint,
-  MapStatus,
-  ScaleStep,
-};
+export type { CountryValues, MapFilters, MapStatus, ScaleStep };
