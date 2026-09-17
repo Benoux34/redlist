@@ -5,6 +5,7 @@ import { WorldMap } from "./world-map/WorldMap";
 import { CountryTooltip } from "./country-tooltip/CountryTooltip";
 import { MapLegend } from "./map-legend/MapLegend";
 import { MapFilters } from "./map-filters/MapFilters";
+import { CountryRanking } from "./country-ranking/CountryRanking";
 import type { MapCountry, MapFilters as Filters } from "./entities";
 import { buildCountryValues, buildScale, countrySearch } from "./utils";
 
@@ -62,6 +63,10 @@ const Planet = () => {
             onHover={setHovered}
           />
           <CountryTooltip values={values} filters={filters} country={hovered} />
+        </div>
+
+        <div className="mt-10">
+          <CountryRanking values={values} filters={filters} />
         </div>
       </section>
     </div>

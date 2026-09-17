@@ -1,6 +1,6 @@
-import { group_labels } from "@/components/species-grid/utils";
 import type { CountryValues, MapCountry, MapFilters } from "../entities";
 import { numberFr } from "../utils";
+import { filterQualifier } from "../map-filters/utils";
 
 type Props = Readonly<{
   values: CountryValues;
@@ -12,12 +12,7 @@ const CountryTooltip = ({ values, filters, country }: Props) => {
   if (country === null) return null;
 
   const value = values.get(country.code);
-  const qualifier = [
-    filters.group === null ? null : group_labels[filters.group],
-    filters.status === "threatened" ? "Total (CR, EN et VU)" : filters.status,
-  ]
-    .filter(Boolean)
-    .join(" · ");
+  const qualifier = filterQualifier(filters);
 
   return (
     <div className="pointer-events-none absolute left-0 top-0 border border-[var(--color-paper-border)] bg-[var(--color-paper)]/95 px-3.5 py-2.5 backdrop-blur-sm">

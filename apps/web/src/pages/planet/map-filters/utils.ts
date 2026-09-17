@@ -1,5 +1,6 @@
 import type { SpeciesGroup } from "@app/contracts";
-import type { MapStatus } from "../entities";
+import { group_labels } from "@/components/species-grid/utils";
+import type { MapFilters, MapStatus } from "../entities";
 
 const STATUS_OPTIONS: readonly Readonly<{
   value: MapStatus;
@@ -37,4 +38,13 @@ const GROUP_OPTIONS: readonly SpeciesGroup[] = [
   "plantes",
 ];
 
-export { GROUP_OPTIONS, STATUS_OPTIONS };
+function filterQualifier(filters: MapFilters): string {
+  return [
+    filters.group === null ? null : group_labels[filters.group],
+    filters.status === "threatened" ? "Total (CR, EN et VU)" : filters.status,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+}
+
+export { GROUP_OPTIONS, STATUS_OPTIONS, filterQualifier };

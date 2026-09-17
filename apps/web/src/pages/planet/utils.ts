@@ -76,8 +76,20 @@ function countrySearch(filters: MapFilters): string {
   return query === "" ? "" : `?${query}`;
 }
 
+function topCountries(
+  values: CountryValues,
+  limit: number,
+): { code: string; value: number }[] {
+  return [...values]
+    .filter(([, value]) => value > 0)
+    .sort(([codeA, a], [codeB, b]) => b - a || codeA.localeCompare(codeB))
+    .slice(0, limit)
+    .map(([code, value]) => ({ code, value }));
+}
+
 export {
   NO_DATA_COLOR,
+  topCountries,
   countrySearch,
   buildCountryValues,
   buildScale,

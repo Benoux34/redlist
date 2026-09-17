@@ -6,6 +6,7 @@ import {
   buildScale,
   countrySearch,
   scaleColor,
+  topCountries,
 } from "@web/pages/planet/utils";
 
 const entry = (
@@ -63,5 +64,23 @@ describe("Frontend Planet - Map scale", () => {
     expect(countrySearch({ status: "CR", group: "oiseaux" })).toBe(
       "?category=CR&group=oiseaux",
     );
+  });
+});
+
+describe("Frontend Planet - Country ranking", () => {
+  it("should keep the highest values first, skip zeros and cap the size", () => {
+    const values = new Map([
+      ["FR", 40],
+      ["MG", 900],
+      ["ZZ", 0],
+      ["BR", 900],
+      ["ID", 500],
+    ]);
+
+    expect(topCountries(values, 3)).toEqual([
+      { code: "BR", value: 900 },
+      { code: "MG", value: 900 },
+      { code: "ID", value: 500 },
+    ]);
   });
 });
