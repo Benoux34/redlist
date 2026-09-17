@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { to: "/threatened-species", label: "Espèces menacées" },
   { to: "/pays/fr", label: "En France" },
   { to: "/presumed-extinct", label: "Présumées éteintes" },
-  { to: "/atlas", label: "Atlas" },
+  { to: "/agir", label: "Agir" },
 ] as const;
 
 export { navLinkClass, mobileNavLinkClass, NAV_LINKS };

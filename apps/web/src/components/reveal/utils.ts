@@ -1,0 +1,3 @@
+const REVEAL_STAGGER_MS = 90;
+
+export { REVEAL_STAGGER_MS };

@@ -7,9 +7,9 @@ const HomeHero = () => {
     <section className="mt-8 mb-20 text-left">
       <div className="w-full text-left">
         <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl tracking-tight text-[var(--color-ink)] leading-[1.08] mb-4">
-          Témoigner du vivant, avant qu&apos;il ne devienne{" "}
+          Connaître le vivant qui nous entoure, pour mieux le{" "}
           <span className="italic font-normal underline decoration-[var(--color-paper-border-strong)] decoration-2 underline-offset-8">
-            une archive
+            préserver
           </span>
           .
         </h1>
@@ -17,23 +17,24 @@ const HomeHero = () => {
         <p className="text-base sm:text-xl leading-relaxed text-[var(--color-ink-muted)] mb-8 max-w-5xl">
           L&apos;observatoire libre et scientifique dédié à la connaissance, la
           surveillance et la préservation de la biodiversité mondiale, fondé sur
-          les évaluations officielles de l&apos;UICN.
+          les évaluations officielles de l&apos;UICN (autorité mondiale de la
+          conservation).
         </p>
 
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
           <Button
             size="lg"
-            className="h-12 px-6 text-base"
+            className="h-10 px-4 text-sm sm:h-12 sm:px-6 sm:text-base"
             render={<Link viewTransition to="/threatened-species" />}
           >
             <span>Explorer le catalogue</span>
-            <ArrowRight className="size-4" />
+            <ArrowRight className="size-3.5 sm:size-4" />
           </Button>
 
           <Button
             variant="outline"
             size="lg"
-            className="h-12 px-6 text-base"
+            className="h-10 px-4 text-sm sm:h-12 sm:px-6 sm:text-base"
             render={<Link viewTransition to="/pays/fr" />}
           >
             <span>Espèces en France</span>

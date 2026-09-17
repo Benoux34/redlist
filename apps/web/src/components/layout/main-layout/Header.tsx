@@ -41,7 +41,7 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className="hidden items-center gap-6 text-sm lg:flex">
           {NAV_LINKS.map((link) => (
             <NavLink
               viewTransition
@@ -63,7 +63,7 @@ const Header = () => {
           aria-expanded={isOpen}
           aria-controls="main-menu"
           aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-          className="-mr-2 inline-flex cursor-pointer items-center justify-center p-2 text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)] md:hidden"
+          className="-mr-2 inline-flex cursor-pointer items-center justify-center p-2 text-[var(--color-ink-muted)] transition-colors hover:text-[var(--color-ink)] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ink)] lg:hidden"
         >
           {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
@@ -72,7 +72,7 @@ const Header = () => {
       <nav
         id="main-menu"
         inert={!isOpen}
-        className={`${collapsibleClass(isOpen)} md:hidden`}
+        className={`${collapsibleClass(isOpen)} lg:hidden`}
       >
         <div className="min-h-0 overflow-hidden border-t border-[var(--color-paper-border)]">
           <div className="mx-auto max-w-6xl divide-y divide-[var(--color-paper-border)]">

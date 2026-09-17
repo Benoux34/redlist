@@ -18,6 +18,7 @@ const Alphabet = lazy(() => import("@/pages/alphabet"));
 const CountryPage = lazy(() => import("@/pages/country"));
 const Methodology = lazy(() => import("@/pages/methodology"));
 const Atlas = lazy(() => import("@/pages/atlas"));
+const Actions = lazy(() => import("@/pages/actions"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const LegalNotice = lazy(() => import("@/pages/legal/mentions"));
 const Privacy = lazy(() => import("@/pages/legal/confidentialite"));
@@ -65,6 +66,7 @@ function App() {
               <Route path="/species/:assessmentId" element={<Species />} />
               <Route path="/methodology" element={<Methodology />} />
               <Route path="/atlas" element={<Atlas />} />
+              <Route path="/agir" element={<Actions />} />
               <Route path="/mentions-legales" element={<LegalNotice />} />
               <Route path="/confidentialite" element={<Privacy />} />
               <Route path="/cgu" element={<Terms />} />

@@ -3,10 +3,12 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { category_colors, getInitials } from "@/components/species-grid/utils";
 import { Button } from "@/components/ui/button";
 import { Loading } from "@/components/loading/Loading";
-import { useSpeciesOfTheDay } from "@/hooks/use-species-of-the-day/useSpeciesOfTheDay";
+import { useFeaturedSpecies } from "./hooks/useFeaturedSpecies";
+import { HomeSectionHeader } from "@/pages/home/_components/home-section-header/HomeSectionHeader";
+import { CATEGORY_GUIDE } from "../home-categories/utils";
 
-const HomeSpeciesOfTheDay = () => {
-  const { data: species, status } = useSpeciesOfTheDay();
+const HomeFeaturedSpecies = () => {
+  const { species, status } = useFeaturedSpecies();
 
   if (status === "error" || (status === "success" && !species)) return null;
 
@@ -19,9 +21,18 @@ const HomeSpeciesOfTheDay = () => {
     : null;
 
   const initials = species ? getInitials(species.scientificName) : "—";
+  const meaning = species
+    ? CATEGORY_GUIDE.find((entry) => entry.code === species.categoryCode)
+    : undefined;
 
   return (
     <section className="mb-20 text-left">
+      <HomeSectionHeader
+        eyebrow="Un exemple concret"
+        title="L'espèce du jour"
+        lede="Chaque jour, une espèce emblématique de la Liste rouge, et ce que son statut veut dire."
+      />
+
       <div className="border border-[var(--color-paper-border)] bg-transparent">
         {status === "loading" || !species ? (
           <Loading
@@ -138,12 +149,12 @@ const HomeSpeciesOfTheDay = () => {
                     </span>
                   </div>
 
-                  <div>
+                  <div className="col-span-2 sm:col-span-1">
                     <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[var(--color-ink-faint)] block mb-0.5">
-                      Identifiant
+                      Ce que ça veut dire
                     </span>
-                    <span className="font-mono text-xs text-[var(--color-ink-muted)]">
-                      #{species.assessmentId}
+                    <span className="font-serif font-medium text-sm sm:text-base text-[var(--color-ink)]">
+                      {meaning?.criterionSummary ?? "—"}
                     </span>
                   </div>
                 </div>
@@ -184,4 +195,4 @@ const HomeSpeciesOfTheDay = () => {
   );
 };
 
-export { HomeSpeciesOfTheDay };
+export { HomeFeaturedSpecies };

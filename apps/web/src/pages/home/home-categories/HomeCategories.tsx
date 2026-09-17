@@ -1,7 +1,10 @@
+import { HomeSectionNote } from "@/pages/home/_components/home-section-note/HomeSectionNote";
+import { IUCN_CRITERIA_URL } from "@/pages/home/_components/home-section-note/utils";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
 import { useAsyncData } from "@/hooks/use-async-data/useAsyncData";
 import { redlistCategoryCountsRequest } from "@/api/red-list";
+import { HomeSectionHeader } from "@/pages/home/_components/home-section-header/HomeSectionHeader";
 import { CATEGORY_GUIDE } from "./utils";
 
 const HomeCategories = () => {
@@ -16,6 +19,12 @@ const HomeCategories = () => {
 
   return (
     <section className="mb-20 text-left">
+      <HomeSectionHeader
+        eyebrow="Le résultat"
+        title="Les statuts de la Liste rouge"
+        lede="Chaque espèce évaluée reçoit l'un de ces statuts, rangés du plus grave au moins grave. Les chiffres indiquent combien d'espèces sont concernées."
+      />
+
       <div className="border border-[var(--color-paper-border)] bg-transparent">
         <div className="hidden lg:grid grid-cols-[270px_1fr_130px_90px] items-center gap-6 border-b border-[var(--color-paper-border)] bg-[var(--color-paper-muted)]/40 px-6 py-3 text-[11px] font-mono uppercase tracking-wider text-[var(--color-ink-faint)]">
           <span>Statut</span>
@@ -82,17 +91,14 @@ const HomeCategories = () => {
         </div>
       </div>
 
-      <div className="mt-1.5 flex items-center justify-between text-[11px] text-[var(--color-ink-faint)]">
-        <p>
-          * Les espèces classées <em>Préoccupation mineure (LC)</em>,{" "}
-          <em>Quasi menacée (NT)</em> et <em>Données insuffisantes (DD)</em> ne
-          sont pas incluses dans cet inventaire.
-        </p>
-
-        <Link viewTransition to="/methodology" className="hover:underline">
-          Comprendre la méthode UICN
-        </Link>
-      </div>
+      <HomeSectionNote
+        sourceLabel="Catégories et critères de l'UICN"
+        sourceHref={IUCN_CRITERIA_URL}
+      >
+        * Les espèces classées <em>Préoccupation mineure (LC)</em>,{" "}
+        <em>Quasi menacée (NT)</em> et <em>Données insuffisantes (DD)</em> ne
+        sont pas incluses dans cet inventaire.
+      </HomeSectionNote>
     </section>
   );
 };

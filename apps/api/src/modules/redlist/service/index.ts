@@ -14,10 +14,10 @@ import {
   redListPage,
 } from "@app/contracts";
 import { db } from "@/db";
-import { Prisma } from "@/generated/prisma/client";
 import { AppError, cached, cachedBy } from "@/lib";
 import { aliasFor } from "@/sources/gbif";
 import { EMPTY_DETAIL, fetchDetailWithinDeadline, mapDetail } from "../detail";
+import { FEATURED_NAMES, orderFeatured, pickForDay } from "../featured";
 import {
   buildCountryCounts,
   buildOrderBy,
@@ -130,28 +130,19 @@ async function getAssessmentDetail(
   });
 }
 
-async function getSpeciesOfTheDay(): Promise<RedListItem | null> {
-  const where: Prisma.RedListAssessmentWhereInput = {
-    photoUrl: { not: null },
-    description: { not: null },
-  };
-
-  const total = await db.redListAssessment.count({ where });
-
-  if (total === 0) return null;
-
-  const dayIndex = Math.floor(Date.now() / MS_PER_DAY);
-  const offset = dayIndex % total;
-
-  const [row] = await db.redListAssessment.findMany({
-    where,
+const loadFeatured = cached(async () => {
+  const rows = await db.redListAssessment.findMany({
+    where: { scientificName: { in: FEATURED_NAMES } },
     select: SELECT,
-    orderBy: { assessmentId: "asc" },
-    skip: offset,
-    take: 1,
   });
 
-  return row === undefined ? null : redListItem.parse(row);
+  return orderFeatured(rows);
+});
+
+async function getFeaturedSpecies(): Promise<RedListItem | null> {
+  const species = pickForDay(await loadFeatured(), Date.now(), MS_PER_DAY);
+
+  return species === null ? null : redListItem.parse(species);
 }
 
 const countGroups = cachedBy(async (key: string) => {
@@ -178,6 +169,6 @@ export {
   getCountryCounts,
   listAssessments,
   getAssessmentDetail,
-  getSpeciesOfTheDay,
+  getFeaturedSpecies,
   getGroupCounts,
 };

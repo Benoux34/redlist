@@ -13,7 +13,7 @@ import {
   getCategoryCounts,
   getCountryCounts,
   getGroupCounts,
-  getSpeciesOfTheDay,
+  getFeaturedSpecies,
   listAssessments,
 } from "../service";
 import { buildSpeciesMeta, renderMetaDocument } from "../preview";
@@ -44,8 +44,8 @@ const redListRoutes = new Hono<AppEnv>()
       lastSyncedAt: sync?.lastSyncedAt.toISOString() ?? null,
     });
   })
-  .get("/species-of-the-day", listLimiter, async (c) => {
-    const species = await getSpeciesOfTheDay();
+  .get("/featured", listLimiter, async (c) => {
+    const species = await getFeaturedSpecies();
     if (species === null) throw new AppError("NOT_FOUND");
 
     return c.json(species);

@@ -32,10 +32,10 @@ const Footer = () => {
               <li>
                 <Link
                   viewTransition
-                  to="/atlas"
+                  to="/agir"
                   className="transition-colors hover:text-[var(--color-ink)]"
                 >
-                  Atlas
+                  Chaque geste compte
                 </Link>
               </li>
               <li>

@@ -1,19 +1,19 @@
 import { HomeHero } from "./home-hero/HomeHero";
+import { HomeHowItWorks } from "./home-how-it-works/HomeHowItWorks";
 import { HomeCategories } from "./home-categories/HomeCategories";
-import { HomeSpeciesOfTheDay } from "./home-species-of-the-day/HomeSpeciesOfTheDay";
-import { HomePortals } from "./home-portals/HomePortals";
-import { HomeAtlas } from "./home-atlas/HomeAtlas";
-import { HomeManifesto } from "./home-manifesto/HomeManifesto";
+import { HomeFeaturedSpecies } from "./home-featured-species/HomeFeaturedSpecies";
+import { HomeThreats } from "./home-threats/HomeThreats";
+import { HomeActions } from "./home-actions/HomeActions";
 
 const Home = () => {
   return (
     <div className="py-8 md:py-12">
       <HomeHero />
+      <HomeHowItWorks />
       <HomeCategories />
-      <HomeAtlas />
-      <HomePortals />
-      <HomeSpeciesOfTheDay />
-      <HomeManifesto />
+      <HomeFeaturedSpecies />
+      <HomeThreats />
+      <HomeActions />
     </div>
   );
 };
