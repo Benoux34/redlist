@@ -42,9 +42,7 @@ const IdentitySection = ({ user }: Props) => {
           <span className="text-xs uppercase tracking-wider text-[var(--color-ink-muted)] mb-1 sm:mb-0">
             Membre depuis le
           </span>
-          <span className="text-[var(--color-ink-muted)]">
-            {memberSince}
-          </span>
+          <span className="text-[var(--color-ink-muted)]">{memberSince}</span>
         </div>
       </div>
     </section>

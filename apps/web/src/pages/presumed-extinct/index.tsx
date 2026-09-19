@@ -3,10 +3,17 @@ import { PresumedExtinctHero } from "./presumed-extinct-hero/PresumedExtinctHero
 import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
 import { Pagination } from "@/components/pagination/Pagination";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const LOCKED = { possiblyExtinct: true } as const;
 
 const PresumedExtinct = () => {
+  usePageMeta({
+    title: "Espèces présumées éteintes",
+    description:
+      "Les espèces que l'UICN signale comme probablement disparues, sans que leur extinction soit encore officiellement confirmée.",
+  });
+
   const {
     filters,
     setCategory,

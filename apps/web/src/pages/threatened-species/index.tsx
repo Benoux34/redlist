@@ -4,8 +4,15 @@ import { ThreatenedSpeciesHero } from "./threatened-species-hero/ThreatenedSpeci
 import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
 import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const ThreatenedSpecies = () => {
+  usePageMeta({
+    title: "Catalogue des espèces menacées",
+    description:
+      "Parcourez les espèces évaluées par l'UICN : vulnérables, en danger, en danger critique ou éteintes. Filtrez par statut, par groupe et par photo.",
+  });
+
   const {
     filters,
     setCategory,

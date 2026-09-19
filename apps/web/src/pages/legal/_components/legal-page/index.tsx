@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 type Props = Readonly<{
   title: string;
@@ -8,6 +9,8 @@ type Props = Readonly<{
 }>;
 
 const LegalPage = ({ title, lede, updatedAt, children }: Props) => {
+  usePageMeta({ title, description: lede });
+
   return (
     <div className="py-8 md:py-12">
       <header className="mb-12 text-left">

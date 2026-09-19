@@ -1,8 +1,15 @@
 import { Link, useLocation } from "react-router";
 import { ArrowRight, Globe } from "lucide-react";
 import { NOT_FOUND_LINKS } from "./utils";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const NotFound = () => {
+  usePageMeta({
+    title: "Page introuvable",
+    description: "Cette adresse ne correspond à aucune page du site.",
+    noindex: true,
+  });
+
   const { pathname } = useLocation();
 
   return (

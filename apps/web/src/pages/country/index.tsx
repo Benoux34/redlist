@@ -9,6 +9,7 @@ import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 import { CountryHero } from "./country-hero/CountryHero";
 import { CountryNotFound } from "./country-status/CountryNotFound";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const CountryPage = () => {
   const { code } = useParams();
@@ -29,9 +30,22 @@ const CountryPage = () => {
     assessments,
   } = useRedList(locked);
 
-  if (countryCode === null) return <CountryNotFound code={code ?? ""} />;
+  const countryName = translateCountry(countryCode ?? "", countryCode ?? "");
+  const total = assessments.data?.total;
 
-  const countryName = translateCountry(countryCode, countryCode);
+  usePageMeta({
+    title:
+      countryCode === null
+        ? "Territoire inconnu"
+        : `Espèces menacées ${countryName === "France" ? "en France" : `— ${countryName}`}`,
+    description:
+      countryCode === null
+        ? "Ce code pays ne correspond à aucun territoire connu."
+        : `${total === undefined ? "Les espèces" : `${new Intl.NumberFormat("fr-FR").format(total)} espèces`} évaluées par l'UICN sur le territoire : ${countryName}. Statuts, groupes et fiches détaillées.`,
+    noindex: countryCode === null,
+  });
+
+  if (countryCode === null) return <CountryNotFound code={code ?? ""} />;
 
   return (
     <div className="py-8 md:py-12">

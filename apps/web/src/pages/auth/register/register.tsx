@@ -1,7 +1,14 @@
 import { Link } from "react-router";
 import { RegisterForm } from "./form/RegisterForm";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const Register = () => {
+  usePageMeta({
+    title: "Créer un compte",
+    description: "Créez un compte pour suivre des espèces et les retrouver.",
+    noindex: true,
+  });
+
   return (
     <div className="w-full max-w-lg border border-[var(--color-paper-border)] bg-[var(--color-paper)] p-8 sm:p-10 shadow-xs">
       <h1 className="mb-2 font-serif text-3xl font-medium tracking-tight text-[var(--color-ink)]">

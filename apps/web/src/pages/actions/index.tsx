@@ -7,8 +7,15 @@ import { CauseFilter } from "./cause-filter/CauseFilter";
 import { GestureDomain } from "./gesture-domain/GestureDomain";
 import { useCauseFilter } from "./hooks/useCauseFilter";
 import { countByCause, countGestures, filterDomains } from "./utils";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const Actions = () => {
+  usePageMeta({
+    title: "Chaque geste compte : agir pour la biodiversité",
+    description:
+      "Des gestes simples du quotidien qui réduisent les pressions sur le vivant : alimentation, jardin, consommation, déplacements et observation.",
+  });
+
   const { cause, setCause } = useCauseFilter();
 
   const counts = useMemo(() => countByCause(DOMAINS), []);

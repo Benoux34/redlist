@@ -2,6 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
+    "lib": ["ESNext", "DOM"],
     "paths": {
       "@app/contracts": ["./packages/contracts/src/index.ts"],
       "@app/contracts/*": ["./packages/contracts/src/*"],

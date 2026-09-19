@@ -1,7 +1,14 @@
 import { Link } from "react-router";
 import { LoginForm } from "./form/LoginForm";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const Login = () => {
+  usePageMeta({
+    title: "Connexion",
+    description: "Connectez-vous pour retrouver vos espèces suivies.",
+    noindex: true,
+  });
+
   return (
     <div className="w-full max-w-lg border border-[var(--color-paper-border)] bg-[var(--color-paper)] p-8 sm:p-10 shadow-xs">
       <h1 className="mb-2 font-serif text-3xl font-medium tracking-tight text-[var(--color-ink)]">

@@ -8,6 +8,7 @@ import { MapLegend } from "./map-legend/MapLegend";
 import { MapFilters } from "./map-filters/MapFilters";
 import { CountryRanking } from "./country-ranking/CountryRanking";
 import type { MapFilters as Filters } from "./entities";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 import {
   buildCountryFills,
   buildCountryValues,
@@ -16,6 +17,12 @@ import {
 } from "./utils";
 
 const Planet = () => {
+  usePageMeta({
+    title: "Notre planète : la carte des espèces menacées",
+    description:
+      "Le planisphère des espèces menacées, pays par pays. Filtrez par statut et par groupe, et découvrez les dix pays qui en abritent le plus.",
+  });
+
   const [hovered, setHovered] = useState<MapCountry | null>(null);
   const [filters, setFilters] = useState<Filters>({
     status: "threatened",

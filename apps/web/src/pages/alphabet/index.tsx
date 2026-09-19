@@ -7,6 +7,7 @@ import { SpeciesGrid } from "@/components/species-grid/SpeciesGrid";
 import { Pagination } from "@/components/pagination/Pagination";
 import { AlphabetSearch } from "./alphabet-search";
 import { SpeciesFilters } from "@/components/species-filters/SpeciesFilters";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const LETTER_PATTERN = /^[a-z]$/i;
 
@@ -29,6 +30,11 @@ const Alphabet = () => {
     setPage,
     assessments,
   } = useRedList(lockedFilters);
+
+  usePageMeta({
+    title: `Espèces en ${currentLetter} — index A–Z`,
+    description: `Toutes les espèces de la Liste rouge de l'UICN dont le nom scientifique commence par la lettre ${currentLetter}.`,
+  });
 
   if (!isValid) return <Navigate to="/especes/a" replace />;
 

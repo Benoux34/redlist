@@ -11,6 +11,7 @@ import { SpeciesConservation } from "./species-conservation/SpeciesConservation"
 import { SpeciesFurther } from "./species-further/SpeciesFurther";
 import { SpeciesError } from "./_components/species-status/SpeciesError";
 import { SpeciesNotFound } from "./_components/species-status/SpeciesNotFound";
+import { usePageMeta } from "@/hooks/use-page-meta/usePageMeta";
 
 const Species = () => {
   const { assessmentId } = useParams();
@@ -29,6 +30,21 @@ const Species = () => {
       detailComplet: loaded.detailAvailable,
     });
   }, [loaded]);
+
+  usePageMeta({
+    title:
+      loaded === null
+        ? "Fiche espèce"
+        : loaded.vernacularNameFr === null
+          ? loaded.scientificName
+          : `${loaded.vernacularNameFr} (${loaded.scientificName})`,
+    description:
+      loaded === null
+        ? "Fiche détaillée d'une espèce évaluée par la Liste rouge de l'UICN."
+        : (loaded.description ??
+          `${loaded.vernacularNameFr ?? loaded.scientificName} : statut de conservation, menaces, population et répartition, d'après la Liste rouge de l'UICN.`),
+    noindex: !isValidId,
+  });
 
   if (!isValidId) return <SpeciesNotFound />;
   if (detail.status === "loading")
