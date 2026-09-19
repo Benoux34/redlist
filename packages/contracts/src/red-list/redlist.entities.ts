@@ -4,6 +4,7 @@ import {
   redListQuery,
   groupCountsQuery,
   countryCountsQuery,
+  sitemapParams,
   redListDetailParams,
 } from "./redlist.input";
 import {
@@ -43,6 +44,7 @@ type SpeciesGroup = z.infer<typeof speciesGroup>;
 type RedListQuery = z.infer<typeof redListQuery>;
 type GroupCountsQuery = z.infer<typeof groupCountsQuery>;
 type CountryCountsQuery = z.infer<typeof countryCountsQuery>;
+type SitemapParams = z.infer<typeof sitemapParams>;
 type RedListDetailParams = z.infer<typeof redListDetailParams>;
 type RedListItem = z.infer<typeof redListItem>;
 type RedListPage = z.infer<typeof redListPage>;
@@ -80,6 +82,7 @@ export type {
   RedListQuery,
   GroupCountsQuery,
   CountryCountsQuery,
+  SitemapParams,
   RedListDetailParams,
   RedListItem,
   RedListPage,

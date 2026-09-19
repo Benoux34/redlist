@@ -5,6 +5,7 @@ import {
   groupCountsQuery,
   redListDetailParams,
   redListQuery,
+  sitemapParams,
 } from "@app/contracts";
 import type { AppEnv } from "@/middleware/auth/entities";
 import { AppError } from "@/lib";
@@ -18,7 +19,18 @@ import {
   listAssessments,
 } from "../service";
 import { buildSpeciesMeta, renderMetaDocument } from "../preview";
+import {
+  getCountriesSitemap,
+  getPagesSitemap,
+  getSitemapIndex,
+  getSpeciesSitemap,
+} from "../sitemap";
 import { listLimiter, detailLimiter } from "./utils";
+
+const XML_HEADERS = {
+  "Content-Type": "application/xml; charset=utf-8",
+  "Cache-Control": "public, max-age=3600",
+} as const;
 
 const redListRoutes = new Hono<AppEnv>()
   .get("/", listLimiter, zValidator("query", redListQuery), async (c) =>
@@ -54,6 +66,26 @@ const redListRoutes = new Hono<AppEnv>()
 
     return c.json(species);
   })
+  .get("/sitemap.xml", listLimiter, async (c) =>
+    c.text(await getSitemapIndex(), 200, XML_HEADERS),
+  )
+  .get("/sitemap-pages.xml", listLimiter, async (c) =>
+    c.text(await getPagesSitemap(), 200, XML_HEADERS),
+  )
+  .get("/sitemap-countries.xml", listLimiter, async (c) =>
+    c.text(await getCountriesSitemap(), 200, XML_HEADERS),
+  )
+  .get(
+    "/sitemap-species/:page",
+    listLimiter,
+    zValidator("param", sitemapParams),
+    async (c) => {
+      const xml = await getSpeciesSitemap(c.req.valid("param").page);
+      if (xml === null) throw new AppError("NOT_FOUND");
+
+      return c.text(xml, 200, XML_HEADERS);
+    },
+  )
   .get(
     "/preview/:assessmentId",
     listLimiter,

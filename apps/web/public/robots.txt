@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /account
+Disallow: /login
+Disallow: /register
+Disallow: /__preview/
+
+Sitemap: https://redlist.dedyn.io/sitemap.xml

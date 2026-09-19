@@ -31,6 +31,10 @@ const countryCountsQuery = z.strictObject({
   group: speciesGroup.optional(),
 });
 
+const sitemapParams = z.strictObject({
+  page: z.coerce.number().int().min(1).max(50),
+});
+
 const redListDetailParams = z.object({
   assessmentId: z.coerce.number().int().positive(),
 });
@@ -39,5 +43,6 @@ export {
   redListQuery,
   groupCountsQuery,
   countryCountsQuery,
+  sitemapParams,
   redListDetailParams,
 };

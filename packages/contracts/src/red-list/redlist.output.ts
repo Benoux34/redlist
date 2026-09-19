@@ -83,7 +83,12 @@ const speciesThreats = z.strictObject({
   items: z.array(speciesThreat),
 });
 
-const populationTrend = z.enum(["Decreasing", "Increasing", "Stable", "Unknown"]);
+const populationTrend = z.enum([
+  "Decreasing",
+  "Increasing",
+  "Stable",
+  "Unknown",
+]);
 
 const populationFactKey = z.enum([
   "size",
