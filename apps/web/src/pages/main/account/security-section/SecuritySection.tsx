@@ -1,9 +1,10 @@
 import { useAuth } from "@/context/useAuth";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
-import { LogOut, Trash2 } from "lucide-react";
+import { KeyRound, LogOut, Trash2 } from "lucide-react";
 import type { SessionUser } from "@app/contracts";
 import { useDeleteAccount } from "./hooks/useDeleteAccount";
+import { useResetPasswordLink } from "./hooks/useResetPasswordLink";
 import { DeleteAccountConfirm } from "./delete-account-confirm/DeleteAccountConfirm";
 
 type Props = Readonly<{
@@ -14,6 +15,7 @@ const SecuritySection = ({ user }: Props) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const remove = useDeleteAccount(user.pseudo);
+  const resetLink = useResetPasswordLink(user.email);
 
   const handleLogout = async () => {
     try {
@@ -33,6 +35,47 @@ const SecuritySection = ({ user }: Props) => {
 
       <div className="space-y-6">
         <div className="border border-[var(--color-paper-border)] bg-transparent divide-y divide-[var(--color-paper-border)]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 text-left gap-4">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <KeyRound className="size-4 text-[var(--color-ink-muted)]" />
+                <h3 className="font-serif text-base font-medium text-[var(--color-ink)]">
+                  Mot de passe
+                </h3>
+              </div>
+              <p
+                role="status"
+                className="text-xs text-[var(--color-ink-muted)] leading-relaxed"
+              >
+                {resetLink.state === "sent"
+                  ? `Lien envoyé à ${user.email}. Il est valable 1 heure.`
+                  : "Recevoir par email un lien pour choisir un nouveau mot de passe."}
+              </p>
+              {resetLink.error !== null && (
+                <p
+                  role="alert"
+                  className="mt-1 text-xs text-[var(--color-status-cr)]"
+                >
+                  {resetLink.error}
+                </p>
+              )}
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={resetLink.state !== "idle"}
+              onClick={() => void resetLink.send()}
+              className="shrink-0 self-start text-xs sm:self-auto"
+            >
+              {resetLink.state === "pending"
+                ? "Envoi…"
+                : resetLink.state === "sent"
+                  ? "Lien envoyé"
+                  : "Recevoir un lien"}
+            </Button>
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between p-5 text-left gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1">

@@ -1,3 +1,5 @@
 type DeleteState = "idle" | "confirming" | "pending";
 
-export type { DeleteState };
+type ResetLinkState = "idle" | "pending" | "sent";
+
+export type { DeleteState, ResetLinkState };
