@@ -48,7 +48,7 @@ const SecuritySection = ({ user }: Props) => {
                 className="text-xs text-[var(--color-ink-muted)] leading-relaxed"
               >
                 {resetLink.state === "sent"
-                  ? `Lien envoyé à ${user.email}. Il est valable 1 heure.`
+                  ? `Lien envoyé à ${user.email}. Il est valable 1 heure. Pense à vérifier tes spams.`
                   : "Recevoir par email un lien pour choisir un nouveau mot de passe."}
               </p>
               {resetLink.error !== null && (
