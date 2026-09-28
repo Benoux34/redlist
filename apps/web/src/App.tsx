@@ -17,14 +17,18 @@ const ResetPassword = lazy(
 );
 const Account = lazy(() => import("@/pages/main/account"));
 const RedList = lazy(() => import("@/pages/main/home"));
-const ThreatenedSpecies = lazy(() => import("@/pages/main/threatened-species"));
-const Species = lazy(() => import("@/pages/main/species"));
-const PresumedExtinct = lazy(() => import("@/pages/main/presumed-extinct"));
-const Alphabet = lazy(() => import("@/pages/main/alphabet"));
-const CountryPage = lazy(() => import("@/pages/main/country"));
-const Methodology = lazy(() => import("@/pages/main/methodology"));
-const Planet = lazy(() => import("@/pages/main/planet"));
-const Actions = lazy(() => import("@/pages/main/actions"));
+const ThreatenedSpecies = lazy(
+  () => import("@/pages/main/redlist/threatened-species"),
+);
+const Species = lazy(() => import("@/pages/main/redlist/species"));
+const PresumedExtinct = lazy(
+  () => import("@/pages/main/redlist/presumed-extinct"),
+);
+const Alphabet = lazy(() => import("@/pages/main/redlist/alphabet"));
+const CountryPage = lazy(() => import("@/pages/main/redlist/country"));
+const Methodology = lazy(() => import("@/pages/main/education/methodology"));
+const Planet = lazy(() => import("@/pages/main/redlist/planet"));
+const Actions = lazy(() => import("@/pages/main/education/actions"));
 const NotFound = lazy(() => import("@/pages/main/not-found"));
 const LegalNotice = lazy(() => import("@/pages/main/legal/mentions"));
 const Privacy = lazy(() => import("@/pages/main/legal/confidentialite"));

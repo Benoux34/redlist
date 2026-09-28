@@ -7,7 +7,7 @@ import { useInView } from "@/hooks/use-in-view/useInView";
 import { Reveal } from "@/components/reveal/Reveal";
 import { THREATS } from "@/components/threats/utils";
 import { GESTURES_PATH } from "@/components/gestures/utils";
-import { CAUSE_PARAM } from "@/pages/main/actions/utils";
+import { CAUSE_PARAM } from "@/pages/main/education/actions/utils";
 import { ThreatDetails } from "./threat-details/ThreatDetails";
 import {
   OTHER_CAUSE,

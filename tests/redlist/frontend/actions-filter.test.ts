@@ -5,7 +5,7 @@ import {
   countGestures,
   filterDomains,
   parseCause,
-} from "@web/pages/main/actions/utils";
+} from "@web/pages/main/education/actions/utils";
 
 const icon = (() => null) as never;
 

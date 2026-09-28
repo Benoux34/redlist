@@ -1,6 +1,6 @@
-import type { GestureDomain } from "../../../components/gestures/entities";
-import type { ThreatKey } from "../../../components/threats/entities";
-import { THREATS } from "../../../components/threats/utils";
+import type { GestureDomain } from "../../../../components/gestures/entities";
+import type { ThreatKey } from "../../../../components/threats/entities";
+import { THREATS } from "../../../../components/threats/utils";
 
 const CAUSE_PARAM = "cause";
 

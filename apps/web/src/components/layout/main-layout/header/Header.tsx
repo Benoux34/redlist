@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
-import { NAV_LINKS, mobileNavLinkClass, navLinkClass } from "./utils";
+import {
+  NAV_GROUPS,
+  isGroupActive,
+  mobileNavLinkClass,
+  navLinkClass,
+} from "./utils";
 import { collapsibleClass } from "@/lib/utils";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { useAuth } from "@/context/useAuth";
 
 const Header = () => {
@@ -41,21 +54,43 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="hidden items-center gap-6 text-sm lg:flex">
-          {NAV_LINKS.map((link) => (
-            <NavLink
-              viewTransition
-              key={link.to}
-              to={link.to}
-              className={navLinkClass}
-            >
-              {link.label}
-            </NavLink>
-          ))}
+        <div className="hidden items-center gap-6 text-sm lg:flex">
+          <NavigationMenu align="end">
+            <NavigationMenuList className="gap-6">
+              {NAV_GROUPS.map((group) => (
+                <NavigationMenuItem key={group.label}>
+                  <NavigationMenuTrigger
+                    className={
+                      isGroupActive(pathname, group)
+                        ? "text-[var(--color-ink)] underline decoration-status-cr underline-offset-4"
+                        : undefined
+                    }
+                  >
+                    {group.label}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="w-52">
+                      {group.links.map((link) => (
+                        <li key={link.to}>
+                          <NavigationMenuLink
+                            closeOnClick
+                            active={pathname === link.to}
+                            render={<Link viewTransition to={link.to} />}
+                          >
+                            {link.label}
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
           <NavLink viewTransition to={accountTo} className={navLinkClass}>
             {accountLabel}
           </NavLink>
-        </nav>
+        </div>
 
         <button
           type="button"
@@ -76,15 +111,22 @@ const Header = () => {
       >
         <div className="min-h-0 overflow-hidden border-t border-[var(--color-paper-border)]">
           <div className="mx-auto max-w-6xl divide-y divide-[var(--color-paper-border)]">
-            {NAV_LINKS.map((link) => (
-              <NavLink
-                viewTransition
-                key={link.to}
-                to={link.to}
-                className={mobileNavLinkClass}
-              >
-                {link.label}
-              </NavLink>
+            {NAV_GROUPS.map((group) => (
+              <div key={group.label} className="pb-2">
+                <p className="px-6 pt-4 pb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-ink-faint)] md:px-4">
+                  {group.label}
+                </p>
+                {group.links.map((link) => (
+                  <NavLink
+                    viewTransition
+                    key={link.to}
+                    to={link.to}
+                    className={mobileNavLinkClass}
+                  >
+                    {link.label}
+                  </NavLink>
+                ))}
+              </div>
             ))}
             <NavLink
               viewTransition
