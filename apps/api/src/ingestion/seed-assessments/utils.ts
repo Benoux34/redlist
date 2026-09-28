@@ -2,7 +2,7 @@ import type { IucnAssessment } from "@/sources";
 
 const CATEGORIES = ["EX", "EW", "CR", "EN", "VU"] as const;
 const GLOBAL_SCOPE_CODE = 1;
-const MAX_PAGES_PER_CATEGORY = 200;
+const MAX_PAGES_PER_CATEGORY = 500;
 const DB_BATCH_SIZE = 25;
 
 function toRow(assessment: IucnAssessment, redListVersion: string) {
