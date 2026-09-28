@@ -11,6 +11,7 @@ import {
   GLOBAL_SCOPE_CODE,
   MAX_PAGES_PER_CATEGORY,
   toRow,
+  type Category,
 } from "./utils";
 
 async function fetchRedListVersion(): Promise<string> {
@@ -72,7 +73,26 @@ async function seedCategory(
   return total;
 }
 
-async function runSeedAssessments(): Promise<void> {
+async function seedOnly(categories: readonly Category[]): Promise<void> {
+  const redListVersion = await fetchRedListVersion();
+  console.log(`Red List version: ${redListVersion}`);
+
+  for (const code of categories) {
+    console.log(`\nSeeding ${code}...`);
+    const count = await seedCategory(code, redListVersion);
+    console.log(`${code}: ${count} assessments`);
+  }
+
+  console.log(
+    "\nDone. Sync version left untouched: run without categories for a full sync.",
+  );
+}
+
+async function runSeedAssessments(
+  categories: readonly Category[] | null = null,
+): Promise<void> {
+  if (categories !== null) return seedOnly(categories);
+
   const redListVersion = await fetchRedListVersion();
   console.log(`Red List version: ${redListVersion}`);
 

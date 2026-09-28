@@ -1,6 +1,9 @@
 import type { IucnAssessment } from "@/sources";
 
 const CATEGORIES = ["EX", "EW", "CR", "EN", "VU"] as const;
+
+type Category = (typeof CATEGORIES)[number];
+
 const GLOBAL_SCOPE_CODE = 1;
 const MAX_PAGES_PER_CATEGORY = 500;
 const DB_BATCH_SIZE = 25;
@@ -21,10 +24,28 @@ function toRow(assessment: IucnAssessment, redListVersion: string) {
   };
 }
 
+function parseCategories(arg: string | undefined): Category[] | null {
+  if (arg === undefined || arg.startsWith("--")) return null;
+
+  const codes = arg.toUpperCase().split(",");
+  const unknown = codes.filter(
+    (code) => !CATEGORIES.includes(code as Category),
+  );
+
+  if (unknown.length > 0)
+    throw new Error(
+      `Unknown categories: ${unknown.join(", ")}. Expected ${CATEGORIES.join(", ")}.`,
+    );
+
+  return codes as Category[];
+}
+
 export {
   CATEGORIES,
+  parseCategories,
   GLOBAL_SCOPE_CODE,
   MAX_PAGES_PER_CATEGORY,
   DB_BATCH_SIZE,
   toRow,
 };
+export type { Category };
