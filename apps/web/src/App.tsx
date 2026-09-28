@@ -9,20 +9,26 @@ import { Loading } from "@/components/loading/Loading";
 
 const Login = lazy(() => import("@/pages/auth/login/login"));
 const Register = lazy(() => import("@/pages/auth/register/register"));
-const Account = lazy(() => import("@/pages/account"));
-const RedList = lazy(() => import("@/pages/home"));
-const ThreatenedSpecies = lazy(() => import("@/pages/threatened-species"));
-const Species = lazy(() => import("@/pages/species"));
-const PresumedExtinct = lazy(() => import("@/pages/presumed-extinct"));
-const Alphabet = lazy(() => import("@/pages/alphabet"));
-const CountryPage = lazy(() => import("@/pages/country"));
-const Methodology = lazy(() => import("@/pages/methodology"));
-const Planet = lazy(() => import("@/pages/planet"));
-const Actions = lazy(() => import("@/pages/actions"));
-const NotFound = lazy(() => import("@/pages/not-found"));
-const LegalNotice = lazy(() => import("@/pages/legal/mentions"));
-const Privacy = lazy(() => import("@/pages/legal/confidentialite"));
-const Terms = lazy(() => import("@/pages/legal/cgu"));
+const ForgotPassword = lazy(
+  () => import("@/pages/auth/forgot-password/forgot-password"),
+);
+const ResetPassword = lazy(
+  () => import("@/pages/auth/reset-password/reset-password"),
+);
+const Account = lazy(() => import("@/pages/main/account"));
+const RedList = lazy(() => import("@/pages/main/home"));
+const ThreatenedSpecies = lazy(() => import("@/pages/main/threatened-species"));
+const Species = lazy(() => import("@/pages/main/species"));
+const PresumedExtinct = lazy(() => import("@/pages/main/presumed-extinct"));
+const Alphabet = lazy(() => import("@/pages/main/alphabet"));
+const CountryPage = lazy(() => import("@/pages/main/country"));
+const Methodology = lazy(() => import("@/pages/main/methodology"));
+const Planet = lazy(() => import("@/pages/main/planet"));
+const Actions = lazy(() => import("@/pages/main/actions"));
+const NotFound = lazy(() => import("@/pages/main/not-found"));
+const LegalNotice = lazy(() => import("@/pages/main/legal/mentions"));
+const Privacy = lazy(() => import("@/pages/main/legal/confidentialite"));
+const Terms = lazy(() => import("@/pages/main/legal/cgu"));
 
 function App() {
   return (
@@ -35,6 +41,8 @@ function App() {
             <Route element={<AuthLayout />}>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
             </Route>
 
             {/* MAIN */}

@@ -11,6 +11,7 @@ const envSchema = z
     IUCN_API_TOKEN: z.string().min(1),
     IUCN_API_BASE_URL: z.url(),
     CONTACT_EMAIL: z.email(),
+    SWEEGO_API_KEY: z.string().min(1),
   })
   .refine(
     (value) =>

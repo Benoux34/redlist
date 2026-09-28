@@ -53,11 +53,12 @@ services:
       IUCN_API_TOKEN: ${IUCN_API_TOKEN}
       IUCN_API_BASE_URL: ${IUCN_API_BASE_URL}
       CONTACT_EMAIL: ${CONTACT_EMAIL}
+      SWEEGO_API_KEY: ${SWEEGO_API_KEY}
     healthcheck:
       test:
         [
           "CMD-SHELL",
-          "bun -e 'const r = await fetch(\"http://127.0.0.1:3000/health\"); process.exit(r.ok ? 0 : 1)'",
+          'bun -e ''const r = await fetch("http://127.0.0.1:3000/health"); process.exit(r.ok ? 0 : 1)''',
         ]
       interval: 30s
       timeout: 5s

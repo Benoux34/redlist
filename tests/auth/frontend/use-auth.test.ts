@@ -32,6 +32,7 @@ describe("Frontend Auth - useAuth Hook & Context", () => {
       register: async () => {},
       logout: async () => {},
       deleteAccount: async () => {},
+      resetPassword: async () => {},
     };
 
     const internals = (React as unknown as { __CLIENT_INTERNALS_DO_NOT_USE_OR_WARN_USERS_THEY_CANNOT_UPGRADE?: { H?: unknown } })

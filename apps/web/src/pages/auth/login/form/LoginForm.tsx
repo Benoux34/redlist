@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ApiError } from "@/api/client";
 import { ERROR_MESSAGES, LABEL_CLASS, redirectTarget } from "./utils";
-import { useNavigate, useLocation } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 
 const LoginForm = () => {
   const { login } = useAuth();
@@ -79,6 +79,14 @@ const LoginForm = () => {
                 <label htmlFor="login-password" className={LABEL_CLASS}>
                   Mot de passe
                 </label>
+
+                <Link
+                  viewTransition
+                  to="/forgot-password"
+                  className="text-xs text-[var(--color-ink-muted)] underline underline-offset-4 transition-colors hover:text-[var(--color-ink)]"
+                >
+                  Mot de passe oublié ?
+                </Link>
               </div>
 
               <Input

@@ -3,11 +3,13 @@ import {
   authResponse,
   emailSchema,
   errorResponse,
+  forgotPasswordInput,
   loginInput,
   passwordSchema,
   pseudoSchema,
   publicUser,
   registerInput,
+  resetPasswordInput,
   sessionUser,
 } from "@app/contracts";
 
@@ -162,6 +164,44 @@ describe("Contracts - Auth Inputs", () => {
           email: "invalid-email",
           password: "password123",
         }),
+      ).toThrow();
+    });
+  });
+
+  describe("forgotPasswordInput", () => {
+    it("should normalize the email", () => {
+      expect(
+        forgotPasswordInput.parse({ email: " USER@Example.com " }),
+      ).toEqual({ email: "user@example.com" });
+    });
+
+    it("should reject invalid email and unknown fields", () => {
+      expect(() => forgotPasswordInput.parse({ email: "nope" })).toThrow();
+      expect(() =>
+        forgotPasswordInput.parse({ email: "user@example.com", extra: 1 }),
+      ).toThrow();
+    });
+  });
+
+  describe("resetPasswordInput", () => {
+    it("should parse a token and a valid new password", () => {
+      const valid = { token: "abc_DEF-123", password: "a".repeat(12) };
+
+      expect(resetPasswordInput.parse(valid)).toEqual(valid);
+    });
+
+    it("should apply the registration password rules", () => {
+      expect(() =>
+        resetPasswordInput.parse({ token: "abc", password: "short" }),
+      ).toThrow("12 characters minimum");
+    });
+
+    it("should reject an empty or oversized token", () => {
+      const password = "a".repeat(12);
+
+      expect(() => resetPasswordInput.parse({ token: "", password })).toThrow();
+      expect(() =>
+        resetPasswordInput.parse({ token: "a".repeat(129), password }),
       ).toThrow();
     });
   });

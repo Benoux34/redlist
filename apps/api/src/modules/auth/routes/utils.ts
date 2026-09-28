@@ -12,4 +12,22 @@ const LOGIN_LIMIT = {
   keyPrefix: "login",
 } as const;
 
-export { USER_AGENT_HEADER, REGISTER_LIMIT, LOGIN_LIMIT };
+const FORGOT_PASSWORD_LIMIT = {
+  limit: 5,
+  windowMs: 60 * 60 * 1000,
+  keyPrefix: "forgot-password",
+} as const;
+
+const RESET_PASSWORD_LIMIT = {
+  limit: 10,
+  windowMs: 15 * 60 * 1000,
+  keyPrefix: "reset-password",
+} as const;
+
+export {
+  USER_AGENT_HEADER,
+  REGISTER_LIMIT,
+  LOGIN_LIMIT,
+  FORGOT_PASSWORD_LIMIT,
+  RESET_PASSWORD_LIMIT,
+};

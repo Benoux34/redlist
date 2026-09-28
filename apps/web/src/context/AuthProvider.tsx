@@ -14,6 +14,7 @@ import {
   logoutRequest,
   meRequest,
   registerRequest,
+  resetPasswordRequest,
 } from "@/api/auth";
 
 type Props = Readonly<{
@@ -81,9 +82,24 @@ function AuthProvider({ children }: Props) {
     setStatus("anonymous");
   }, []);
 
+  const resetPassword = useCallback(async (token: string, password: string) => {
+    await resetPasswordRequest({ token, password });
+
+    setUser(null);
+    setStatus("anonymous");
+  }, []);
+
   const value = useMemo(
-    () => ({ user, status, login, register, logout, deleteAccount }),
-    [user, status, login, register, logout, deleteAccount],
+    () => ({
+      user,
+      status,
+      login,
+      register,
+      logout,
+      deleteAccount,
+      resetPassword,
+    }),
+    [user, status, login, register, logout, deleteAccount, resetPassword],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

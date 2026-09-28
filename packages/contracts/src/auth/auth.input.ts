@@ -12,4 +12,13 @@ const loginInput = z.strictObject({
   password: z.string().min(1, "Password required").max(128),
 });
 
-export { registerInput, loginInput };
+const forgotPasswordInput = z.strictObject({
+  email: emailSchema,
+});
+
+const resetPasswordInput = z.strictObject({
+  token: z.string().min(1).max(128),
+  password: passwordSchema,
+});
+
+export { registerInput, loginInput, forgotPasswordInput, resetPasswordInput };

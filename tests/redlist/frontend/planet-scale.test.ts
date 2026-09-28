@@ -7,7 +7,7 @@ import {
   countrySearch,
   scaleColor,
   topCountries,
-} from "@web/pages/planet/utils";
+} from "@web/pages/main/planet/utils";
 
 const entry = (
   countryCode: string,

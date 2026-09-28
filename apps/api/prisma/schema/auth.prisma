@@ -6,6 +6,9 @@ model User {
   createdAt    DateTime   @default(now()) @db.Timestamptz(3)
   updatedAt    DateTime   @updatedAt @db.Timestamptz(3)
 
+  resetTokenHash      String?   @unique
+  resetTokenExpiresAt DateTime? @db.Timestamptz(3)
+
   sessions     Session[]
   favorites    Favorite[]
 

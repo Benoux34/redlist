@@ -1,8 +1,10 @@
 import {
   authResponse,
   type AuthResponse,
+  type ForgotPasswordInput,
   type LoginInput,
   type RegisterInput,
+  type ResetPasswordInput,
 } from "@app/contracts";
 import { apiGet, apiPost, apiPostEmpty, apiRequestEmpty } from "@/api/client";
 
@@ -26,10 +28,20 @@ function deleteAccountRequest(): Promise<void> {
   return apiRequestEmpty("/api/auth/me", "DELETE");
 }
 
+function forgotPasswordRequest(input: ForgotPasswordInput): Promise<void> {
+  return apiPostEmpty("/api/auth/forgot-password", input);
+}
+
+function resetPasswordRequest(input: ResetPasswordInput): Promise<void> {
+  return apiPostEmpty("/api/auth/reset-password", input);
+}
+
 export {
   registerRequest,
   loginRequest,
   logoutRequest,
   meRequest,
   deleteAccountRequest,
+  forgotPasswordRequest,
+  resetPasswordRequest,
 };

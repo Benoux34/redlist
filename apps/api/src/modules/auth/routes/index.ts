@@ -1,6 +1,11 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { loginInput, registerInput } from "@app/contracts";
+import {
+  forgotPasswordInput,
+  loginInput,
+  registerInput,
+  resetPasswordInput,
+} from "@app/contracts";
 import type { AppEnv } from "@/middleware/auth/entities";
 import {
   clearSessionCookie,
@@ -9,9 +14,21 @@ import {
   rateLimit,
   AppError,
 } from "@/lib";
-import { deleteAccount, login, register } from "../service";
+import {
+  deleteAccount,
+  login,
+  register,
+  requestPasswordReset,
+  resetPassword,
+} from "../service";
 import { invalidateSession } from "../session";
-import { LOGIN_LIMIT, REGISTER_LIMIT, USER_AGENT_HEADER } from "./utils";
+import {
+  FORGOT_PASSWORD_LIMIT,
+  LOGIN_LIMIT,
+  REGISTER_LIMIT,
+  RESET_PASSWORD_LIMIT,
+  USER_AGENT_HEADER,
+} from "./utils";
 import { currentUserId, requireAuth } from "@/middleware";
 
 const authRoutes = new Hono<AppEnv>()
@@ -41,6 +58,29 @@ const authRoutes = new Hono<AppEnv>()
       setSessionCookie(c, session.token, session.expiresAt);
 
       return c.json({ user });
+    },
+  )
+  .post(
+    "/forgot-password",
+    rateLimit(FORGOT_PASSWORD_LIMIT),
+    zValidator("json", forgotPasswordInput),
+    (c) => {
+      void requestPasswordReset(c.req.valid("json")).catch((error: unknown) => {
+        console.error("Password reset request failed:", error);
+      });
+
+      return c.body(null, 204);
+    },
+  )
+  .post(
+    "/reset-password",
+    rateLimit(RESET_PASSWORD_LIMIT),
+    zValidator("json", resetPasswordInput),
+    async (c) => {
+      await resetPassword(c.req.valid("json"));
+      clearSessionCookie(c);
+
+      return c.body(null, 204);
     },
   )
   .post("/logout", async (c) => {

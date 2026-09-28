@@ -1,9 +1,16 @@
-import type { LoginInput, RegisterInput } from "@app/contracts";
+import type {
+  ForgotPasswordInput,
+  LoginInput,
+  RegisterInput,
+  ResetPasswordInput,
+} from "@app/contracts";
 import { Prisma } from "@/generated/prisma/client";
 import { db } from "@/db";
-import { AppError } from "@/lib";
+import { AppError, env, sendMail } from "@/lib";
 import { fakeVerifyPassword, hashPassword, verifyPassword } from "../password";
-import { createSession } from "../session";
+import { createSession, invalidateAllUserSessions } from "../session";
+import { consumeResetToken, createResetToken } from "../reset-token";
+import { resetPasswordMail, resetPasswordUrl } from "../reset-token/utils";
 import { UNIQUE_CONSTRAINT_ERROR } from "./utils";
 import { USER_SELECT } from "../constants";
 
@@ -70,4 +77,29 @@ async function deleteAccount(userId: string): Promise<void> {
   await db.user.delete({ where: { id: userId } });
 }
 
-export { register, login, deleteAccount };
+async function requestPasswordReset(input: ForgotPasswordInput): Promise<void> {
+  const user = await db.user.findUnique({
+    where: { email: input.email },
+    select: { id: true, email: true },
+  });
+
+  if (user === null) return;
+
+  const token = await createResetToken(user.id);
+
+  await sendMail(
+    resetPasswordMail(user.email, resetPasswordUrl(env.WEB_ORIGIN, token)),
+  );
+}
+
+async function resetPassword(input: ResetPasswordInput): Promise<void> {
+  const passwordHash = await hashPassword(input.password);
+  const userId = await consumeResetToken(input.token);
+
+  if (userId === null) throw new AppError("INVALID_RESET_TOKEN");
+
+  await db.user.update({ where: { id: userId }, data: { passwordHash } });
+  await invalidateAllUserSessions(userId);
+}
+
+export { register, login, deleteAccount, requestPasswordReset, resetPassword };
