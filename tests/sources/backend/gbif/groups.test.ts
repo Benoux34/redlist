@@ -3,7 +3,7 @@ import {
   GROUP_KEYS,
   GROUPS,
   groupWhere,
-} from "@api/modules/redlist/groups";
+} from "@api/modules/redlist/service/groups";
 import { describe, expect, it } from "bun:test";
 
 describe("Sources GBIF - Taxonomic Groups & Queries", () => {

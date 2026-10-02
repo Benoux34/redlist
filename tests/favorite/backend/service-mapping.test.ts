@@ -1,3 +1,4 @@
+import { ASSESSMENT_SELECT } from "@api/modules/favorite/service/utils";
 import { favoriteList } from "@app/contracts";
 import { describe, expect, it } from "bun:test";
 
@@ -28,7 +29,8 @@ describe("Backend Favorite - Service Mapping & Status Tracking", () => {
       ...rawDbRow.assessment,
       followedAt: rawDbRow.createdAt.toISOString(),
       categoryAtAdd: rawDbRow.categoryAtAdd,
-      categoryChanged: rawDbRow.categoryAtAdd !== rawDbRow.assessment.categoryCode,
+      categoryChanged:
+        rawDbRow.categoryAtAdd !== rawDbRow.assessment.categoryCode,
     };
 
     const validatedList = favoriteList.parse({
@@ -55,7 +57,8 @@ describe("Backend Favorite - Service Mapping & Status Tracking", () => {
       ...rawDbRow.assessment,
       followedAt: rawDbRow.createdAt.toISOString(),
       categoryAtAdd: rawDbRow.categoryAtAdd,
-      categoryChanged: rawDbRow.categoryAtAdd !== rawDbRow.assessment.categoryCode,
+      categoryChanged:
+        rawDbRow.categoryAtAdd !== rawDbRow.assessment.categoryCode,
     };
 
     const validatedList = favoriteList.parse({
@@ -66,5 +69,24 @@ describe("Backend Favorite - Service Mapping & Status Tracking", () => {
     expect(validatedList.items[0]?.categoryChanged).toBe(true);
     expect(validatedList.items[0]?.categoryAtAdd).toBe("VU");
     expect(validatedList.items[0]?.categoryCode).toBe("EN");
+  });
+
+  describe("ASSESSMENT_SELECT Projection", () => {
+    it("should include all required fields for favorite listings", () => {
+      expect(ASSESSMENT_SELECT).toEqual({
+        assessmentId: true,
+        scientificName: true,
+        vernacularNameFr: true,
+        categoryCode: true,
+        description: true,
+        descriptionSource: true,
+        photoUrl: true,
+        photoAttribution: true,
+        photoLicense: true,
+        yearPublished: true,
+        possiblyExtinct: true,
+        officialUrl: true,
+      });
+    });
   });
 });

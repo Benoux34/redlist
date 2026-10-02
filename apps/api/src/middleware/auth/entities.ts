@@ -11,4 +11,4 @@ type AppEnv = {
   };
 };
 
-export type { AppEnv, SessionUserContext };
+export type { AppEnv };

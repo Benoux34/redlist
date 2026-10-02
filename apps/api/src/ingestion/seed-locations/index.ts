@@ -1,5 +1,6 @@
 import { db } from "@/db";
-import { countryAssessmentsResponse, iucnRequest } from "@/sources";
+import { countryAssessmentsResponse } from "@/sources/uicn/schemas";
+import { iucnRequest } from "@/sources/uicn/client";
 import { DB_BATCH_SIZE, KEPT_CATEGORIES, MAX_PAGES } from "./utils";
 
 let stopRequested = false;
@@ -84,4 +85,7 @@ async function runSeedLocations(
   }
 }
 
-export { runSeedLocations, seedCountry, fetchCountryPage };
+if (import.meta.main) {
+  await runSeedLocations(process.argv[2]?.split(",") ?? ["FR"]);
+  await db.$disconnect();
+}

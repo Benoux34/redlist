@@ -1,4 +1,4 @@
-import type { IucnAssessment } from "@/sources";
+import type { IucnAssessment } from "@/sources/uicn/schemas/entities";
 
 const CATEGORIES = ["EX", "EW", "CR", "EN", "VU"] as const;
 

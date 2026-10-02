@@ -5,7 +5,7 @@ import type {
   RedListQuery,
 } from "@app/contracts";
 import { Prisma } from "@/generated/prisma/client";
-import { groupWhere } from "../groups";
+import { groupWhere } from "./groups";
 
 const PAGE_SIZE = 42;
 const MS_PER_DAY = 86_400_000;
@@ -167,7 +167,6 @@ export {
   buildWhere,
   buildOrderBy,
   buildCountryCounts,
-  EMPTY_COUNTS,
 };
 
 export type { CountryCategoryRow };

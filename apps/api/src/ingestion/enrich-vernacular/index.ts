@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { fetchFrenchVernacularName } from "@/sources";
+import { fetchFrenchVernacularName } from "@/sources/gbif/vernacular-names";
 import { sleep } from "../utils";
 import {
   BATCH_SIZE,
@@ -95,10 +95,15 @@ async function runEnrichVernacular(): Promise<void> {
     const rate = processed / (Date.now() - startedAt);
     const etaMin = Math.round((remaining - processed) / rate / 60_000);
 
-    console.log(`${processed}/${remaining} · ${found} noms FR · eta ${etaMin}m`);
+    console.log(
+      `${processed}/${remaining} · ${found} noms FR · eta ${etaMin}m`,
+    );
   }
 
   console.log("Done.");
 }
 
-export { runEnrichVernacular, enrichOne };
+if (import.meta.main) {
+  await runEnrichVernacular();
+  await db.$disconnect();
+}

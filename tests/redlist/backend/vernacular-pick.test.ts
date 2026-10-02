@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { pickFrenchName } from "@api/sources/gbif/vernacular-names/pick";
+import { pickFrenchName } from "@api/sources/gbif/vernacular-names/utils";
 
 describe("Backend RedList - GBIF French Name Selection", () => {
   it("should return null when GBIF has no French entry", () => {

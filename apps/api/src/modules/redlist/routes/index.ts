@@ -1,3 +1,4 @@
+import { rateLimit } from "@/lib/rate-limit";
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import {
@@ -8,8 +9,7 @@ import {
   sitemapParams,
 } from "@app/contracts";
 import type { AppEnv } from "@/middleware/auth/entities";
-import { AppError } from "@/lib";
-import { db } from "@/db";
+import { AppError } from "@/lib/errors";
 import {
   getAssessmentDetail,
   getCategoryCounts,
@@ -17,15 +17,25 @@ import {
   getGroupCounts,
   getFeaturedSpecies,
   listAssessments,
-} from "../service";
-import { buildSpeciesMeta, renderMetaDocument } from "../preview";
-import {
   getCountriesSitemap,
   getPagesSitemap,
+  getRedListVersion,
   getSitemapIndex,
   getSpeciesSitemap,
-} from "../sitemap";
-import { listLimiter, detailLimiter } from "./utils";
+  buildSpeciesMeta,
+  renderMetaDocument,
+} from "../service";
+
+const listLimiter = rateLimit({
+  limit: 60,
+  windowMs: 60 * 1000,
+  keyPrefix: "red-list",
+});
+const detailLimiter = rateLimit({
+  limit: 30,
+  windowMs: 60 * 1000,
+  keyPrefix: "red-list-detail",
+});
 
 const XML_HEADERS = {
   "Content-Type": "application/xml; charset=utf-8",
@@ -49,17 +59,7 @@ const redListRoutes = new Hono<AppEnv>()
     zValidator("query", groupCountsQuery),
     async (c) => c.json(await getGroupCounts(c.req.valid("query"))),
   )
-  .get("/version", listLimiter, async (c) => {
-    const sync = await db.redListSync.findUnique({
-      where: { id: "singleton" },
-      select: { redListVersion: true, lastSyncedAt: true },
-    });
-
-    return c.json({
-      redListVersion: sync?.redListVersion ?? "unknown",
-      lastSyncedAt: sync?.lastSyncedAt.toISOString() ?? null,
-    });
-  })
+  .get("/version", listLimiter, async (c) => c.json(await getRedListVersion()))
   .get("/featured", listLimiter, async (c) => {
     const species = await getFeaturedSpecies();
     if (species === null) throw new AppError("NOT_FOUND");

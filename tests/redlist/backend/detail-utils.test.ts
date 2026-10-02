@@ -5,7 +5,7 @@ import {
   parseImpact,
   parseYesNo,
   titleCase,
-} from "@api/modules/redlist/detail/utils";
+} from "@api/modules/redlist/service/detail/utils";
 import { describe, expect, it } from "bun:test";
 
 describe("Backend RedList - Detail Extraction Utilities", () => {

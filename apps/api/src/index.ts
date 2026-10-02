@@ -8,9 +8,10 @@ import { sessionMiddleware } from "./middleware/auth";
 import { authRoutes } from "./modules/auth/routes";
 import { AppError } from "./lib/errors";
 import { HTTPException } from "hono/http-exception";
-import { redListRoutes } from "./modules/redlist";
+import { redListRoutes } from "./modules/redlist/routes";
 import { favoriteRoutes } from "./modules/favorite/routes";
-import { startSessionCleanup } from "./modules/auth/session";
+import { mcpRoutes } from "./modules/mcp/routes";
+import { startSessionCleanup } from "./modules/auth/service";
 import { db } from "./db";
 
 const app = new Hono<AppEnv>();
@@ -53,6 +54,7 @@ app.use("*", sessionMiddleware);
 app.route("/api/auth", authRoutes);
 app.route("/api/red-list", redListRoutes);
 app.route("/api/favorites", favoriteRoutes);
+app.route("/api/mcp", mcpRoutes);
 
 app.onError((error, c) => {
   if (error instanceof AppError)

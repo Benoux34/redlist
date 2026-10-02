@@ -3,7 +3,7 @@ import {
   categoryLabel,
   escapeHtml,
   truncate,
-} from "@api/modules/redlist/preview/utils";
+} from "@api/modules/redlist/service/preview/utils";
 
 describe("Backend RedList - Preview Metadata Utilities", () => {
   it("should escape every character that could break out of an attribute", () => {

@@ -28,4 +28,4 @@ function categoryLabel(code: string): string {
   return CATEGORY_LABELS[code] ?? code;
 }
 
-export { CATEGORY_LABELS, categoryLabel, escapeHtml, truncate };
+export { categoryLabel, escapeHtml, truncate };

@@ -11,12 +11,6 @@ const SYSTEM: Record<string, string> = {
   Marine: "Marin",
 };
 
-const SUITABILITY: Record<string, string> = {
-  Suitable: "Favorable",
-  Marginal: "Marginal",
-  Unknown: "Inconnu",
-};
-
 const PRESENCE: Record<string, string> = {
   Extant: "Présente",
   "Possibly Extant": "Présence probable",
@@ -39,13 +33,6 @@ const TIMING: Record<string, string> = {
   Future: "À venir",
   "Past, Likely to Return": "Passée, susceptible de revenir",
   "Past, Unlikely to Return": "Passée, peu susceptible de revenir",
-};
-
-const SCOPE: Record<string, string> = {
-  "Minority (<50%)": "Une minorité de la population",
-  "Majority (50-90%)": "La majorité de la population",
-  "Whole (>90%)": "Toute la population",
-  Unknown: "Étendue inconnue",
 };
 
 const SEVERITY: Record<string, string> = {
@@ -117,11 +104,9 @@ function lookup(
 export {
   POPULATION_TREND,
   SYSTEM,
-  SUITABILITY,
   PRESENCE,
   ORIGIN,
   TIMING,
-  SCOPE,
   SEVERITY,
   IMPACT,
   THREAT_FAMILY,

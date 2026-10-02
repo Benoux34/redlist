@@ -5,7 +5,7 @@ import {
   USER_AGENT_MAX_LENGTH,
   generateSessionToken,
   hashSessionToken,
-} from "@api/modules/auth/session/utils";
+} from "@api/modules/auth/service/session/utils";
 import { describe, expect, it } from "bun:test";
 
 describe("Backend Auth - Session Utilities", () => {

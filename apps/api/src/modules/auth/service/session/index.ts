@@ -7,7 +7,7 @@ import {
   generateSessionToken,
   hashSessionToken,
 } from "./utils";
-import { USER_SELECT } from "../constants";
+import { USER_SELECT } from "../utils";
 
 async function createSession(
   userId: string,
@@ -95,7 +95,6 @@ function startSessionCleanup(): () => void {
 }
 
 export {
-  deleteExpiredSessions,
   startSessionCleanup,
   generateSessionToken,
   hashSessionToken,

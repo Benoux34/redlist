@@ -1,4 +1,4 @@
-import { htmlToParagraphs } from "@api/lib/text/html-text";
+import { htmlToParagraphs } from "@api/lib/text";
 import { describe, expect, it } from "bun:test";
 
 describe("Shared Backend - HTML to Paragraphs Extraction", () => {
@@ -29,7 +29,8 @@ describe("Shared Backend - HTML to Paragraphs Extraction", () => {
   });
 
   it("should decode named HTML entities properly", () => {
-    const html = "Espèce menacée &amp; protégée &gt; 500 &lt; 1000 &quot;IUCN&quot; &#39;France&#39; &nbsp; OK";
+    const html =
+      "Espèce menacée &amp; protégée &gt; 500 &lt; 1000 &quot;IUCN&quot; &#39;France&#39; &nbsp; OK";
     expect(htmlToParagraphs(html)).toEqual([
       "Espèce menacée & protégée > 500 < 1000 \"IUCN\" 'France' OK",
     ]);

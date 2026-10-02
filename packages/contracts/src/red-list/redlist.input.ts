@@ -17,10 +17,6 @@ const redListQuery = z.strictObject({
   countryCode: countryCodeFilter.optional(),
 });
 
-// The group pills are scoped to whatever the page they sit on locks down, so a
-// page only ever proposes groups that have species within its own listing.
-// Mirrors the subset of redListQuery that pages lock rather than let the user
-// change.
 const groupCountsQuery = z.strictObject({
   letter: letterFilter.optional(),
   countryCode: countryCodeFilter.optional(),

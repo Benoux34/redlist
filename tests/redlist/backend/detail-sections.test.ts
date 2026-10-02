@@ -1,16 +1,16 @@
 import { describe, expect, it } from "bun:test";
-import { buildThreats } from "@api/modules/redlist/detail/threats";
+import { buildThreats } from "@api/modules/redlist/service/detail/threats";
 import {
   buildPopulation,
   parseEstimate,
-} from "@api/modules/redlist/detail/population";
-import { buildDistribution } from "@api/modules/redlist/detail/distribution";
+} from "@api/modules/redlist/service/detail/population";
+import { buildDistribution } from "@api/modules/redlist/service/detail/distribution";
 import {
   buildConservation,
   parseMeasure,
-} from "@api/modules/redlist/detail/conservation";
-import { buildTaxonLadder } from "@api/modules/redlist/detail/taxonomy";
-import type { RawThreat } from "@api/modules/redlist/detail/entities";
+} from "@api/modules/redlist/service/detail/conservation";
+import { buildTaxonLadder } from "@api/modules/redlist/service/detail/taxonomy";
+import type { RawThreat } from "@api/modules/redlist/service/detail/entities";
 
 const threat = (
   code: string,

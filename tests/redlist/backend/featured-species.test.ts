@@ -3,7 +3,7 @@ import {
   FEATURED_SPECIES,
   orderFeatured,
   pickForDay,
-} from "@api/modules/redlist/featured/utils";
+} from "@api/modules/redlist/service/featured";
 
 const DAY = 86_400_000;
 

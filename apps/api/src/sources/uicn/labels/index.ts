@@ -6,9 +6,7 @@ import {
   POPULATION_TREND,
   PRESENCE,
   REGION_NAMES,
-  SCOPE,
   SEVERITY,
-  SUITABILITY,
   SYSTEM,
   THREAT_FAMILY,
   TIMING,
@@ -19,9 +17,6 @@ const translatePopulationTrend = (value: string | null): string | null =>
 
 const translateSystem = (value: string): string => SYSTEM[value] ?? value;
 
-const translateSuitability = (value: string | null): string | null =>
-  lookup(SUITABILITY, value);
-
 const translatePresence = (value: string | null): string | null =>
   lookup(PRESENCE, value);
 
@@ -30,9 +25,6 @@ const translateOrigin = (value: string | null): string | null =>
 
 const translateTiming = (value: string | null): string | null =>
   lookup(TIMING, value);
-
-const translateScope = (value: string | null): string | null =>
-  lookup(SCOPE, value);
 
 const translateSeverity = (value: string | null): string | null =>
   lookup(SEVERITY, value);
@@ -71,11 +63,9 @@ function translateCountry(
 export {
   translatePopulationTrend,
   translateSystem,
-  translateSuitability,
   translatePresence,
   translateOrigin,
   translateTiming,
-  translateScope,
   translateSeverity,
   translateImpact,
   translateThreatFamily,

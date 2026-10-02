@@ -11,25 +11,44 @@ import {
   clearSessionCookie,
   getSessionCookie,
   setSessionCookie,
-  rateLimit,
-  AppError,
-} from "@/lib";
+} from "@/lib/cookies";
+import { rateLimit } from "@/lib/rate-limit";
+import { AppError } from "@/lib/errors";
 import {
   deleteAccount,
   login,
   register,
   requestPasswordReset,
+  invalidateSession,
   resetPassword,
 } from "../service";
-import { invalidateSession } from "../session";
-import {
-  FORGOT_PASSWORD_LIMIT,
-  LOGIN_LIMIT,
-  REGISTER_LIMIT,
-  RESET_PASSWORD_LIMIT,
-  USER_AGENT_HEADER,
-} from "./utils";
-import { currentUserId, requireAuth } from "@/middleware";
+import { currentUserId, requireAuth } from "@/middleware/auth";
+
+const USER_AGENT_HEADER = "user-agent";
+
+const REGISTER_LIMIT = {
+  limit: 5,
+  windowMs: 60 * 60 * 1000,
+  keyPrefix: "register",
+} as const;
+
+const LOGIN_LIMIT = {
+  limit: 10,
+  windowMs: 15 * 60 * 1000,
+  keyPrefix: "login",
+} as const;
+
+const FORGOT_PASSWORD_LIMIT = {
+  limit: 5,
+  windowMs: 60 * 60 * 1000,
+  keyPrefix: "forgot-password",
+} as const;
+
+const RESET_PASSWORD_LIMIT = {
+  limit: 10,
+  windowMs: 15 * 60 * 1000,
+  keyPrefix: "reset-password",
+} as const;
 
 const authRoutes = new Hono<AppEnv>()
   .post(
@@ -110,4 +129,4 @@ const authRoutes = new Hono<AppEnv>()
     return c.body(null, 204);
   });
 
-export { authRoutes };
+export { authRoutes, USER_AGENT_HEADER, REGISTER_LIMIT, LOGIN_LIMIT };

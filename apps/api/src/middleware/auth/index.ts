@@ -4,9 +4,9 @@ import {
   clearSessionCookie,
   getSessionCookie,
   setSessionCookie,
-  AppError,
-} from "@/lib";
-import { validateSession } from "@/modules/auth/session";
+} from "@/lib/cookies";
+import { AppError } from "@/lib/errors";
+import { validateSession } from "@/modules/auth/service";
 
 const sessionMiddleware: MiddlewareHandler<AppEnv> = async (c, next) => {
   const token = getSessionCookie(c);

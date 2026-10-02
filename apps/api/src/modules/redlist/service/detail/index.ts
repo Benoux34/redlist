@@ -1,5 +1,8 @@
-import { htmlToParagraphs } from "@/lib";
-import { assessmentDetailResponse } from "@/sources";
+import { htmlToParagraphs } from "@/lib/text";
+import { assessmentDetailResponse } from "@/sources/uicn/schemas";
+import { iucnRequest } from "@/sources/uicn/client";
+import { db } from "@/db";
+import { Prisma } from "@/generated/prisma/client";
 import type { MappedDetail } from "./entities";
 import { buildConservation } from "./conservation";
 import { buildDistribution } from "./distribution";
@@ -8,6 +11,7 @@ import { buildTaxonLadder, buildTexts } from "./taxonomy";
 import { buildThreats } from "./threats";
 import {
   cleanValue,
+  DETAIL_DEADLINE_MS,
   EMPTY_DETAIL,
   labelOf,
   parseImpact,
@@ -15,6 +19,58 @@ import {
   titleCase,
   UNKNOWN,
 } from "./utils";
+
+const inFlight = new Map<number, Promise<unknown>>();
+
+async function fetchAndStoreDetail(assessmentId: number): Promise<unknown> {
+  const raw = await iucnRequest(`/assessment/${assessmentId}`);
+
+  await db.redListAssessment.update({
+    where: { assessmentId },
+    data: {
+      detail: raw as Prisma.InputJsonValue,
+      detailFetchedAt: new Date(),
+    },
+  });
+
+  return raw;
+}
+
+function fetchAndStoreDetailOnce(assessmentId: number): Promise<unknown> {
+  const pending = inFlight.get(assessmentId);
+  if (pending !== undefined) return pending;
+
+  const request = fetchAndStoreDetail(assessmentId).finally(() => {
+    inFlight.delete(assessmentId);
+  });
+
+  inFlight.set(assessmentId, request);
+
+  return request;
+}
+
+async function fetchDetailWithinDeadline(
+  assessmentId: number,
+  deadlineMs: number = DETAIL_DEADLINE_MS,
+): Promise<unknown> {
+  const request = fetchAndStoreDetailOnce(assessmentId);
+
+  request.catch((error: unknown) => {
+    console.error(`IUCN detail failed for ${assessmentId}:`, error);
+  });
+
+  let timer: ReturnType<typeof setTimeout> | undefined;
+
+  const deadline = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), deadlineMs);
+  });
+
+  try {
+    return await Promise.race([request.catch(() => null), deadline]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 function mapDetail(raw: unknown): MappedDetail {
   const parsed = assessmentDetailResponse.safeParse(raw);
@@ -39,7 +95,8 @@ function mapDetail(raw: unknown): MappedDetail {
         label,
         scope: threat.scope ?? null,
         timing: threat.timing ?? null,
-        severity: threat.severity === UNKNOWN ? null : (threat.severity ?? null),
+        severity:
+          threat.severity === UNKNOWN ? null : (threat.severity ?? null),
         ...parseImpact(threat.score),
       },
     ];
@@ -106,4 +163,4 @@ function mapDetail(raw: unknown): MappedDetail {
   };
 }
 
-export { mapDetail };
+export { fetchDetailWithinDeadline, mapDetail };

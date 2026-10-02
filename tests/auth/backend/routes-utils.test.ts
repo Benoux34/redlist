@@ -1,9 +1,9 @@
-import { USER_SELECT } from "@api/modules/auth/constants";
+import { USER_SELECT } from "@api/modules/auth/service/utils";
 import {
   LOGIN_LIMIT,
   REGISTER_LIMIT,
   USER_AGENT_HEADER,
-} from "@api/modules/auth/routes/utils";
+} from "@api/modules/auth/routes";
 import { describe, expect, it } from "bun:test";
 
 describe("Backend Auth - Route Configurations & Constants", () => {

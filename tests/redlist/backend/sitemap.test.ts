@@ -7,7 +7,7 @@ import {
   renderSitemapIndex,
   renderUrlSet,
   speciesFileCount,
-} from "@api/modules/redlist/sitemap/utils";
+} from "@api/modules/redlist/service/sitemap/utils";
 
 describe("Backend RedList - Sitemap", () => {
   it("should split species across files of at most 20 000 urls", () => {

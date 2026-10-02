@@ -5,6 +5,7 @@ import type {
   RedListItem,
   RedListPage,
   RedListQuery,
+  RedListVersion,
   SpeciesGroup,
 } from "@app/contracts";
 import type { CountryCategoryRow } from "./utils";
@@ -13,13 +14,16 @@ import {
   redListDetail,
   redListItem,
   redListPage,
+  redListVersion,
 } from "@app/contracts";
 import { db } from "@/db";
 import { Prisma } from "@/generated/prisma/client";
-import { AppError, cached, cachedBy } from "@/lib";
-import { aliasFor } from "@/sources/gbif";
-import { EMPTY_DETAIL, fetchDetailWithinDeadline, mapDetail } from "../detail";
-import { FEATURED_NAMES, orderFeatured, pickForDay } from "../featured";
+import { AppError } from "@/lib/errors";
+import { cached, cachedBy } from "@/lib/cache";
+import { aliasFor } from "@/sources/gbif/search-aliases";
+import { fetchDetailWithinDeadline, mapDetail } from "./detail";
+import { EMPTY_DETAIL } from "./detail/utils";
+import { FEATURED_NAMES, orderFeatured, pickForDay } from "./featured";
 import {
   buildCountryCounts,
   buildOrderBy,
@@ -33,7 +37,8 @@ import {
   scopeWhere,
   SELECT,
 } from "./utils";
-import { GROUPS, GROUP_KEYS, groupWhere } from "../groups";
+import { GROUPS, GROUP_KEYS, groupWhere } from "./groups";
+import { renderCountriesSitemap } from "./sitemap";
 
 async function runQuery(query: RedListQuery): Promise<RedListPage> {
   const where = buildWhere(query);
@@ -186,6 +191,22 @@ function getGroupCounts(scope: GroupCountsQuery) {
   return countGroups(scopeKey(scope));
 }
 
+async function getCountriesSitemap(): Promise<string> {
+  return renderCountriesSitemap(await getCountryCounts({}));
+}
+
+async function getRedListVersion(): Promise<RedListVersion> {
+  const sync = await db.redListSync.findUnique({
+    where: { id: "singleton" },
+    select: { redListVersion: true, lastSyncedAt: true },
+  });
+
+  return redListVersion.parse({
+    redListVersion: sync?.redListVersion ?? "unknown",
+    lastSyncedAt: sync?.lastSyncedAt.toISOString() ?? null,
+  });
+}
+
 export {
   getCategoryCounts,
   getCountryCounts,
@@ -193,4 +214,8 @@ export {
   getAssessmentDetail,
   getFeaturedSpecies,
   getGroupCounts,
+  getCountriesSitemap,
+  getRedListVersion,
 };
+export { buildSpeciesMeta, renderMetaDocument } from "./preview";
+export { getPagesSitemap, getSitemapIndex, getSpeciesSitemap } from "./sitemap";

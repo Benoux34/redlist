@@ -69,10 +69,7 @@ function parseImpact(score: string | null | undefined): {
 
 export {
   DETAIL_DEADLINE_MS,
-  YES,
-  NO,
   UNKNOWN,
-  IMPACT_SCORE_PATTERN,
   EMPTY_DETAIL,
   labelOf,
   titleCase,

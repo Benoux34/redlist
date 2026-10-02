@@ -4,7 +4,7 @@ import {
   resetPasswordMail,
   resetPasswordUrl,
   resetTokenExpiresAt,
-} from "@api/modules/auth/reset-token/utils";
+} from "@api/modules/auth/service/reset-token/utils";
 import { describe, expect, it } from "bun:test";
 
 describe("Backend Auth - Reset Token Utilities", () => {

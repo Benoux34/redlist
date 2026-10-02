@@ -1,4 +1,4 @@
-import { env } from "@/lib";
+import { env } from "@/lib/env";
 import {
   INITIAL_BACKOFF_MS,
   MAX_RETRIES,

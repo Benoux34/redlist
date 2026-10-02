@@ -2,8 +2,11 @@ import {
   fakeVerifyPassword,
   hashPassword,
   verifyPassword,
-} from "@api/modules/auth/password";
-import { DUMMY_HASH, HASH_OPTIONS } from "@api/modules/auth/password/utils";
+} from "@api/modules/auth/service/password";
+import {
+  DUMMY_HASH,
+  HASH_OPTIONS,
+} from "@api/modules/auth/service/password/utils";
 import { describe, expect, it } from "bun:test";
 
 describe("Backend Auth - Password", () => {

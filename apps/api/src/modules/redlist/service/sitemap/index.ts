@@ -1,8 +1,8 @@
 import { db } from "@/db";
 import { Prisma } from "@/generated/prisma/client";
 import { env } from "@/lib/env";
-import { cached, cachedBy } from "@/lib";
-import { getCountryCounts } from "../service";
+import type { RedListCountryCounts } from "@app/contracts";
+import { cached, cachedBy } from "@/lib/cache";
 import {
   SPECIES_PER_FILE,
   STATIC_PAGES,
@@ -24,7 +24,7 @@ const countIndexableSpecies = cached(() =>
   db.redListAssessment.count({ where: INDEXABLE_SPECIES }),
 );
 
-const buildIndex = cached(async () => {
+const getSitemapIndex = cached(async () => {
   const files = speciesFileCount(await countIndexableSpecies());
 
   return renderSitemapIndex([
@@ -37,7 +37,7 @@ const buildIndex = cached(async () => {
   ]);
 });
 
-const buildPages = cached(() =>
+const getPagesSitemap = cached(() =>
   Promise.resolve(
     renderUrlSet(
       STATIC_PAGES.map((page) => ({
@@ -48,16 +48,14 @@ const buildPages = cached(() =>
   ),
 );
 
-const buildCountries = cached(async () => {
-  const counts = await getCountryCounts({});
-
+function renderCountriesSitemap(counts: RedListCountryCounts): string {
   return renderUrlSet(
     counts.map((entry) => ({
       loc: `${env.WEB_ORIGIN}/pays/${entry.countryCode.toLowerCase()}`,
       priority: "0.7",
     })),
   );
-});
+}
 
 const buildSpeciesPage = cachedBy(async (key: string) => {
   const page = Number(key);
@@ -78,18 +76,6 @@ const buildSpeciesPage = cachedBy(async (key: string) => {
   );
 });
 
-async function getSitemapIndex(): Promise<string> {
-  return buildIndex();
-}
-
-async function getPagesSitemap(): Promise<string> {
-  return buildPages();
-}
-
-async function getCountriesSitemap(): Promise<string> {
-  return buildCountries();
-}
-
 async function getSpeciesSitemap(page: number): Promise<string | null> {
   const files = speciesFileCount(await countIndexableSpecies());
 
@@ -97,7 +83,7 @@ async function getSpeciesSitemap(page: number): Promise<string | null> {
 }
 
 export {
-  getCountriesSitemap,
+  renderCountriesSitemap,
   getPagesSitemap,
   getSitemapIndex,
   getSpeciesSitemap,

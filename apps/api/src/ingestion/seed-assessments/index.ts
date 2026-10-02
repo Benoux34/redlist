@@ -1,10 +1,10 @@
 import { db } from "@/db";
 import {
   assessmentListResponse,
-  iucnRequest,
   redListVersionResponse,
-  type IucnAssessment,
-} from "@/sources";
+} from "@/sources/uicn/schemas";
+import { iucnRequest } from "@/sources/uicn/client";
+import { type IucnAssessment } from "@/sources/uicn/schemas/entities";
 import {
   CATEGORIES,
   DB_BATCH_SIZE,
@@ -12,6 +12,7 @@ import {
   MAX_PAGES_PER_CATEGORY,
   toRow,
   type Category,
+  parseCategories,
 } from "./utils";
 
 async function fetchRedListVersion(): Promise<string> {
@@ -128,9 +129,7 @@ async function runSeedAssessments(
   console.log("\nDone.");
 }
 
-export {
-  runSeedAssessments,
-  fetchRedListVersion,
-  fetchCategoryPage,
-  seedCategory,
-};
+if (import.meta.main) {
+  await runSeedAssessments(parseCategories(process.argv[2]));
+  await db.$disconnect();
+}

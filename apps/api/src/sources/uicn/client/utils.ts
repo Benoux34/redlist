@@ -1,4 +1,4 @@
-import { env } from "@/lib";
+import { env } from "@/lib/env";
 
 const MIN_DELAY_BETWEEN_REQUESTS_MS = 1_200;
 const MAX_RETRIES = 4;

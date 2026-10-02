@@ -83,4 +83,3 @@ function pickForDay<T extends FeaturedCandidate>(
 }
 
 export { FEATURED_SPECIES, FEATURED_NAMES, orderFeatured, pickForDay };
-export type { FeaturedEntry, FeaturedCandidate };

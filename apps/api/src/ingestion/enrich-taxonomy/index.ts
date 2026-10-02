@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { matchTaxon } from "@/sources";
+import { matchTaxon } from "@/sources/gbif/match-taxon";
 import { sleep } from "../utils";
 import {
   BATCH_SIZE,
@@ -98,4 +98,7 @@ async function runEnrichTaxonomy(): Promise<void> {
   console.log("Done.");
 }
 
-export { runEnrichTaxonomy, enrichOne };
+if (import.meta.main) {
+  await runEnrichTaxonomy();
+  await db.$disconnect();
+}

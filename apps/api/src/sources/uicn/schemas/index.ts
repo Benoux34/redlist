@@ -1,5 +1,49 @@
 import { z } from "zod";
-import { enDescription } from "./common";
+
+const enDescription = z.object({ en: z.string().nullish() }).nullish();
+
+const iucnScope = z.object({
+  code: z.string(),
+});
+
+const redListVersionResponse = z.object({
+  red_list_version: z.string(),
+});
+
+const iucnAssessment = z.object({
+  assessment_id: z.number().int(),
+  sis_taxon_id: z.number().int().nullish(),
+  taxon_scientific_name: z.string(),
+  red_list_category_code: z.string(),
+  criteria: z.string().nullish(),
+  year_published: z.coerce.number().int().nullish(),
+  assessment_date: z.coerce.date().nullish(),
+  possibly_extinct: z.boolean().nullish(),
+  url: z.string().nullish(),
+  latest: z.boolean(),
+  scopes: z.array(iucnScope).default([]),
+});
+
+const assessmentListResponse = z.object({
+  assessments: z.array(iucnAssessment),
+});
+
+const countryAssessmentsResponse = z.object({
+  country: z
+    .object({
+      code: z.string().nullish(),
+      description: enDescription,
+    })
+    .nullish(),
+  assessments: z
+    .array(
+      z.object({
+        assessment_id: z.number().int(),
+        red_list_category_code: z.string(),
+      }),
+    )
+    .default([]),
+});
 
 const commonName = z.object({
   name: z.string(),
@@ -96,13 +140,9 @@ const assessmentDetailResponse = z.object({
 });
 
 export {
-  commonName,
-  taxonDetail,
-  iucnThreat,
-  iucnHabitat,
-  iucnLocation,
-  iucnSystem,
-  iucnCredit,
-  conservationActionGroup,
+  redListVersionResponse,
+  iucnAssessment,
+  assessmentListResponse,
+  countryAssessmentsResponse,
   assessmentDetailResponse,
 };

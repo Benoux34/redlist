@@ -1,5 +1,6 @@
 import { db } from "@/db";
-import { fetchMedia, fetchSummary } from "@/sources";
+import { fetchMedia } from "@/sources/inaturalist";
+import { fetchSummary } from "@/sources/wikipedia";
 import { formatEta, sleep } from "../utils";
 import type { PassOptions, Row } from "./entities";
 import {
@@ -208,9 +209,9 @@ async function runEnrichRedList(
   }
 }
 
-export {
-  runEnrichRedList,
-  enrichFromWikipedia,
-  enrichFromInaturalist,
-  runPass,
-};
+if (import.meta.main) {
+  const [categories = "EX,EW,CR,EN,VU", only = "all"] = process.argv.slice(2);
+
+  await runEnrichRedList(categories.split(","), only);
+  await db.$disconnect();
+}

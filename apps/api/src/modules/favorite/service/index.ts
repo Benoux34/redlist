@@ -4,7 +4,7 @@ import {
   type FavoriteState,
 } from "@app/contracts";
 import { db } from "@/db";
-import { AppError } from "@/lib";
+import { AppError } from "@/lib/errors";
 import { ASSESSMENT_SELECT } from "./utils";
 
 async function addFavorite(

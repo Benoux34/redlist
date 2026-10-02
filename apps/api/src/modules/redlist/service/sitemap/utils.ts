@@ -73,4 +73,3 @@ export {
   renderUrlSet,
   speciesFileCount,
 };
-export type { SitemapUrl };

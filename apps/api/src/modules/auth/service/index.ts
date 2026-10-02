@@ -6,13 +6,14 @@ import type {
 } from "@app/contracts";
 import { Prisma } from "@/generated/prisma/client";
 import { db } from "@/db";
-import { AppError, env, sendMail } from "@/lib";
-import { fakeVerifyPassword, hashPassword, verifyPassword } from "../password";
-import { createSession, invalidateAllUserSessions } from "../session";
-import { consumeResetToken, createResetToken } from "../reset-token";
-import { resetPasswordMail, resetPasswordUrl } from "../reset-token/utils";
-import { UNIQUE_CONSTRAINT_ERROR } from "./utils";
-import { USER_SELECT } from "../constants";
+import { AppError } from "@/lib/errors";
+import { env } from "@/lib/env";
+import { sendMail } from "@/lib/mail";
+import { fakeVerifyPassword, hashPassword, verifyPassword } from "./password";
+import { createSession, invalidateAllUserSessions } from "./session";
+import { consumeResetToken, createResetToken } from "./reset-token";
+import { resetPasswordMail, resetPasswordUrl } from "./reset-token/utils";
+import { UNIQUE_CONSTRAINT_ERROR, USER_SELECT } from "./utils";
 
 async function register(input: RegisterInput, userAgent: string | null) {
   const passwordHash = await hashPassword(input.password);
@@ -103,3 +104,8 @@ async function resetPassword(input: ResetPasswordInput): Promise<void> {
 }
 
 export { register, login, deleteAccount, requestPasswordReset, resetPassword };
+export {
+  invalidateSession,
+  startSessionCleanup,
+  validateSession,
+} from "./session";

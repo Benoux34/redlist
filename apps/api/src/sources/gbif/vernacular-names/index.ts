@@ -4,9 +4,9 @@ import {
   PAGE_LIMIT,
   TIMEOUT_MS,
   USER_AGENT,
+  pickFrenchName,
   vernacularNamesResponse,
 } from "./utils";
-import { pickFrenchName } from "./pick";
 
 async function fetchFrenchVernacularName(
   usageKey: number,

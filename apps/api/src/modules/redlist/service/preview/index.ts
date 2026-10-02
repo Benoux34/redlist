@@ -80,4 +80,3 @@ function renderMetaDocument(meta: Meta): string {
 }
 
 export { buildSpeciesMeta, renderMetaDocument };
-export type { Meta };
