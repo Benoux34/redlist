@@ -54,6 +54,9 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Favorite: 'Favorite',
+  OAuthClient: 'OAuthClient',
+  OAuthCode: 'OAuthCode',
+  OAuthToken: 'OAuthToken',
   RedListSync: 'RedListSync',
   RedListAssessment: 'RedListAssessment',
   RedListLocation: 'RedListLocation'
@@ -111,6 +114,44 @@ export const FavoriteScalarFieldEnum = {
 } as const
 
 export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
+export const OAuthClientScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  redirectUris: 'redirectUris',
+  createdAt: 'createdAt'
+} as const
+
+export type OAuthClientScalarFieldEnum = (typeof OAuthClientScalarFieldEnum)[keyof typeof OAuthClientScalarFieldEnum]
+
+
+export const OAuthCodeScalarFieldEnum = {
+  codeHash: 'codeHash',
+  clientId: 'clientId',
+  userId: 'userId',
+  redirectUri: 'redirectUri',
+  codeChallenge: 'codeChallenge',
+  scope: 'scope',
+  resource: 'resource',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type OAuthCodeScalarFieldEnum = (typeof OAuthCodeScalarFieldEnum)[keyof typeof OAuthCodeScalarFieldEnum]
+
+
+export const OAuthTokenScalarFieldEnum = {
+  tokenHash: 'tokenHash',
+  clientId: 'clientId',
+  userId: 'userId',
+  scope: 'scope',
+  resource: 'resource',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt'
+} as const
+
+export type OAuthTokenScalarFieldEnum = (typeof OAuthTokenScalarFieldEnum)[keyof typeof OAuthTokenScalarFieldEnum]
 
 
 export const RedListSyncScalarFieldEnum = {

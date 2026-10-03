@@ -11,6 +11,8 @@ import { HTTPException } from "hono/http-exception";
 import { redListRoutes } from "./modules/redlist/routes";
 import { favoriteRoutes } from "./modules/favorite/routes";
 import { mcpRoutes } from "./modules/mcp/routes";
+import { oauthRoutes } from "./modules/oauth/routes";
+import { TOKEN_PATH } from "./modules/oauth/service/utils";
 import { startSessionCleanup } from "./modules/auth/service";
 import { db } from "./db";
 
@@ -48,13 +50,17 @@ app.use(
     allowHeaders: ["Content-Type"],
   }),
 );
-app.use("*", csrf({ origin: env.WEB_ORIGIN }));
+const csrfProtection = csrf({ origin: env.WEB_ORIGIN });
+app.use("*", (c, next) =>
+  c.req.path === TOKEN_PATH ? next() : csrfProtection(c, next),
+);
 app.use("*", sessionMiddleware);
 
 app.route("/api/auth", authRoutes);
 app.route("/api/red-list", redListRoutes);
 app.route("/api/favorites", favoriteRoutes);
 app.route("/api/mcp", mcpRoutes);
+app.route("/", oauthRoutes);
 
 app.onError((error, c) => {
   if (error instanceof AppError)

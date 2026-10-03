@@ -208,6 +208,8 @@ export type UserWhereInput = {
   resetTokenExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   sessions?: Prisma.SessionListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  oauthCodes?: Prisma.OAuthCodeListRelationFilter
+  oauthTokens?: Prisma.OAuthTokenListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -221,6 +223,8 @@ export type UserOrderByWithRelationInput = {
   resetTokenExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   favorites?: Prisma.FavoriteOrderByRelationAggregateInput
+  oauthCodes?: Prisma.OAuthCodeOrderByRelationAggregateInput
+  oauthTokens?: Prisma.OAuthTokenOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -237,6 +241,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   resetTokenExpiresAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   sessions?: Prisma.SessionListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  oauthCodes?: Prisma.OAuthCodeListRelationFilter
+  oauthTokens?: Prisma.OAuthTokenListRelationFilter
 }, "id" | "pseudo" | "email" | "resetTokenHash">
 
 export type UserOrderByWithAggregationInput = {
@@ -278,6 +284,8 @@ export type UserCreateInput = {
   resetTokenExpiresAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -291,6 +299,8 @@ export type UserUncheckedCreateInput = {
   resetTokenExpiresAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -304,6 +314,8 @@ export type UserUpdateInput = {
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -317,6 +329,8 @@ export type UserUncheckedUpdateInput = {
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -434,6 +448,34 @@ export type UserUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFavoritesInput, Prisma.UserUpdateWithoutFavoritesInput>, Prisma.UserUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type UserCreateNestedOneWithoutOauthCodesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOauthCodesInput, Prisma.UserUncheckedCreateWithoutOauthCodesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOauthCodesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOauthCodesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOauthCodesInput, Prisma.UserUncheckedCreateWithoutOauthCodesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOauthCodesInput
+  upsert?: Prisma.UserUpsertWithoutOauthCodesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOauthCodesInput, Prisma.UserUpdateWithoutOauthCodesInput>, Prisma.UserUncheckedUpdateWithoutOauthCodesInput>
+}
+
+export type UserCreateNestedOneWithoutOauthTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOauthTokensInput, Prisma.UserUncheckedCreateWithoutOauthTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOauthTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOauthTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOauthTokensInput, Prisma.UserUncheckedCreateWithoutOauthTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOauthTokensInput
+  upsert?: Prisma.UserUpsertWithoutOauthTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOauthTokensInput, Prisma.UserUpdateWithoutOauthTokensInput>, Prisma.UserUncheckedUpdateWithoutOauthTokensInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   pseudo: string
@@ -444,6 +486,8 @@ export type UserCreateWithoutSessionsInput = {
   resetTokenHash?: string | null
   resetTokenExpiresAt?: Date | string | null
   favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -456,6 +500,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   resetTokenHash?: string | null
   resetTokenExpiresAt?: Date | string | null
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -484,6 +530,8 @@ export type UserUpdateWithoutSessionsInput = {
   resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -496,6 +544,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFavoritesInput = {
@@ -508,6 +558,8 @@ export type UserCreateWithoutFavoritesInput = {
   resetTokenHash?: string | null
   resetTokenExpiresAt?: Date | string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFavoritesInput = {
@@ -520,6 +572,8 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   resetTokenHash?: string | null
   resetTokenExpiresAt?: Date | string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFavoritesInput = {
@@ -548,6 +602,8 @@ export type UserUpdateWithoutFavoritesInput = {
   resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavoritesInput = {
@@ -560,6 +616,152 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOauthCodesInput = {
+  id?: string
+  pseudo: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resetTokenHash?: string | null
+  resetTokenExpiresAt?: Date | string | null
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOauthCodesInput = {
+  id?: string
+  pseudo: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resetTokenHash?: string | null
+  resetTokenExpiresAt?: Date | string | null
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOauthCodesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOauthCodesInput, Prisma.UserUncheckedCreateWithoutOauthCodesInput>
+}
+
+export type UserUpsertWithoutOauthCodesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOauthCodesInput, Prisma.UserUncheckedUpdateWithoutOauthCodesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOauthCodesInput, Prisma.UserUncheckedCreateWithoutOauthCodesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOauthCodesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOauthCodesInput, Prisma.UserUncheckedUpdateWithoutOauthCodesInput>
+}
+
+export type UserUpdateWithoutOauthCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pseudo?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOauthCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pseudo?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  oauthTokens?: Prisma.OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOauthTokensInput = {
+  id?: string
+  pseudo: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resetTokenHash?: string | null
+  resetTokenExpiresAt?: Date | string | null
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOauthTokensInput = {
+  id?: string
+  pseudo: string
+  email: string
+  passwordHash: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  resetTokenHash?: string | null
+  resetTokenExpiresAt?: Date | string | null
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOauthTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOauthTokensInput, Prisma.UserUncheckedCreateWithoutOauthTokensInput>
+}
+
+export type UserUpsertWithoutOauthTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOauthTokensInput, Prisma.UserUncheckedUpdateWithoutOauthTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOauthTokensInput, Prisma.UserUncheckedCreateWithoutOauthTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOauthTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOauthTokensInput, Prisma.UserUncheckedUpdateWithoutOauthTokensInput>
+}
+
+export type UserUpdateWithoutOauthTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pseudo?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOauthTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  pseudo?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  resetTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resetTokenExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  oauthCodes?: Prisma.OAuthCodeUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -570,11 +772,15 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
 export type UserCountOutputType = {
   sessions: number
   favorites: number
+  oauthCodes: number
+  oauthTokens: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   favorites?: boolean | UserCountOutputTypeCountFavoritesArgs
+  oauthCodes?: boolean | UserCountOutputTypeCountOauthCodesArgs
+  oauthTokens?: boolean | UserCountOutputTypeCountOauthTokensArgs
 }
 
 /**
@@ -601,6 +807,20 @@ export type UserCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types.
   where?: Prisma.FavoriteWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOauthCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OAuthCodeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOauthTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OAuthTokenWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -613,6 +833,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   resetTokenExpiresAt?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   favorites?: boolean | Prisma.User$favoritesArgs<ExtArgs>
+  oauthCodes?: boolean | Prisma.User$oauthCodesArgs<ExtArgs>
+  oauthTokens?: boolean | Prisma.User$oauthTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -653,6 +875,8 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   favorites?: boolean | Prisma.User$favoritesArgs<ExtArgs>
+  oauthCodes?: boolean | Prisma.User$oauthCodesArgs<ExtArgs>
+  oauthTokens?: boolean | Prisma.User$oauthTokensArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -663,6 +887,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     favorites: Prisma.$FavoritePayload<ExtArgs>[]
+    oauthCodes: Prisma.$OAuthCodePayload<ExtArgs>[]
+    oauthTokens: Prisma.$OAuthTokenPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1069,6 +1295,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorites<T extends Prisma.User$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oauthCodes<T extends Prisma.User$oauthCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$oauthCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OAuthCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  oauthTokens<T extends Prisma.User$oauthTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$oauthTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OAuthTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1544,6 +1772,54 @@ export type User$favoritesArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
+}
+
+/**
+ * User.oauthCodes
+ */
+export type User$oauthCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OAuthCode
+   */
+  select?: Prisma.OAuthCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OAuthCode
+   */
+  omit?: Prisma.OAuthCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OAuthCodeInclude<ExtArgs> | null
+  where?: Prisma.OAuthCodeWhereInput
+  orderBy?: Prisma.OAuthCodeOrderByWithRelationInput | Prisma.OAuthCodeOrderByWithRelationInput[]
+  cursor?: Prisma.OAuthCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OAuthCodeScalarFieldEnum | Prisma.OAuthCodeScalarFieldEnum[]
+}
+
+/**
+ * User.oauthTokens
+ */
+export type User$oauthTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OAuthToken
+   */
+  select?: Prisma.OAuthTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OAuthToken
+   */
+  omit?: Prisma.OAuthTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OAuthTokenInclude<ExtArgs> | null
+  where?: Prisma.OAuthTokenWhereInput
+  orderBy?: Prisma.OAuthTokenOrderByWithRelationInput | Prisma.OAuthTokenOrderByWithRelationInput[]
+  cursor?: Prisma.OAuthTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OAuthTokenScalarFieldEnum | Prisma.OAuthTokenScalarFieldEnum[]
 }
 
 /**

@@ -218,4 +218,5 @@ export {
   getRedListVersion,
 };
 export { buildSpeciesMeta, renderMetaDocument } from "./preview";
+export { categoryLabel } from "./preview/utils";
 export { getPagesSitemap, getSitemapIndex, getSpeciesSitemap } from "./sitemap";

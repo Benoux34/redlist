@@ -12,6 +12,9 @@ const Register = lazy(() => import("@/pages/auth/register/register"));
 const ForgotPassword = lazy(
   () => import("@/pages/auth/forgot-password/forgot-password"),
 );
+const OAuthAuthorize = lazy(
+  () => import("@/pages/auth/oauth-authorize/oauth-authorize"),
+);
 const ResetPassword = lazy(
   () => import("@/pages/auth/reset-password/reset-password"),
 );
@@ -47,6 +50,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/oauth/authorize" element={<OAuthAuthorize />} />
             </Route>
 
             {/* MAIN */}

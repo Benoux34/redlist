@@ -1,20 +1,11 @@
-import { McpServer } from "@modelcontextprotocol/server";
+import { McpServer, type AuthInfo } from "@modelcontextprotocol/server";
+import { registerTools } from "./tools";
 
-function createRedlistServer(): McpServer {
+function createRedlistServer(authInfo: AuthInfo | undefined): McpServer {
   const server = new McpServer({ name: "redlist", version: "1.0.0" });
+  const userId = authInfo?.extra?.["userId"];
 
-  server.registerTool(
-    "ping",
-    {
-      title: "Ping",
-      description: "Vérifie que le serveur MCP de Redlist répond.",
-    },
-    async () => ({
-      content: [
-        { type: "text", text: `pong (${new Date().toISOString()})` },
-      ],
-    }),
-  );
+  registerTools(server, typeof userId === "string" ? userId : null);
 
   return server;
 }

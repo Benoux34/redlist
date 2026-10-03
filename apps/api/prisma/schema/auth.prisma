@@ -11,6 +11,8 @@ model User {
 
   sessions     Session[]
   favorites    Favorite[]
+  oauthCodes   OAuthCode[]
+  oauthTokens  OAuthToken[]
 
   @@map("users")
 }

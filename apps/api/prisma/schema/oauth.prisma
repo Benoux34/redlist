@@ -1,0 +1,44 @@
+model OAuthClient {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  name         String
+  redirectUris String[]
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  codes  OAuthCode[]
+  tokens OAuthToken[]
+
+  @@map("oauth_clients")
+}
+
+model OAuthCode {
+  codeHash      String   @id
+  clientId      String   @db.Uuid
+  userId        String   @db.Uuid
+  redirectUri   String
+  codeChallenge String
+  scope         String
+  resource      String
+  expiresAt     DateTime @db.Timestamptz(3)
+  createdAt     DateTime @default(now()) @db.Timestamptz(3)
+
+  client OAuthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("oauth_codes")
+}
+
+model OAuthToken {
+  tokenHash String   @id
+  clientId  String   @db.Uuid
+  userId    String   @db.Uuid
+  scope     String
+  resource  String
+  expiresAt DateTime @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  client OAuthClient @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("oauth_tokens")
+}

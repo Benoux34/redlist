@@ -57,6 +57,21 @@ export type Session = Prisma.SessionModel
  */
 export type Favorite = Prisma.FavoriteModel
 /**
+ * Model OAuthClient
+ * 
+ */
+export type OAuthClient = Prisma.OAuthClientModel
+/**
+ * Model OAuthCode
+ * 
+ */
+export type OAuthCode = Prisma.OAuthCodeModel
+/**
+ * Model OAuthToken
+ * 
+ */
+export type OAuthToken = Prisma.OAuthTokenModel
+/**
  * Model RedListSync
  * 
  */

@@ -13,8 +13,13 @@ function redirectTarget(state: unknown): string {
     "from" in state &&
     typeof (state as { from: unknown }).from === "object"
   ) {
-    const from = (state as { from: { pathname?: unknown } }).from;
-    return typeof from.pathname === "string" ? from.pathname : "/account";
+    const from = (state as { from: { pathname?: unknown; search?: unknown } })
+      .from;
+    if (typeof from.pathname !== "string") return "/account";
+
+    return typeof from.search === "string"
+      ? `${from.pathname}${from.search}`
+      : from.pathname;
   }
 
   return "/account";
