@@ -53,6 +53,7 @@ const OAuthAuthorize = () => {
     );
 
   const clientName = request.data.client_name;
+  const sharesProfile = request.data.scope === "profile:read";
 
   const decide = async (approve: boolean) => {
     setIsSubmitting(true);
@@ -92,11 +93,14 @@ const OAuthAuthorize = () => {
             className="size-4 text-[var(--color-status-cr)]"
             aria-hidden="true"
           />
-          Lire la liste de vos espèces suivies
+          {sharesProfile
+            ? "Connaître votre pseudo et votre adresse électronique"
+            : "Lire la liste de vos espèces suivies"}{" "}
         </p>
         <p className="mt-3 text-xs leading-relaxed text-[var(--color-ink-muted)]">
-          Elle ne pourra ni modifier vos favoris, ni voir votre adresse
-          électronique ou votre mot de passe.
+          {sharesProfile
+            ? "Elle ne pourra ni voir vos favoris, ni voir votre mot de passe."
+            : "Elle ne pourra ni modifier vos favoris, ni voir votre adresse électronique ou votre mot de passe."}
         </p>
       </div>
 

@@ -11,11 +11,13 @@ import {
   findAuthorizationClient,
   protectedResourceMetadata,
   registerClient,
+  userInfo,
 } from "../service";
 import {
   AUTHORIZATION_SERVER_PATH,
   PROTECTED_RESOURCE_PATH,
   TOKEN_PATH,
+  USERINFO_PATH,
 } from "../service/utils";
 import {
   registerClientBody,
@@ -68,7 +70,7 @@ const oauthRoutes = new Hono<AppEnv>()
 
       return client === null
         ? c.json(INVALID_REQUEST, 400)
-        : c.json({ client_name: client.name });
+        : c.json({ client_name: client.name, scope: client.scope });
     },
   )
   .post(
@@ -114,6 +116,20 @@ const oauthRoutes = new Hono<AppEnv>()
       return token === null
         ? c.json({ error: "invalid_grant" }, 400, NO_STORE)
         : c.json(token, 200, NO_STORE);
+    },
+  )
+  .get(
+    USERINFO_PATH,
+    rateLimit({ limit: 60, windowMs: 60 * 1000, keyPrefix: "oauth-userinfo" }),
+    async (c) => {
+      const token = /^Bearer (\S+)$/i.exec(
+        c.req.header("authorization") ?? "",
+      )?.[1];
+      const user = token === undefined ? null : await userInfo(token);
+
+      return user === null
+        ? c.json({ error: "invalid_token" }, 401, NO_STORE)
+        : c.json(user, 200, NO_STORE);
     },
   );
 

@@ -4,6 +4,7 @@ import type { AppEnv } from "@/middleware/auth/entities";
 import { rateLimit } from "@/lib/rate-limit";
 import { bearerChallenge, verifyAccessToken } from "@/modules/oauth/service";
 import { createRedlistServer } from "../service";
+import { OAUTH_SCOPE } from "@/modules/oauth/service/utils";
 
 const mcpHandler = createMcpHandler((ctx) => createRedlistServer(ctx.authInfo));
 
@@ -19,7 +20,7 @@ const mcpRoutes = new Hono<AppEnv>().all(
         "WWW-Authenticate": bearerChallenge(),
       });
 
-    const access = await verifyAccessToken(token);
+    const access = await verifyAccessToken(token, OAUTH_SCOPE);
     if (access === null)
       return c.json({ error: "invalid_token" }, 401, {
         "WWW-Authenticate": bearerChallenge("invalid_token"),

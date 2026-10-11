@@ -54,6 +54,7 @@ services:
       IUCN_API_BASE_URL: ${IUCN_API_BASE_URL}
       CONTACT_EMAIL: ${CONTACT_EMAIL}
       SWEEGO_API_KEY: ${SWEEGO_API_KEY}
+      PROFILE_CLIENT_IDS: ${PROFILE_CLIENT_IDS:-}
     healthcheck:
       test:
         [

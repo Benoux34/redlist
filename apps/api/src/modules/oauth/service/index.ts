@@ -4,7 +4,9 @@ import {
   CODE_TTL_MS,
   MCP_PATH,
   OAUTH_SCOPE,
+  PROFILE_SCOPE,
   PROTECTED_RESOURCE_PATH,
+  RESOURCE_PATHS,
   TOKEN_TTL_MS,
   hashToken,
   pkceChallenge,
@@ -25,7 +27,7 @@ function protectedResourceMetadata() {
   return {
     resource: `${env.WEB_ORIGIN}${MCP_PATH}`,
     authorization_servers: [env.WEB_ORIGIN],
-    scopes_supported: [OAUTH_SCOPE],
+    scopes_supported: [OAUTH_SCOPE, PROFILE_SCOPE],
     bearer_methods_supported: ["header"],
     resource_name: "Redlist",
   };
@@ -52,7 +54,7 @@ function bearerChallenge(error?: "invalid_token"): string {
   return error === undefined ? challenge : `${challenge}, error="${error}"`;
 }
 
-async function verifyAccessToken(token: string) {
+async function verifyAccessToken(token: string, scope: string) {
   const record = await db.oAuthToken.findUnique({
     where: { tokenHash: hashToken(token) },
     select: {
@@ -67,10 +69,24 @@ async function verifyAccessToken(token: string) {
   const isValid =
     record !== null &&
     record.expiresAt.getTime() > Date.now() &&
-    record.resource === `${env.WEB_ORIGIN}${MCP_PATH}` &&
-    record.scope === OAUTH_SCOPE;
+    record.scope === scope &&
+    record.resource === `${env.WEB_ORIGIN}${RESOURCE_PATHS[scope]}`;
 
   return isValid ? record : null;
+}
+
+async function userInfo(token: string) {
+  const access = await verifyAccessToken(token, PROFILE_SCOPE);
+  if (access === null) return null;
+
+  const user = await db.user.findUnique({
+    where: { id: access.userId },
+    select: { id: true, pseudo: true, email: true },
+  });
+
+  return user === null
+    ? null
+    : { sub: user.id, pseudo: user.pseudo, email: user.email };
 }
 
 async function registerClient(input: { name: string; redirectUris: string[] }) {
@@ -89,24 +105,39 @@ async function registerClient(input: { name: string; redirectUris: string[] }) {
   };
 }
 
+function requestedGrant(
+  request: AuthorizationRequest,
+): { scope: string; resource: string } | null {
+  const scope = request.scope ?? OAUTH_SCOPE;
+  const path = RESOURCE_PATHS[scope];
+
+  const isAllowed =
+    path !== undefined &&
+    (scope !== PROFILE_SCOPE ||
+      env.PROFILE_CLIENT_IDS.includes(request.client_id));
+  if (!isAllowed) return null;
+
+  const resource = `${env.WEB_ORIGIN}${path}`;
+
+  return (request.resource ?? resource) === resource
+    ? { scope, resource }
+    : null;
+}
+
 async function findAuthorizationClient(
   request: AuthorizationRequest,
-): Promise<{ name: string } | null> {
+): Promise<{ name: string; scope: string; resource: string } | null> {
   const client = await db.oAuthClient.findUnique({
     where: { id: request.client_id },
     select: { name: true, redirectUris: true },
   });
+  const grant = requestedGrant(request);
 
-  const isValid =
-    client !== null &&
+  return client !== null &&
     client.redirectUris.includes(request.redirect_uri) &&
-    (request.scope ?? OAUTH_SCOPE)
-      .split(" ")
-      .every((scope) => scope === OAUTH_SCOPE) &&
-    (request.resource ?? `${env.WEB_ORIGIN}${MCP_PATH}`) ===
-      `${env.WEB_ORIGIN}${MCP_PATH}`;
-
-  return isValid ? { name: client.name } : null;
+    grant !== null
+    ? { name: client.name, ...grant }
+    : null;
 }
 
 async function decideAuthorization(
@@ -114,7 +145,8 @@ async function decideAuthorization(
   userId: string,
   approve: boolean,
 ): Promise<string | null> {
-  if ((await findAuthorizationClient(request)) === null) return null;
+  const client = await findAuthorizationClient(request);
+  if (client === null) return null;
 
   if (!approve)
     return redirectWith(request.redirect_uri, {
@@ -132,8 +164,8 @@ async function decideAuthorization(
       userId,
       redirectUri: request.redirect_uri,
       codeChallenge: request.code_challenge,
-      scope: OAUTH_SCOPE,
-      resource: `${env.WEB_ORIGIN}${MCP_PATH}`,
+      scope: client.scope,
+      resource: client.resource,
       expiresAt: new Date(Date.now() + CODE_TTL_MS),
     },
   });
@@ -196,4 +228,5 @@ export {
   protectedResourceMetadata,
   authorizationServerMetadata,
   bearerChallenge,
+  userInfo,
 };

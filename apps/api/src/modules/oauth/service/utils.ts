@@ -2,6 +2,12 @@ const OAUTH_SCOPE = "favorites:read";
 const PROTECTED_RESOURCE_PATH = "/.well-known/oauth-protected-resource";
 const AUTHORIZATION_SERVER_PATH = "/.well-known/oauth-authorization-server";
 const MCP_PATH = "/api/mcp";
+const PROFILE_SCOPE = "profile:read";
+const USERINFO_PATH = "/api/oauth/userinfo";
+const RESOURCE_PATHS: Readonly<Record<string, string>> = {
+  [OAUTH_SCOPE]: MCP_PATH,
+  [PROFILE_SCOPE]: USERINFO_PATH,
+};
 const LOCAL_HOSTNAMES = new Set(["localhost", "127.0.0.1"]);
 const CODE_TTL_MS = 5 * 60 * 1000;
 const TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1000;
@@ -55,6 +61,9 @@ export {
   PROTECTED_RESOURCE_PATH,
   AUTHORIZATION_SERVER_PATH,
   MCP_PATH,
+  PROFILE_SCOPE,
+  USERINFO_PATH,
+  RESOURCE_PATHS,
   CODE_TTL_MS,
   TOKEN_TTL_MS,
   TOKEN_PATH,

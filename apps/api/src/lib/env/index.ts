@@ -12,6 +12,16 @@ const envSchema = z
     IUCN_API_BASE_URL: z.url(),
     CONTACT_EMAIL: z.email(),
     SWEEGO_API_KEY: z.string().min(1),
+    PROFILE_CLIENT_IDS: z
+      .string()
+      .default("")
+      .transform((value) =>
+        value
+          .split(",")
+          .map((id) => id.trim())
+          .filter((id) => id !== ""),
+      )
+      .pipe(z.array(z.uuid())),
   })
   .refine(
     (value) =>

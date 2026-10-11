@@ -1,7 +1,10 @@
 import { z } from "zod";
 import { apiGet, apiPost } from "@/api/client";
 
-const authorizationClient = z.object({ client_name: z.string() });
+const authorizationClient = z.object({
+  client_name: z.string(),
+  scope: z.string(),
+});
 const authorizationDecision = z.object({ redirect_to: z.url() });
 
 function authorizationRequest(
