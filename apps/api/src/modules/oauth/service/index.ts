@@ -27,7 +27,7 @@ function protectedResourceMetadata() {
   return {
     resource: `${env.WEB_ORIGIN}${MCP_PATH}`,
     authorization_servers: [env.WEB_ORIGIN],
-    scopes_supported: [OAUTH_SCOPE, PROFILE_SCOPE],
+    scopes_supported: [OAUTH_SCOPE],
     bearer_methods_supported: ["header"],
     resource_name: "Redlist",
   };
@@ -43,7 +43,7 @@ function authorizationServerMetadata() {
     grant_types_supported: ["authorization_code"],
     code_challenge_methods_supported: ["S256"],
     token_endpoint_auth_methods_supported: ["none"],
-    scopes_supported: [OAUTH_SCOPE],
+    scopes_supported: [OAUTH_SCOPE, PROFILE_SCOPE],
     authorization_response_iss_parameter_supported: true,
   };
 }
