@@ -34,8 +34,8 @@ describe("Backend Auth - Reset Token Utilities", () => {
 
   describe("resetPasswordUrl", () => {
     it("should point to the reset page with the token as query param", () => {
-      expect(resetPasswordUrl("https://redlist.dedyn.io", "abc_DEF-123")).toBe(
-        "https://redlist.dedyn.io/reset-password?token=abc_DEF-123",
+      expect(resetPasswordUrl("https://redlist.greenlist.dedyn.io", "abc_DEF-123")).toBe(
+        "https://redlist.greenlist.dedyn.io/reset-password?token=abc_DEF-123",
       );
     });
 
@@ -48,7 +48,7 @@ describe("Backend Auth - Reset Token Utilities", () => {
 
   describe("resetPasswordMail", () => {
     it("should address the user and carry the link in both formats", () => {
-      const url = "https://redlist.dedyn.io/reset-password?token=tok";
+      const url = "https://redlist.greenlist.dedyn.io/reset-password?token=tok";
       const mail = resetPasswordMail("lecteur@exemple.fr", url);
 
       expect(mail.to).toBe("lecteur@exemple.fr");

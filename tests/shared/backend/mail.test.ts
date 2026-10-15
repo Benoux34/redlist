@@ -23,7 +23,7 @@ describe("Backend Shared - Mail", () => {
     });
 
     it("should send from the verified domain", () => {
-      expect(MAIL_FROM.email.endsWith("@redlist.dedyn.io")).toBe(true);
+      expect(MAIL_FROM.email.endsWith("@redlist.greenlist.dedyn.io")).toBe(true);
     });
   });
 });

@@ -24,7 +24,7 @@ describe("OAuth - utils", () => {
       redirectWith("https://chatgpt.com/cb?callback=42", {
         code: "XYZ",
         state: "s1",
-        iss: "https://redlist.dedyn.io",
+        iss: "https://redlist.greenlist.dedyn.io",
         error: undefined,
       }),
     );
@@ -32,7 +32,7 @@ describe("OAuth - utils", () => {
     expect(url.searchParams.get("callback")).toBe("42");
     expect(url.searchParams.get("code")).toBe("XYZ");
     expect(url.searchParams.get("state")).toBe("s1");
-    expect(url.searchParams.get("iss")).toBe("https://redlist.dedyn.io");
+    expect(url.searchParams.get("iss")).toBe("https://redlist.greenlist.dedyn.io");
     expect(url.searchParams.has("error")).toBe(false);
   });
   it("should compute the PKCE S256 challenge of RFC 7636", () => {

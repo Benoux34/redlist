@@ -6,4 +6,4 @@ Disallow: /login
 Disallow: /register
 Disallow: /__preview/
 
-Sitemap: https://redlist.dedyn.io/sitemap.xml
+Sitemap: https://redlist.greenlist.dedyn.io/sitemap.xml

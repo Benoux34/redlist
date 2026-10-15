@@ -4,7 +4,7 @@ const SWEEGO_SEND_URL = "https://api.sweego.io/send";
 const MAIL_TIMEOUT_MS = 10_000;
 const MAIL_FROM = {
   name: "Liste Rouge",
-  email: "no-reply@redlist.dedyn.io",
+  email: "no-reply@redlist.greenlist.dedyn.io",
 } as const;
 
 function buildSweegoPayload(mail: Mail) {

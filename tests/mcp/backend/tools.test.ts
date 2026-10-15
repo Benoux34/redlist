@@ -2,7 +2,7 @@ import type { FavoriteList } from "@app/contracts";
 import { formatFollowedSpecies } from "@api/modules/mcp/service/tools/utils";
 import { describe, expect, it } from "bun:test";
 
-const ORIGIN = "https://redlist.dedyn.io";
+const ORIGIN = "https://redlist.greenlist.dedyn.io";
 
 const species = {
   assessmentId: 123,
